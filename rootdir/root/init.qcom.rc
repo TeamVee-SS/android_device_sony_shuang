@@ -308,6 +308,8 @@ on post-fs-data
 
     # Create the directories used by CnE subsystem
     mkdir /data/connectivity 0771 system system
+    chown system system /data/connectivity
+
     mkdir /data/connectivity/nsrm 0771 system system
 
     # Create directory used by audio subsystem
