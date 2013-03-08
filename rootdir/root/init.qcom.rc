@@ -32,6 +32,7 @@
 import init.qcom.usb.rc
 
 on early-init
+    mount debugfs debugfs /sys/kernel/debug
     # Permission for /proc/cmdline
     chmod 666 /proc/cmdline
 
