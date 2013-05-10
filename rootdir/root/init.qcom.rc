@@ -455,7 +455,7 @@ service wcnss-service /system/bin/wcnss_service
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
-    group camera system inet input
+    group camera system inet input graphics
 
 # SONY: TrimArea Daemon
 # Last 2 args: start block(blk size 128k), number of blocks(partitionsize(kb)/128(kb))
