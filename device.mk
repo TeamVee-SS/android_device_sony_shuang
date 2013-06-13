@@ -196,6 +196,12 @@ PRODUCT_PACKAGES += \
     charger_res_images \
     libhealthd.default
 
+#ANT stack
+PRODUCT_PACKAGES += \
+    AntHalService \
+    libantradio \
+    antradio_app
+
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
 # LCD Density
