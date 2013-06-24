@@ -162,27 +162,10 @@
 /dev/tsc_ci0              0660   media       media
 
 # sensors
-
-/sys/devices/f9925000.i2c/i2c-0/0-* 0660   input     system
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/sys/devices/virtual/input/input*                   poll           0660    input    system
-/sys/devices/virtual/input/input*                   pollrate_ms    0660    input    system
+/sys/devices/f9925000.i2c/i2c-0/0-*                 enable          0660     input     system
+/sys/devices/f9925000.i2c/i2c-0/0-*                 poll_delay      0660     input     system
+/sys/devices/virtual/input/input*                   poll            0660    input    system
+/sys/devices/virtual/input/input*                   pollrate_ms     0660    input    system
 
 # magnetic
 /dev/magnetic             0660   system     system
