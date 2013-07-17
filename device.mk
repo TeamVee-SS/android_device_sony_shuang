@@ -270,6 +270,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     gsm.version.baseband="M8610B-AAAANAZM-1.0.4060" \
     persist.radio.apm_sim_not_pwdn="1" \
+    persist.radio.msgtunnel.start="false" \
     ril.subscription.types="NV,RUIM" \
     rild.libpath="/vendor/lib/libril-qc-qmi-1.so" \
     ro.telephony.call_ring.multiple="false" \
