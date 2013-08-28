@@ -311,6 +311,7 @@ on post-fs-data
     chown system system /data/connectivity
 
     mkdir /data/connectivity/nsrm 0771 system system
+    chown system system /data/connectivity/nsrm
 
     # Create directory used by audio subsystem
     mkdir /data/misc/audio 0770 audio audio
