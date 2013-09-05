@@ -116,7 +116,7 @@
 /dev/msm_vidc_dec_sec     0660   system     audio
 /dev/msm_vidc_enc         0660   system     audio
 /dev/msm_rotator          0660   system     system
-/dev/hw_random            0664   system     system
+/dev/hw_random            0600   root       root
 
 # permissions for audio
 /dev/msm_qcelp            0660   system     audio
@@ -181,7 +181,8 @@
 
 
 
-/sys/devices/virtual/input/input*   0660   input     system
+/sys/devices/virtual/input/input*                   poll           0660    input    system
+/sys/devices/virtual/input/input*                   pollrate_ms    0660    input    system
 
 # magnetic
 /dev/magnetic             0660   system     system
