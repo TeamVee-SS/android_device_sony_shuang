@@ -238,6 +238,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.composition.type="dyn" \
     debug.egl.hw="1" \
+    debug.hwc.dynThreshold="1.5" \
     debug.sf.hw="1" \
     debug.sf.hwc.canUseABC="1" \
     debug.sf.swaprect="1" \
@@ -286,7 +287,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.enable-scan="true" \
     mm.enable.qcom_parser="37491" \
     mm.enable.smoothstreaming="true" \
-    mmp.enable.3g2="true"
+    mmp.enable.3g2="true" \
+    av.offload.enable="false"
 
 # WiFi
 PRODUCT_PROPERTY_OVERRIDES += \
