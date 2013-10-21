@@ -416,6 +416,13 @@ on property:bluetooth.sap.status=running
 on property:bluetooth.sap.status=stopped
     stop bt-sap
 
+on property:bluetooth.dun.status=running
+    start bt-dun
+
+on property:bluetooth.dun.status=stopped
+    stop bt-dun
+
+
 service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
     class main
     user root
@@ -591,12 +598,6 @@ service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     group system
     disabled
     oneshot
-
-on property:bluetooth.dun.status=running
-    start bt-dun
-
-on property:bluetooth.dun.status=stopped
-    stop bt-dun
 
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
 # but only if ro.data.large_tcp_window_size property is set.
