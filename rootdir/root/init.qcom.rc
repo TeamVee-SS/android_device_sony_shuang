@@ -449,6 +449,18 @@ service rfs_access /system/bin/rfs_access
     user root
     group system net_raw
 
+on property:bluetooth.start_hci=true
+    start start_hci_filter
+
+on property:bluetooth.start_hci=false
+    stop start_hci_filter
+
+service start_hci_filter /system/bin/wcnss_filter
+    class late_start
+    user bluetooth
+    group bluetooth
+    disabled
+
 service bt-dun /system/bin/dun-server /dev/smd7 /dev/rfcomm0
     class late_start
     user bluetooth
