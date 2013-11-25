@@ -80,6 +80,7 @@ TARGET_NO_RPC := true
 TARGET_PROVIDES_GPS_LOC_API := true
 
 # Graphics
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 
 # Shader cache config options
