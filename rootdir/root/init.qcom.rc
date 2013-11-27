@@ -449,10 +449,10 @@ service rfs_access /system/bin/rfs_access
     user root
     group system net_raw
 
-on property:bluetooth.start_hci=true
+on property:wc_transport.start_hci=true
     start start_hci_filter
 
-on property:bluetooth.start_hci=false
+on property:wc_transport.start_hci=false
     stop start_hci_filter
 
 service start_hci_filter /system/bin/wcnss_filter
