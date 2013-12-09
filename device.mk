@@ -258,7 +258,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicecall="true" \
     persist.audio.fluence.voicerec="true" \
     persist.audio.fluence.speaker="false" \
-    tunnel.audio.encode="false"
+    tunnel.audio.encode="false" \
+    use.voice.path.for.pcm.voip="true"
 
 # FM Transmitter
 PRODUCT_PROPERTY_OVERRIDES += \
