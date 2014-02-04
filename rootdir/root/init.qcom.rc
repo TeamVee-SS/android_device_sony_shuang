@@ -320,6 +320,9 @@ on post-fs-data
     mkdir /data/misc/audio/acdbdata 0770 media audio
     mkdir /data/misc/audio/acdbdata/delta 0770 media audio
 
+    # Create directory used by the DASH client
+    mkdir /data/misc/dash 0770 media audio
+
     # Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
     mkdir /data/system 0775 system system
 
