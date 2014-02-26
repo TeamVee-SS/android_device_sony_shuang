@@ -24,7 +24,6 @@ BOARD_VENDOR_PLATFORM := falconss
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8610
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno302
 
 # Architecture
 TARGET_CPU_ABI := armeabi-v7a
