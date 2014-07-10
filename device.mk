@@ -241,6 +241,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.hw="1" \
     debug.sf.hwc.canUseABC="1" \
     debug.sf.swaprect="1" \
+    persist.sys.ssr.enable_ramdumps="1" \
     debug.gralloc.map_fb_memory="0" \
     vidc.debug.level="1"
 

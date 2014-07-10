@@ -400,6 +400,12 @@ service mpdecision /system/bin/mpdecision --avg_comp
     disabled
     socket perfd seqpacket 0666 root system
 
+on property:persist.sys.ssr.enable_ramdumps=1
+    write /sys/module/subsystem_restart/parameters/enable_ramdumps 1
+
+on property:persist.sys.ssr.enable_ramdumps=0
+    write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
+
 service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
     class main
     user root
