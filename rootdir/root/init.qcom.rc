@@ -444,6 +444,11 @@ service rmt_storage /system/bin/rmt_storage
     class core
     user root
 
+service rfs_access /system/bin/rfs_access
+    class core
+    user root
+    group system net_raw
+
 service bt-dun /system/bin/dun-server /dev/smd7 /dev/rfcomm0
     class late_start
     user bluetooth
@@ -585,11 +590,6 @@ service akmd /system/bin/magnetic -m 6
     class main
     user compass
     group system
-
-service rfs_access /system/bin/rfs_access
-    class core
-    user system
-    group system net_raw
 
 # TODO: FIX SELinux domain
 service timekeep /system/bin/timekeep restore
