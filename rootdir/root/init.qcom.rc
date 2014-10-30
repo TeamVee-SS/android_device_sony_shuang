@@ -279,6 +279,9 @@ on boot
 
 # msm specific files that need to be created on /data
 on post-fs-data
+    # Create directory for TZ Apps
+    mkdir /data/misc/qsee 0770 system system
+
     # Create the directory for bluetooth
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
 
