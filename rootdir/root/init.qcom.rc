@@ -41,6 +41,8 @@ on init
 
     # Make folder partitions
     mkdir /persist 0771 system system
+    mkdir /persist/data/sfs 0700 system system
+    mkdir /persist/data/tz 0700 system system
     mkdir /lta-label 0771 system system
 
     # Make symlink of firmware files
