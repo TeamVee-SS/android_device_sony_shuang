@@ -111,9 +111,6 @@ on boot
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
-    # For bridgemgr daemon to inform the USB driver of the correct transport
-    chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
-
     # permissions for GPS eLNA
     chmod 0660 /dev/gps_elna
     chown system system /dev/gps_elna
@@ -343,12 +340,6 @@ service bt-sap /system/bin/sapd 15
     class late_start
     disabled
     oneshot
-
-service bridgemgrd /system/bin/bridgemgrd
-    class late_start
-    user radio
-    group radio qcom_diag
-    disabled
 
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /system/bin/qmuxd
