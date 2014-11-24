@@ -324,6 +324,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     config.disable_atlas="true" \
     ro.config.max_starting_bg="2" \
+    ro.min_freq_0="787200" \
     ro.sys.fw.bg_apps_limit="16" \
     ro.config.low_ram="true" \
     persist.sys.force_highendgfx="true"
