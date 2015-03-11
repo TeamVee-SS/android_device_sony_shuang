@@ -163,6 +163,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
    librmnetctl
 
+PRODUCT_PACKAGES += \
+    libion
+
 # RIL
 PRODUCT_PACKAGES += \
    libprotobuf-cpp-full
