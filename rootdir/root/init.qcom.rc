@@ -1,4 +1,4 @@
-# Copyright (c) 2009-2012, The Linux Foundation. All rights reserved.
+# Copyright (c) 2009-2012, 2014-2015, The Linux Foundation. All rights reserved.
 # Copyright (C) 2016, TeamVeeSS. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -486,6 +486,13 @@ service netmgrd /system/bin/netmgrd
     class main
     disabled
 
+# Ecompass Sensor / Magnetic Service
+# TODO: FIX SELinux domain
+service akmd /system/bin/magnetic -m 6
+    class core
+    user compass
+    group system
+
 service p2p_supplicant /system/bin/wpa_supplicant \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
     -I/system/etc/wcn3620/p2p_supplicant_overlay.conf -N \
@@ -519,12 +526,18 @@ service ptt_socket_app /system/bin/ptt_socket_app -d
     class main
     user root
     group root
-    disabled
     oneshot
 
 service ptt_ffbm /system/bin/ptt_socket_app -f -d
     user root
     group root
+    disabled
+    oneshot
+
+service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
+    class late_start
+    user root
+    group system
     disabled
     oneshot
 
@@ -597,25 +610,11 @@ service ta_qmi_service /system/bin/ta_qmi_service
     user root
     disabled
 
-# Ecompass Sensor / Magnetic Service
-# TODO: FIX SELinux domain
-service akmd /system/bin/magnetic -m 6
-    class main
-    user compass
-    group system
-
 # TODO: FIX SELinux domain
 service timekeep /system/bin/timekeep restore
     class late_start
     user root
     group root
-    oneshot
-
-service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
-    class late_start
-    user system
-    group system
-    disabled
     oneshot
 
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
