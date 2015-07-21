@@ -486,6 +486,7 @@ service fm_dl /system/bin/sh /init.qcom.fm.sh
     class late_start
     user system
     group system
+    disabled
     oneshot
 
 on property:bluetooth.sap.status=running
