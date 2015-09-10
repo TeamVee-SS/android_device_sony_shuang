@@ -58,6 +58,14 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/rootdir/system/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     $(DEVICE_PATH)/rootdir/system/vendor/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
+# GPS Files
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/gps/flp.conf:system/etc/flp.conf \
+    $(DEVICE_PATH)/gps/gps.conf:system/etc/gps.conf \
+    $(DEVICE_PATH)/gps/izat.conf:system/etc/izat.conf \
+    $(DEVICE_PATH)/gps/quipc.conf:system/etc/quipc.conf \
+    $(DEVICE_PATH)/gps/sap.conf:system/etc/sap.conf
+
 # Permission Files
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
@@ -150,6 +158,10 @@ PRODUCT_PACKAGES += \
 # Ligths OSS
 PRODUCT_PACKAGES += \
     lights.msm8610
+
+# GPS OSS
+PRODUCT_PACKAGES += \
+    gps.msm8610
 
 # QCOM OSS
 PRODUCT_PACKAGES += \
@@ -379,6 +391,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.strictmode.disable="1" \
     persist.sys.strictmode.visual="0"
+
+# GPS Flags
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.gps.qc_nlp_in_use="0" \
+    ro.gps.agps_provider="1"
 
 # Vendor product configurations
 $(call inherit-product-if-exists, vendor/sony/shuang/shuang-vendor.mk)
