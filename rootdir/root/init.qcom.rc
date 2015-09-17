@@ -617,6 +617,25 @@ on property:persist.radio.multisim.config=dsds
 on property:ro.data.large_tcp_window_size=true
     write /proc/sys/net/ipv4/tcp_adv_win_scale 2
 
+on property:init.svc.bootanim=running
+# Configure IO scheduler
+on property:sys.io.scheduler=*
+    write /sys/block/mtdblock0/queue/scheduler ${sys.io.scheduler}
+    write /sys/block/mtdblock1/queue/scheduler ${sys.io.scheduler}
+    write /sys/block/mtdblock2/queue/scheduler ${sys.io.scheduler}
+
+# Set slice_idle to 0 for CFQ
+on property:sys.io.scheduler=cfq
+    write /sys/block/mtdblock0/queue/iosched/slice_idle 0
+    write /sys/block/mtdblock1/queue/iosched/slice_idle 0
+    write /sys/block/mtdblock2/queue/iosched/slice_idle 0
+
+# Set slice_idle to 0 for BFQ
+on property:sys.io.scheduler=bfq
+    write /sys/block/mtdblock0/queue/iosched/slice_idle 0
+    write /sys/block/mtdblock1/queue/iosched/slice_idle 0
+    write /sys/block/mtdblock2/queue/iosched/slice_idle 0
+
 on charger
     setprop persist.sys.usb.config charging
     write /sys/module/lpm_levels/enable_low_power/l2 2
@@ -638,7 +657,6 @@ on property:sys.boot_completed=1
     # Reset read ahead for mmcblk0 and mmcblk1 to 512kb
     write /sys/block/mmcblk0/queue/read_ahead_kb 512
     write /sys/block/mmcblk1/queue/read_ahead_kb 512
-    write /sys/block/mmcblk0/queue/scheduler row
     write /sys/module/lpm_levels/enable_low_power/l2 4
     write /sys/module/msm_pm/modes/cpu0/power_collapse/suspend_enabled 1
     write /sys/module/msm_pm/modes/cpu1/power_collapse/suspend_enabled 1

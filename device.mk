@@ -344,6 +344,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.legacyencoder="true" \
     media.stagefright.less-secure="true"
 
+# IO Scheduler
+PRODUCT_PROPERTY_OVERRIDES += \
+    sys.io.scheduler=bfq
+
 # ART
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-filter="interpret-only" \
