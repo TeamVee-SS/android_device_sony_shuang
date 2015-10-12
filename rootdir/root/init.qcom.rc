@@ -560,6 +560,7 @@ service ril-daemon2 /system/bin/rild -c 2
 service charger /charger
     class charger
     group system graphics
+    seclabel u:r:healthd:s0
 
 # TODO: FIX SELinux domain
 service scd /system/bin/scd
