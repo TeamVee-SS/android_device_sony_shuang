@@ -207,7 +207,8 @@ PRODUCT_PACKAGES += \
 
 # Compatibility
 PRODUCT_PACKAGES += \
-    libboringssl-compat
+    libboringssl-compat \
+    libshim_qc-opt
 
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
