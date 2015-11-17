@@ -36,6 +36,9 @@ on early-init
     chmod 666 /proc/cmdline
 
 on init
+    # Symbols required for SONY blobs
+    export LD_SHIM_LIBS "/system/lib/libcald_pal.so|libshim_cald.so:/system/lib/hw/camera.vendor.qcom.so|libshim_camera.so"
+
     # Make folder partitions
     mkdir /persist 0771 system system
     mkdir /lta-label 0771 system system
