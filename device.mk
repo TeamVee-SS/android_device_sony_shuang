@@ -182,6 +182,11 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
+# Symbols required for SONY blobs
+PRODUCT_PACKAGES += \
+    libshim_cald \
+    libshim_camera
+
 # Sony timekeep
 PRODUCT_PACKAGES += \
     timekeep \
