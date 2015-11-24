@@ -417,7 +417,7 @@ service irsc_util /system/bin/irsc_util "/etc/sec_config"
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
-    group system
+    group system wakelock
 
 service rfs_access /system/bin/rfs_access
     class core
@@ -454,12 +454,12 @@ service bt-sap /system/bin/sapd 15
 service qmuxd /system/bin/qmuxd
     class main
     user root
-    group radio audio bluetooth gps
+    group radio audio bluetooth wakelock gps
     disabled
 
 service netmgrd /system/bin/netmgrd
     class main
-    group radio system
+    group radio system wakelock
     disabled
 
 # Ecompass Sensor / Magnetic Service
