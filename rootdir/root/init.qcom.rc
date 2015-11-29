@@ -37,6 +37,8 @@ on early-init
     chmod 666 /proc/cmdline
 
 on init
+    export LD_SHIM_LIBS /system/vendor/lib/libmmqjpeg_codec.so|libboringssl-compat.so
+
     # Make folder partitions
     mkdir /persist 0771 root system
     mkdir /persist/data 0700 system system

@@ -205,6 +205,10 @@ PRODUCT_PACKAGES += \
     libantradio \
     antradio_app
 
+# Compatibility
+PRODUCT_PACKAGES += \
+    libboringssl-compat
+
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
 # LCD Density
