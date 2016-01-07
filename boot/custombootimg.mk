@@ -1,6 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
 DTBTOOL := $(HOST_OUT_EXECUTABLES)/dtbToolCM$(HOST_EXECUTABLE_SUFFIX)
+INITSONY := $(PRODUCT_OUT)/utilities/init_sony
 
 uncompressed_ramdisk := $(PRODUCT_OUT)/ramdisk.cpio
 $(uncompressed_ramdisk): $(INSTALLED_RAMDISK_TARGET)
@@ -48,6 +49,9 @@ $(INSTALLED_BOOTIMAGE_TARGET): \
 		$(uncompressed_ramdisk) \
 		$(recovery_uncompressed_device_ramdisk) \
 		$(INSTALLED_RAMDISK_TARGET) \
+		$(INITSONY) \
+		$(PRODUCT_OUT)/utilities/toybox \
+		$(PRODUCT_OUT)/utilities/keycheck \
 		$(MKBOOTIMG) $(MINIGZIP) \
 		$(INTERNAL_BOOTIMAGE_FILES) \
 		$(INSTALLED_DTIMAGE_TARGET)
@@ -56,6 +60,14 @@ $(INSTALLED_BOOTIMAGE_TARGET): \
 	$(hide) cp -a $(PRODUCT_OUT)/root $(PRODUCT_OUT)/combinedroot
 	$(hide) mkdir -p $(PRODUCT_OUT)/combinedroot/sbin
 	$(hide) cp $(recovery_uncompressed_ramdisk) $(PRODUCT_OUT)/combinedroot/sbin/
+	$(hide) cp $(PRODUCT_OUT)/utilities/keycheck $(PRODUCT_OUT)/combinedroot/sbin/
+	$(hide) cp $(PRODUCT_OUT)/utilities/toybox $(PRODUCT_OUT)/combinedroot/sbin/toybox_init
+
+	$(hide) cp $(INITSONY) $(PRODUCT_OUT)/combinedroot/sbin/init_sony
+	$(hide) chmod 755 $(PRODUCT_OUT)/combinedroot/sbin/init_sony
+	$(hide) mv $(PRODUCT_OUT)/combinedroot/init $(PRODUCT_OUT)/combinedroot/init.real
+	$(hide) ln -s sbin/init_sony $(PRODUCT_OUT)/combinedroot/init
+
 	$(hide) $(MKBOOTFS) $(PRODUCT_OUT)/combinedroot/ > $(PRODUCT_OUT)/combinedroot.cpio
 	$(hide) cat $(PRODUCT_OUT)/combinedroot.cpio | gzip > $(PRODUCT_OUT)/combinedroot.fs
 	$(hide) $(MKBOOTIMG) \
