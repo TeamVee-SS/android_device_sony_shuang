@@ -164,7 +164,8 @@ PRODUCT_PACKAGES += \
    librmnetctl
 
 PRODUCT_PACKAGES += \
-    libion
+    libion \
+    libxml2
 
 # RIL
 PRODUCT_PACKAGES += \
