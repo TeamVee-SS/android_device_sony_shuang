@@ -626,6 +626,9 @@ on property:ro.boot.baseband=msm
     start qmuxd
     start netmgrd
 
+on property:persist.radio.multisim.config=dsds
+    start ril-daemon2
+
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
 # but only if ro.data.large_tcp_window_size property is set.
 on property:ro.data.large_tcp_window_size=true
