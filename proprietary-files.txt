@@ -100,9 +100,6 @@ vendor/lib/libqdp.so
 # Diag
 vendor/lib/libdiag.so
 
-# FM
-bin/fm_qsoc_patches
-
 # GPS
 etc/permissions/com.qualcomm.location.xml
 lib/libloc_api_v02.so
