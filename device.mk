@@ -159,6 +159,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     camera.qcom
 
+# QCOM OSS
+PRODUCT_PACKAGES += \
+   librmnetctl
+
 # WiFi
 PRODUCT_PACKAGES += \
     p2p_supplicant_overlay.conf \
