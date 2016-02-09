@@ -178,9 +178,6 @@ TW_IGNORE_OVERLAY := true
 include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += device/sony/falconss/sepolicy
 
-# Include an expanded selection of fonts
-EXTENDED_FONT_FOOTPRINT := true
-
 BOARD_RIL_CLASS := ../../../device/sony/falconss/ril/
 
 # Build the platform with Clang
