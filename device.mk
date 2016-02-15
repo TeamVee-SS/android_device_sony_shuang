@@ -34,7 +34,7 @@ endif
 
 PRODUCT_COPY_FILES += $(LOCAL_KERNEL):kernel
 
-PRODUCT_PACKAGES := lights.lt26
+PRODUCT_PACKAGES := lights.falconss
 
 # Product attributes
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
