@@ -47,6 +47,9 @@ TARGET_PREBUILT_KERNEL := device/sony/falconss/kernel
 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
+# Light
+TARGET_PROVIDES_LIBLIGHT := true
+
 # BT
 BOARD_HAVE_BLUETOOTH := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/falconss/bluetooth
