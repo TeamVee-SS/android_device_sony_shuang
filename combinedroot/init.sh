@@ -8,6 +8,12 @@ busybox date >>boot.txt
 exec >>boot.txt 2>&1
 busybox rm /init
 
+triggerledrgb() {
+busybox echo $1 > /sys/class/leds/red/brightness
+busybox echo $2 > /sys/class/leds/green/brightness
+busybox echo $3 > /sys/class/leds/blue/brightness
+}
+
 # include device specific vars
 source /sbin/bootrec-device
 
@@ -26,19 +32,15 @@ busybox mknod -m 666 /dev/null c 1 3
 busybox mount -t proc proc /proc
 busybox mount -t sysfs sysfs /sys
 
-# trigger ON amber LED
-busybox echo ${BOOTREC_RED_LED_ON} > ${BOOTREC_CONTROL_LED}
-busybox echo ${BOOTREC_GREEN_LED_OFF} > ${BOOTREC_CONTROL_LED}
-busybox echo ${BOOTREC_BLUE_LED_ON} > ${BOOTREC_CONTROL_LED}
+# trigger ON green LED
+triggerledrgb 0 255 0
 
 # keycheck
 busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
 busybox sleep 3
 
-# trigger OFF amber LED
-busybox echo ${BOOTREC_RED_LED_OFF} > ${BOOTREC_CONTROL_LED}
-busybox echo ${BOOTREC_GREEN_LED_OFF} > ${BOOTREC_CONTROL_LED}
-busybox echo ${BOOTREC_BLUE_LED_OFF} > ${BOOTREC_CONTROL_LED}
+# trigger OFF LED
+triggerledrgb 0 0 0
 
 # android ramdisk
 load_image=/sbin/ramdisk.cpio
@@ -46,11 +48,9 @@ load_image=/sbin/ramdisk.cpio
 # boot decision
 if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline ; then
         busybox echo 0 > /sys/module/msm_fb/parameters/align_buffer
-	busybox echo 'RECOVERY BOOT' >>boot.txt
-	# cyan led for recoveryboot
-	busybox echo ${BOOTREC_RED_LED_OFF} > ${BOOTREC_CONTROL_LED}
-	busybox echo ${BOOTREC_GREEN_LED_ON} > ${BOOTREC_CONTROL_LED}
-	busybox echo ${BOOTREC_BLUE_LED_ON} > ${BOOTREC_CONTROL_LED}
+	busybox echo 'RECOVERY BOOT' >> boot.txt
+	# trigger ON cyan LED for recoveryboot
+	triggerledrgb 0 255 255
 	# recovery ramdisk
 	busybox mknod -m 600 ${BOOTREC_FOTA_NODE}
 	busybox mount -o remount,rw /
@@ -59,11 +59,7 @@ if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline ; t
 	busybox rm /sbin/sh
 	load_image=/sbin/ramdisk-recovery.cpio
 else
-	busybox echo 'ANDROID BOOT' >>boot.txt
-	# poweroff LED
-	busybox echo ${BOOTREC_RED_LED_OFF} > ${BOOTREC_CONTROL_LED}
-	busybox echo ${BOOTREC_GREEN_LED_OFF} > ${BOOTREC_CONTROL_LED}
-	busybox echo ${BOOTREC_BLUE_LED_OFF} > ${BOOTREC_CONTROL_LED}
+	busybox echo 'ANDROID BOOT' >> boot.txt
 fi
 
 # kill the keycheck process
