@@ -29,6 +29,7 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_BOARD_PLATFORM := msm8610
 TARGET_BOOTLOADER_BOARD_NAME := MSM8610
 
+TARGET_KERNEL_CONFIG := cyanogenmod_falconss_defconfig
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 maxcpus=2 msm_rtb.filter=0x3F ehci-hcd.park=3 msm_rtb.enable=0 lpj=192598 dwc3.maximum_speed=high dwc3_msm.prop_chg_detect=Y
 BOARD_KERNEL_BASE := 0x00008000
 BOARD_KERNEL_PAGESIZE := 2048
