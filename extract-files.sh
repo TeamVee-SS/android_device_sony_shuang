@@ -1,15 +1,12 @@
 #!/bin/bash
 
-set -e
+#set -e
 
-DEVICEDIR=falconss
-VENDORDIR=sony
-OUTDIR=vendor/$VENDORDIR/$DEVICEDIR
+TEMP="$1"
 
-BASE=../../../$OUTDIR/proprietary
-rm -rf $BASE/*
+rm -rf ../../../vendor/sony/falconss/proprietary/*
 
-for FILE in `egrep -v '(^#|^$)' ../$DEVICEDIR/proprietary-files.txt`; do
+for FILE in `egrep -v '(^#|^$)' proprietary-files.txt`; do
   OLDIFS=$IFS IFS=":" PARSING_ARRAY=($FILE) IFS=$OLDIFS
   FILE=`echo ${PARSING_ARRAY[0]} | sed -e "s/^-//g"`
   DEST=${PARSING_ARRAY[1]}
@@ -18,16 +15,16 @@ for FILE in `egrep -v '(^#|^$)' ../$DEVICEDIR/proprietary-files.txt`; do
     DEST=$FILE
   fi
   DIR=`dirname $FILE`
-  if [ ! -d $BASE/$DIR ]; then
-    mkdir -p $BASE/$DIR
+  if [ ! -d ../../../vendor/sony/falconss/proprietary/$DIR ]; then
+    mkdir -p ../../../vendor/sony/falconss/proprietary/$DIR
   fi
   # Try CM target first
-  adb pull /system/$DEST $BASE/$DEST
+  adb pull /system/$FILE ../../../vendor/sony/falconss/proprietary/$FILE
   # if file does not exist try OEM target
   if [ "$?" != "0" ]
   then
-    adb pull /system/$FILE $BASE/$DEST
+    adb pull /system/$FILE ../../../vendor/sony/falconss/proprietary/$DEST
   fi
 done
 
-./../falconss/setup-makefiles.sh
+. setup-makefiles.sh
