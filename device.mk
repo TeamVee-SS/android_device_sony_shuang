@@ -24,16 +24,6 @@ $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
 $(call inherit-product-if-exists, vendor/sony/falconss/falconss-vendor.mk)
 
-LOCAL_PATH := device/sony/falconss
-
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := $(LOCAL_PATH)/kernel
-else
-	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
-PRODUCT_COPY_FILES += $(LOCAL_KERNEL):kernel
-
 PRODUCT_PACKAGES := lights.falconss
 
 # Product attributes
