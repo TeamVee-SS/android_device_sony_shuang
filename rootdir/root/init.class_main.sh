@@ -60,10 +60,6 @@ case "$baseband" in
     multisim=`getprop persist.radio.multisim.config`
 
     if [ "$multisim" = "dsds" ] || [ "$multisim" = "dsda" ]; then
-        #+arima isaac(20140327):[CR635725]fix UE cannot find sim card on DSDS device randomly
-        #stop ril-daemon
-        #start ril-daemon
-        #-arima isaac(20140327):[CR635725]fix UE cannot find sim card on DSDS device randomly
         start ril-daemon1
     elif [ "$multisim" = "tsts" ]; then
         stop ril-daemon

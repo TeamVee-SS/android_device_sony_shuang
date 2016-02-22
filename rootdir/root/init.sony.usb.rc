@@ -9,9 +9,7 @@ on init
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
     write /sys/class/android_usb/android0/f_rndis/vendorID 0fce
     write /sys/class/android_usb/android0/f_rndis/wceis 1
-#/*[Arima JimCheng 20131004] Modify SoMC USB PID ++*/
     setprop ro.usb.pid_suffix 1B5
-#/*[Arima JimCheng 20131004] Modify SoMC USB PID --*/
 
 on post-fs-data
     write /sys/class/android_usb/android0/f_mass_storage/inquiry_string "SONY    Mass Storage    0100"
@@ -21,14 +19,12 @@ on post-fs-data
     write /sys/class/android_usb/android0/f_mass_storage/lun/nofua 1
     write /sys/class/android_usb/android0/f_cdrom/lun/nofua 1
 
-#/*[Arima JimCheng 20140106] Support MSC Mode in power off charging ++*/
 on charger
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 0FCE
     write /sys/class/android_usb/android0/idProduct E1B5
     write /sys/class/android_usb/android0/functions mass_storage
     write /sys/class/android_usb/android0/enable 1
-#/*[Arima JimCheng 20140106] Support MSC Mode in power off charging --*/
 
 on boot
     # USB gadget initial setup
@@ -64,19 +60,13 @@ on property:sys.usb.config=mtp,adb
 on property:sys.usb.config=mtp,cdrom
    exec /init.usbmode.sh
    stop adbd
-#/*[Arima JimCheng 20131014] support PC Companion++*/
-   #write /sys/class/android_usb/android0/f_cdrom/lun/file /system/etc/dop.iso
-   write /sys/class/android_usb/android0/f_mass_storage/lun/file /system/etc/dop.iso   
-#/*[Arima JimCheng 20131014] support PC Companion--*/
+   write /sys/class/android_usb/android0/f_mass_storage/lun/file /system/etc/dop.iso
    setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mtp,cdrom,adb
    exec /init.usbmode.sh
    stop adbd
-#/*[Arima JimCheng 20131014] support PC Companion++*/
-   #write /sys/class/android_usb/android0/f_cdrom/lun/file /system/etc/dop.iso
-   write /sys/class/android_usb/android0/f_mass_storage/lun/file /system/etc/dop.iso   
-#/*[Arima JimCheng 20131014] support PC Companion--*/
+   write /sys/class/android_usb/android0/f_mass_storage/lun/file /system/etc/dop.iso
    setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=rndis
@@ -99,13 +89,12 @@ on property:sys.usb.config=ncm,adb
    start adbd
    setprop sys.usb.state ${sys.usb.config}
 
-# Start usbeng
 service usbeng /system/bin/usbeng
     class late_start
     oneshot
-#/*[Arima JimCheng 20131004] Modify SoMC USB PID ++*/
+
 service qcom-usb-sh /system/bin/sh /init.qcom.usb.sh
     class core
     user root
     oneshot
-#/*[Arima JimCheng 20131004] Modify SoMC USB PID --*/
+

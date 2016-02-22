@@ -29,10 +29,7 @@
 # Modifications are licensed under the License.
 #
 
-#/*[Arima JimCheng 20131004] Modify SoMC USB PID ++*/
-#import init.qcom.usb.rc
 import init.sony.usb.rc
-#/*[Arima JimCheng 20131004] Modify SoMC USB PID --*/
 import init.target.rc
 
 on early-init
@@ -59,9 +56,7 @@ on init
     symlink /storage/emulated/legacy /mnt/sdcard
     symlink /storage/emulated/legacy /storage/sdcard0
 
-    # JimCheng add for SoMC patch 20140418 
     symlink /storage/sdcard1 /sdcard1
-    # symlink /mnt/ext_card to SD
     symlink /storage/sdcard1 /mnt/ext_card
 
 on early-boot
@@ -128,13 +123,9 @@ on boot
     #For bridgemgr daemon to inform the USB driver of the correct transport
     chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
 
-# + murphy 2013.07.19
-# Added enabling for GPS eLNA Driver
-
-# permissions for GPS eLNA
+    # permissions for GPS eLNA
     chmod 0660 /dev/gps_elna
     chown system system /dev/gps_elna
-# - murphy 2013.07.19
 
     # For setting tcp delayed ack
     chown system system /sys/kernel/ipv4/tcp_delack_seg
@@ -216,9 +207,7 @@ on post-fs-data
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    # SOMC KK PATCH Patches_w15.5
-    chown dhcp system /data/misc/dhcp
+    mkdir /data/misc/dhcp 0770 dhcp system
 
     # Create the directories used by CnE subsystem
     mkdir /data/connectivity 0771 system system
@@ -247,7 +236,6 @@ on post-fs-data
 
     #Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
     mkdir /data/system 0775 system system
-    #symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
 
     #Create directories for gpsone_daemon services
     mkdir /data/misc/gpsone_d 0770 system gps
@@ -413,10 +401,7 @@ service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
     class late_start
     user bluetooth
-    #Arima alvin 20130923 modified for getting BD_addr +++ 
     group bluetooth net_bt_admin system
-    #group bluetooth net_bt_admin
-    #Arima alvin 20130923 modified for getting BD_addr --- 
     disabled
     oneshot
 
@@ -560,8 +545,6 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-# FelexChing 20140509 Rollback to Vanilla DHCP setting
-# service dhcpcd_wlan0 /system/bin/dhcpcd -B -d -t 30
 service dhcpcd_wlan0 /system/bin/dhcpcd -ABKLG
     class late_start
     disabled
@@ -586,7 +569,6 @@ service ptt_socket_app /system/bin/ptt_socket_app -d
     class main
     user root
     group root
-    # FelexChing 20140603 Disable ptt_socket_app
     disabled
     oneshot
 
@@ -596,7 +578,6 @@ service ptt_ffbm /system/bin/ptt_socket_app -f -d
     disabled
     oneshot
 
-# SOMC KK PATCH Patches_w16.5
 service dhcpcd_bt-pan /system/bin/dhcpcd -B -t 30
     class late_start
     disabled
@@ -783,18 +764,12 @@ service profiler_daemon /system/bin/profiler_daemon
     group root
     disabled
 
-# LinbinKuo, apply suggestion of google
 on fs 
     setprop ro.crypto.fuse_sdcard true 
 
-# LinbinKuo, apply suggestion of google
-#service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
 service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated 
     class late_start
 
-# cylan 20140417 fix DMS05407690 => qualcomm case 01522888 
-# LinbinKuo, apply suggestion of google
-#service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1 
 service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1 
     class late_start
     disabled 

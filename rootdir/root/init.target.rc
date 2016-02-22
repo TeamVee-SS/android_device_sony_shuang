@@ -30,66 +30,35 @@
 on early-init
     mkdir /firmware 0771 system system
     symlink /data/tombstones /tombstones
-# ++ StevenShi - 20140419, to reduce power consumption.
     write /sys/kernel/mm/ksm/pages_to_scan 300
     write /sys/kernel/mm/ksm/sleep_millisecs 1200
-# -- StevenShi - 20140419, to reduce power consumption.
     write /sys/kernel/mm/ksm/run 1
     write /sys/block/zram0/disksize 192M
 
 on init
-# /*++ MikeLin - 20131009 security patch integration ++*/
     # create directory for scd
     mkdir /dev/socket/scd 0755 system system
-# /*-- MikeLin - 20131009 security patch integration --*/
 
-# /*++ MikeLin - 20130928 factoryreset ++*/
 # on fs
     # mount_all fstab.qcom
-# /*-- MikeLin - 20130928 factoryreset --*/
-
-    # Keeping following partitions outside fstab file. As user may not have
-    # these partition flashed on the device. Failure to mount any partition in fstab file
-    # results in failure to launch late-start class.
-
-# /*++ MikeLin - 20130928 factoryreset ++*/
-    # wait /dev/block/platform/msm_sdcc.1/by-name/cache
-    # mount ext4 /dev/block/platform/msm_sdcc.1/by-name/cache /cache nosuid nodev barrier=1
-# /*-- MikeLin - 20130928 factoryreset --*/
-
-# <<Skies-2013/09/05, S1 integration
-    # wait /dev/block/platform/msm_sdcc.1/by-name/persist
-    # mount ext4 /dev/block/platform/msm_sdcc.1/by-name/persist /persist nosuid nodev barrier=1
-
-    # wait /dev/block/platform/msm_sdcc.1/by-name/modem
-    # mount vfat /dev/block/platform/msm_sdcc.1/by-name/modem /firmware ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
-# >>Skies-2013/09/05, S1 integration
-    #write /sys/kernel/boot_adsp/boot 1
 
 on boot
    write /sys/bus/i2c/drivers/ft5x06_ts/1-0038/update_fw 1
    write /proc/sys/vm/page-cluster 0
    write /proc/sys/vm/swappiness 100
-   # Enable writing to brightness node under torch-light from userspace
    chown system system /sys/class/leds/torch-light/brightness
 
 on post-fs-data
-# /*++ MikeLin - 20131009 security patch integration ++*/
     mkdir /data/credmgr 0700 system system
-# /*-- MikeLin - 20131009 security patch integration --*/
     mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
-#SOMC KK PATCH Patches_w11.3_begin
-    mkdir /data/app-skin 0771 system system
 #SOMC KK PATCH Patches_w11.3_end
 
 # import cne init file
 on post-fs
     export LD_PRELOAD /vendor/lib/libNimsWrap.so
-# /*++ MikeLin - 20131009 security patch integration ++*/
     # Change to socket location on libkeyctrl/suntory for /data encryption
     mkdir /dev/socket/suntory 0755 system system
-# /*-- MikeLin - 20131009 security patch integration --*/
 
 # Allow usb charging to be disabled persistently
 on property:persist.usb.chgdisabled=1
@@ -101,7 +70,6 @@ on property:persist.usb.chgdisabled=0
 on boot
     insmod /system/lib/modules/adsprpc.ko
 
-# /*++ MikeLin - 20131009 security patch integration ++*/
 on property:gsm.nitz.time=*
     exec /system/bin/scdnotifier nitz
 
@@ -109,7 +77,6 @@ service scd /system/bin/scd
     class main
     user system
     group system
-# /*-- MikeLin - 20131009 security patch integration --*/
 
 #Start the qcom-system-daemon service
 service qcomsysd /system/bin/qcom-system-daemon
@@ -171,13 +138,6 @@ service swapping /system/bin/sh /system/etc/enable_swap.sh
     user root
     oneshot
 
-# Arima Rockyang marked 20140324 - disable adsprpcd for CTS
-#service adsprpcd /system/bin/adsprpcd
-#   class main
-#   user media
-#   group media
-# Arima Rockyang marked end
-
 service wcnss-service /system/bin/wcnss_service
     class late_start
     user root
@@ -193,7 +153,6 @@ service ppd /system/bin/mm-pp-daemon
 on property:init.svc.surfaceflinger=stopped
     stop ppd
 
-# /*++ MikeLin - 20131009 security patch integration ++*/
 # Start suntrold
 service suntrold /system/bin/suntrold
     user system
@@ -206,6 +165,4 @@ service credmgrd /system/bin/credmgrd
     user system
     group system
     socket credmgr stream 0660 system system
-    class main
-# /*-- MikeLin - 20131009 security patch integration --*/
-    
+    class main    

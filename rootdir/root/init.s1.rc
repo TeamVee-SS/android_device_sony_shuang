@@ -1,13 +1,8 @@
-
-
 on fs
-# <<Skies-2013/07/28, SoMC TA/MiscTA integration
-    # SONY: Start the TrimArea Daemon. It must be started before fota-ua
     wait /dev/block/platform/msm_sdcc.1/by-name/TA
     class_start trimarea
     exec /sbin/wait4tad_static
 
-# /*++ MikeLin - 20130928 factoryreset ++*/
     wait /dev/block/platform/msm_sdcc.1/by-name/cache
     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/cache /cache nosuid nodev barrier=1
 
@@ -17,55 +12,30 @@ on fs
     exec /system/bin/factoryreset
 
     mount_all fstab.qcom
-# /*++ MikeLin - 20131127 factoryreset - wipe_data_keep_media  ++*/
     exec /system/bin/factoryreset_keep_media
-# /*-- MikeLin - 20131127 factoryreset - wipe_data_keep_media  --*/
-# /*-- MikeLin - 20130928 factoryreset --*/
 
-# /*++ MikeLin - 20131008 SoMC LTALabel ++*/
     wait /dev/block/platform/msm_sdcc.1/by-name/LTALabel
     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/LTALabel /lta-label nosuid nodev noatime noexec ro barrier=0
-# /*-- MikeLin - 20131008 SoMC LTALabel --*/
 
-# /*++ MikeLin - 20130920 FoTA integration ++*/
     exec /sbin/fota-ua c
-# /*-- MikeLin - 20130920 FoTA integration --*/
-
-    # SONY: Start early TA-users
-    # exec /system/bin/taimport
-
-    # Skies-2013/08/05, too early ? move later...
-    # start ta_qmi_service
-    
-# >>Skies-2013/07/28, SoMC TA/MiscTA integration
-
-# <<Skies-2013/07/28, SOMC TA/MiscTA integration
 
 on early-boot
     start sct_service
-    
-    # Skies-2013/08/05, too early ? move later...
+
     start ta_qmi_service
 
-# /*++ FelexChing - 20140407 Multi CDF feature ++*/
 on boot
     # Create symlinks for customized files
     exec /system/bin/sh /system/etc/multi-cdf-symlinker.sh
-# /*-- FelexChing - 20140407 Multi CDF feature --*/
 
-# /*++ MikeLin - 20131212 FoTA patch wi security on ++*/    
 on property:dev.bootcomplete=1
     start fota-trigger
-# /*-- MikeLin - 20131212 FoTA patch wi security on --*/
 
-# SONY: TrimArea Daemon
-# Last 2 args: start block(blk size 128k), number of blocks(partitionsize(kb)/128(kb))
 service tad_static /sbin/tad_static /dev/block/platform/msm_sdcc.1/by-name/TA 0,16
     class trimarea
     user root
     group root
     socket tad stream 0660 system system
-
 
 service updatemiscta /system/bin/updatemiscta
     class main
@@ -80,13 +50,8 @@ service ta_qmi_service /system/bin/ta_qmi_service
 # Secure Config Transfer service
 service sct_service /system/bin/sct_service
     user root
-    disabled    
-    
-# >>Skies-2013/07/28, SOMC TA/MiscTA integration
+    disabled
 
-# /*++ MikeLin - 20131212 FoTA patch wi security on ++*/
-# Sony: FOTA trigger
 service fota-trigger /system/bin/fota-trigger
     group cache
     disabled
-# /*-- MikeLin - 20131212 FoTA patch wi security on --*/
