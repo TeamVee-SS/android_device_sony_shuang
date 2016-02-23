@@ -15,7 +15,10 @@ busybox echo $3 > /sys/class/leds/notification/brightness
 }
 
 # include device specific vars
-source /sbin/bootrec-device
+export BOOTREC_EVENT_NODE="/dev/input/event6 c 13 70"
+export BOOTREC_EVENT="/dev/input/event6"
+export BOOTREC_FOTA_NODE="/dev/block/mmcblk0p16 b 179 16"
+export BOOTREC_FOTA="/dev/block/mmcblk0p16"
 
 # create directories
 busybox mkdir -m 755 -p /dev/block

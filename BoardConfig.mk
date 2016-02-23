@@ -52,7 +52,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/sony/falconss/bluetooth
 TARGET_INIT_VENDOR_LIB := libinit_msm
 
 # FSTAB
-TARGET_RECOVERY_FSTAB := device/sony/falconss/root/rootdir/fstab.qcom
+TARGET_RECOVERY_FSTAB := device/sony/falconss/rootdir/root/fstab.qcom
 
 # Recovery
 DEVICE_RESOLUTION := 480x800
