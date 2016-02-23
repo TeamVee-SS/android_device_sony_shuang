@@ -37,6 +37,7 @@ on early-init
 
 on fs
     mount_all fstab.qcom
+    swapon_all fstab.qcom
 
     wait /dev/block/platform/msm_sdcc.1/by-name/LTALabel
     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/LTALabel /lta-label nosuid nodev noatime noexec ro barrier=0
@@ -142,11 +143,6 @@ service audiod /system/bin/audiod
    class late_start
    user system
    group system
-
-service swapping /system/bin/sh /system/etc/enable_swap.sh
-    class core
-    user root
-    oneshot
 
 service wcnss-service /system/bin/wcnss_service
     class late_start
