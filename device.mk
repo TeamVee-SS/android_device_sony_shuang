@@ -112,6 +112,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     power.msm8610
 
+PRODUCT_PACKAGES += extract_elf_ramdisk
+
 PRODUCT_PACKAGES := lights.falconss
 
 # Product attributes
