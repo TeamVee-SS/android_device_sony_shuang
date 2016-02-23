@@ -34,6 +34,11 @@ PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/sony/falconss/rootd
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/logo.rle:root/logo.rle
 PRODUCT_COPY_FILES += device/sony/falconss/recovery/bootrec-device:recovery/bootrec-device
 
+# Recovery Files
+$(shell mkdir -p out/target/product/vee3/recovery/root/etc)
+$(shell cp device/sony/falconss/recovery/twrp.fstab out/target/product/falconss/recovery/root/etc/twrp.fstab)
+# WORKAROUND HACK
+
 # Permission files
 PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml
 PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml
