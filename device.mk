@@ -30,6 +30,9 @@ PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/sony/falconss/rootd
 # Config Files
 PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/sony/falconss/rootdir/system,system)
 
+# RECOVERY
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/recovery/bootrec-device:recovery/bootrec-device
+
 # Permission files
 PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml
 PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml
