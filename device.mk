@@ -31,7 +31,7 @@ PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/sony/falconss/rootd
 PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/sony/falconss/rootdir/system,system)
 
 # RECOVERY
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/initlogo.rle:root/initlogo.rle
+PRODUCT_COPY_FILES += device/sony/falconss/rootdir/logo.rle:root/logo.rle
 PRODUCT_COPY_FILES += device/sony/falconss/recovery/bootrec-device:recovery/bootrec-device
 
 # Permission files
