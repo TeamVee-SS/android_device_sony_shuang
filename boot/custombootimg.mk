@@ -24,7 +24,7 @@ $(INSTALLED_DTIMAGE_TARGET): \
 	-o $(INSTALLED_DTIMAGE_TARGET) \
 	-s $(BOARD_KERNEL_PAGESIZE) \
 	-p $(KERNEL_OUT)/scripts/dtc/ \
-	$(KERNEL_OUT)/arch/arm/boot/dts/
+	$(KERNEL_OUT)/arch/arm/boot/
 
 	@echo -e ${CL_CYN}"----- Made DT image: $@ ------"${CL_RST}
 
@@ -85,6 +85,7 @@ $(INSTALLED_RECOVERYIMAGE_TARGET): \
 	--cmdline "$(BOARD_KERNEL_CMDLINE)" \
 	--base $(BOARD_KERNEL_BASE) \
 	--pagesize $(BOARD_KERNEL_PAGESIZE) \
+	--dt $(INSTALLED_DTIMAGE_TARGET) \
 	$(BOARD_MKBOOTIMG_ARGS) \
 	-o $(INSTALLED_RECOVERYIMAGE_TARGET)
 
