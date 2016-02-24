@@ -30,9 +30,13 @@ TARGET_BOARD_PLATFORM := msm8610
 TARGET_BOOTLOADER_BOARD_NAME := MSM8610
 
 TARGET_KERNEL_CONFIG := cyanogenmod_falconss_defconfig
+BOARD_KERNEL_BOOTIMG := true
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 maxcpus=2 msm_rtb.filter=0x3F ehci-hcd.park=3 msm_rtb.enable=0 lpj=192598 dwc3.maximum_speed=high dwc3_msm.prop_chg_detect=Y
 BOARD_KERNEL_BASE := 0x00008000
 BOARD_KERNEL_PAGESIZE := 2048
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x2000000 --tags_offset 0x01e00000
+BOARD_CUSTOM_BOOTIMG_MK := device/sony/falconss/boot/custombootimg.mk
+
 
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -86,7 +90,6 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 TARGET_RECOVERY_LCD_BACKLIGHT_PATH := \"/sys/class/leds/lcd-backlight/brightness\"
-BOARD_CUSTOM_BOOTIMG_MK := device/sony/falconss/custombootimg.mk
 
 # TWRP
 #RECOVERY_VARIANT := omni

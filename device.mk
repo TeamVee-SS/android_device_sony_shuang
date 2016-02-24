@@ -116,7 +116,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     power.msm8610
 
-PRODUCT_PACKAGES += extract_elf_ramdisk
+# BOOT THINGS
+PRODUCT_PACKAGES += \
+    extract_elf_ramdisk \
+    dtbToolCM
 
 PRODUCT_PACKAGES := lights.falconss
 
