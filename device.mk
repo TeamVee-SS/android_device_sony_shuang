@@ -116,6 +116,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     power.msm8610
 
+# Off-mode Charging
+PRODUCT_PACKAGES += charger
+PRODUCT_PACKAGES += charger_res_images
+
 # BOOT THINGS
 PRODUCT_PACKAGES += \
     extract_elf_ramdisk \
