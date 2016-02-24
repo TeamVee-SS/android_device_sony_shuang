@@ -10,7 +10,6 @@ bin/qmuxd
 bin/qseecomd
 bin/rild
 bin/rmt_storage
-bin/sensorservice
 bin/thermal-engine
 bin/time_daemon
 bin/updatemiscta
