@@ -1,28 +1,24 @@
 Copyright (C) TeamVee-SS
 =============================================
 
-This is the Android device configuration for Xperia E1.
+Device configuration for Sony Xperia E1 (falconss)
+=====================================
 
-To setup a tree and build images for the device do the following:
+Basic   | Spec Sheet
+-------:|:-------------------------
+CPU     | 1.2 GHz Dual-Core Cortex-A7
+CHIPSET | Qualcomm MSM8210 Snapdragon 200
+BOARD   | Qualcomm MSM8610
+GPU     | Adreno 302
+Memory  | 512MB RAM
+Shipped Android Version | 4.3
+Latest Android Version  | 4.4.2
+Storage | 4GB
+MicroSD | Up to 32GB
+Battery | 1750 mAh
+Dimensions | 118 x 62.4 x 12 mm
+Display | 480 x 800 pixels
+Camera  | 3.15 MP, 2048 x 1536 pixels
+Release Date | January 2014
 
-Put the following snippet in `.repo/local_manifests/falconss.xml`:
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<manifest>
-  <project path="device/sony/falconss" name="Caio99BR/android_device_sony_falconss" revision="cm-11.0" />
-  <project path="kernel/sony/falconss" name="Caio99BR/android_kernel_sony_falconss" revision="master"/>
-</manifest>
-```
-
-Unfortunately the vendor binaries not is complete for now, and not is provided by Sony of easy way.
-
-* `repo sync`
-* `source ./build/envsetup.sh`
-* `breakfast falconss`
-* `make`
-
-To flash the images produced make sure your device is unlocked, as described on
-http://unlockbootloader.sonymobile.com/
-
-The readme is imcomplete, and will be updated soon.
+![Sony Xperia E1](http://api.sonymobile.com/files/xperia-e1-hero-white-1240x840-1a823694841bc38b045bbad747494b85.jpg "Sony Xperia E1")
