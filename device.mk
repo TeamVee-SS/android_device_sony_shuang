@@ -30,9 +30,6 @@ PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/sony/falconss/rootd
 # Config Files
 PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/sony/falconss/rootdir/system,system)
 
-# LOGO
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/logo.rle:root/logo.rle
-
 # Recovery Files
 $(shell mkdir -p out/target/product/falconss/recovery/root/etc)
 $(shell cp device/sony/falconss/recovery/twrp.fstab out/target/product/falconss/recovery/root/etc/twrp.fstab)
