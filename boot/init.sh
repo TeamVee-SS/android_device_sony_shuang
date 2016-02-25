@@ -4,8 +4,8 @@ _PATH="$PATH"
 export PATH=/sbin
 
 busybox cd /
-busybox date >>boot.txt
-exec >>boot.txt 2>&1
+busybox date >> boot.txt
+exec >> boot.txt 2>&1
 busybox rm /init
 
 triggerledrgb() {
@@ -37,25 +37,26 @@ busybox mount -t sysfs sysfs /sys
 
 # trigger ON green LED
 triggerledrgb 0 255 0
+busybox echo "255000" > /sys/class/leds/lm3533-light-sns/rgb_brightness
+
+# trigger vibration
+busybox echo 100 > /sys/class/timed_output/vibrator/enable
 
 # keycheck
 busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
 busybox sleep 3
 
-# trigger OFF LED
-triggerledrgb 0 0 0
-
 # android ramdisk
 load_image=/sbin/ramdisk.cpio
 
 # boot decision
-if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline ; then
-        busybox echo 0 > /sys/module/msm_fb/parameters/align_buffer
+if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline; then
+	busybox echo 0 > /sys/module/msm_fb/parameters/align_buffer
 	busybox echo 'RECOVERY BOOT' >> boot.txt
 	# trigger ON cyan LED for recoveryboot
 	triggerledrgb 0 255 255
+	busybox echo "255255255" > /sys/class/leds/lm3533-light-sns/rgb_brightness
 	# recovery ramdisk
-	busybox mknod -m 600 ${BOOTREC_FOTA_NODE}
 	busybox mount -o remount,rw /
 	busybox ln -sf /sbin/busybox /sbin/sh
 	extract_elf_ramdisk -i ${BOOTREC_FOTA} -o /sbin/ramdisk-recovery.cpio -t / -c
@@ -71,10 +72,14 @@ busybox pkill -f "busybox cat ${BOOTREC_EVENT}"
 # unpack the ramdisk image
 busybox cpio -i < ${load_image}
 
+# trigger OFF LED
+triggerledrgb 0 0 0
+busybox echo "0" > /sys/class/leds/lm3533-light-sns/rgb_brightness
+
 busybox umount /proc
 busybox umount /sys
 
 busybox rm -fr /dev/*
-busybox date >>boot.txt
+busybox date >> boot.txt
 export PATH="${_PATH}"
 exec /init
