@@ -51,36 +51,6 @@ chown -h root.system /sys/devices/platform/msm_hsusb/gadget/wakeup
 chmod -h 220 /sys/devices/platform/msm_hsusb/gadget/wakeup
 
 #
-# Allow persistent usb charging disabling
-# User needs to set usb charging disabled in persist.usb.chgdisabled
-#
-target=`getprop ro.board.platform`
-usbchgdisabled=`getprop persist.usb.chgdisabled`
-case "$usbchgdisabled" in
-    "") ;; #Do nothing here
-    * )
-    case $target in
-        "msm8660")
-        echo "$usbchgdisabled" > /sys/module/pmic8058_charger/parameters/disabled
-        echo "$usbchgdisabled" > /sys/module/smb137b/parameters/disabled
-	;;
-        "msm8960")
-        echo "$usbchgdisabled" > /sys/module/pm8921_charger/parameters/disabled
-	;;
-    esac
-esac
-
-usbcurrentlimit=`getprop persist.usb.currentlimit`
-case "$usbcurrentlimit" in
-    "") ;; #Do nothing here
-    * )
-    case $target in
-        "msm8960")
-        echo "$usbcurrentlimit" > /sys/module/pm8921_charger/parameters/usb_max_current
-	;;
-    esac
-esac
-#
 # Allow USB enumeration with default PID/VID
 #
 baseband=`getprop ro.baseband`
@@ -105,67 +75,6 @@ case "$usb_config" in
                setprop persist.sys.usb.config diag,serial_smd,serial_tty,rmnet_bam,mass_storage,adb
           ;;
       esac
-    ;;
-    * ) ;; #USB persist config exists, do nothing
-esac
-
-#/*[Arima JimCheng 20131004] Modify SoMC USB PID ++*/
-# ignore the previous settings
-build_config=`getprop ro.build.type`
-case "$build_config" in
-  "eng")
-         setprop persist.usb.eng 1
-  ;;
-  "userdebug")
- #/*[Arima JimCheng 20131008] switch USB port for userdebug mode ++*/
-         setprop persist.usb.eng 0
-  ;;
-  "user")
-         setprop persist.usb.eng 0
-  ;;
-  *);; #Do nothing here
-
-esac
-#/*[Arima JimCheng 20131004] Modify SoMC USB PID --*/
-#
-# Add support for exposing lun0 as cdrom in mass-storage
-#
-target=`getprop ro.product.device`
-cdromname="/system/etc/cdrom_install.iso"
-cdromenable=`getprop persist.service.cdrom.enable`
-case "$target" in
-        "msm8226" | "msm8610")
-                case "$cdromenable" in
-                        0)
-                                echo "" > /sys/class/android_usb/android0/f_mass_storage/lun0/file
-                                ;;
-                        1)
-                                echo "mounting usbcdrom lun"
-                                echo $cdromname > /sys/class/android_usb/android0/f_mass_storage/lun0/file
-                                ;;
-                esac
-                ;;
-esac
-
-#
-# Do target specific things
-#
-case "$target" in
-    "msm8974")
-# Select USB BAM - 2.0 or 3.0
-        echo ssusb > /sys/bus/platform/devices/usb_bam/enable
-    ;;
-    "apq8084")
-	if [ "$baseband" == "apq" ]; then
-		echo "msm_hsic_host" > /sys/bus/platform/drivers/xhci_msm_hsic/unbind
-	fi
-    ;;
-    "msm8226")
-         if [ -e /sys/bus/platform/drivers/msm_hsic_host ]; then
-             if [ ! -L /sys/bus/usb/devices/1-1 ]; then
-                 echo msm_hsic_host > /sys/bus/platform/drivers/msm_hsic_host/unbind
-             fi
-         fi
     ;;
 esac
 

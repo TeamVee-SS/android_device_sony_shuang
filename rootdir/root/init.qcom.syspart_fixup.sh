@@ -42,32 +42,9 @@ if [ ! -f /system/etc/boot_fixup ];then
   mount_needed=true;
 fi
 
-# **** WARNING *****
-# This runs in a single-threaded, critical path portion
-# of the Android bootup sequence.  This is to guarantee
-# all necessary system partition fixups are done before
-# the rest of the system starts up.  Run any non-
-# timing critical tasks in a separate process to
-# prevent slowdown at boot.
-
-# Run modem link script
-if [ -f /system/etc/init.qcom.modem_links.sh ]; then
-  /system/bin/sh /system/etc/init.qcom.modem_links.sh
-fi
-
-# Run mdm link script
-if [ -f /system/etc/init.qcom.mdm_links.sh ]; then
-  /system/bin/sh /system/etc/init.qcom.mdm_links.sh
-fi
-
 # Run wifi script
 if [ -f /system/etc/init.qcom.wifi.sh ]; then
   /system/bin/sh /system/etc/init.qcom.wifi.sh "$target" "$serial"
-fi
-
-# Run the sensor script
-if [ -f /system/etc/init.qcom.sensor.sh ]; then
-  /system/bin/sh /system/etc/init.qcom.sensor.sh
 fi
 
 touch /system/etc/boot_fixup
