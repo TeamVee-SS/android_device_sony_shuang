@@ -54,7 +54,6 @@ lib/libmorpho_wdr.so
 lib/libpin-cache.so
 lib/libril.so
 lib/librilutils.so
-lib/libsensorservice.so
 lib/libta.so
 vendor/lib/egl/eglsubAndroid.so
 vendor/lib/egl/libEGL_adreno.so
