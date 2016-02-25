@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# inherit from the proprietary version
+-include vendor/sony/falconss/BoardConfigVendor.mk
+
 USE_CAMERA_STUB := false
 
 TARGET_GLOBAL_CFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
