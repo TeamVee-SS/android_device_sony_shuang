@@ -1,4 +1,5 @@
-# Copyright (c) 2009-2012, Code Aurora Forum. All rights reserved.
+#!/system/bin/sh
+# Copyright (c) 2011-2012, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -7,7 +8,7 @@
 #     * Redistributions in binary form must reproduce the above copyright
 #       notice, this list of conditions and the following disclaimer in the
 #       documentation and/or other materials provided with the distribution.
-#     * Neither the name of Code Aurora nor
+#     * Neither the name of The Linux Foundation nor
 #       the names of its contributors may be used to endorse or promote
 #       products derived from this software without specific prior written
 #       permission.
@@ -24,7 +25,28 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-import init.qcom.usb.rc
 
-service vee_main-sh /sbin/sh /init.recovery.qcom.baseband.sh
-    oneshot
+# No path is set up at this point so we have to do it here.
+PATH=/sbin:/system/sbin:/system/bin:/system/xbin
+export PATH
+
+# Set baseband based on modem
+case `getprop gsm.version.baseband | grep "8x10-"` in
+	"") setprop gsm.version.baseband `strings /dev/block/platform/msm_sdcc.1/by-name/TA | grep "8x10-" | head -1` ;;
+esac
+
+# Get device based on baseband
+deviceset=`getprop gsm.version.baseband | grep -o -e "D2004" -e "D2005" -e "D2104" -e "D2105" -e "D2114" | head -1`
+
+# Set Variant
+setprop ro.product.model "$deviceset"
+setprop ro.product.device "$deviceset"
+setprop ro.product.manufacturer "sony"
+
+# Set essential configs
+setprop ro.build.description "`getprop ro.build.product`-`getprop ro.build.type` `getprop ro.build.version.release` `getprop ro.build.id` `getprop ro.build.version.incremental` `getprop ro.build.tags`"
+setprop ro.build.fingerprint "`getprop ro.product.manufacturer`/`getprop ro.build.product`/`getprop ro.build.product`:`getprop ro.build.version.release`/`getprop ro.build.id`:`getprop ro.build.type`/`getprop ro.build.tags`"
+
+# Restart ADBD
+stop adbd
+start adbd
