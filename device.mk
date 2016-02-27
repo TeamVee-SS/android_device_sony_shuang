@@ -120,8 +120,8 @@ PRODUCT_PACKAGES += libOmxVdecHevc
 PRODUCT_PACKAGES += libOmxVenc
 PRODUCT_PACKAGES += qcmediaplayer
 
-#PRODUCT_PACKAGES += libOmxAacEnc
-#PRODUCT_PACKAGES += libOmxAmrEnc
+PRODUCT_PACKAGES += libOmxAacEnc
+PRODUCT_PACKAGES += libOmxAmrEnc
 PRODUCT_PACKAGES += libOmxEvrcEnc
 PRODUCT_PACKAGES += libOmxQcelp13Enc
 
