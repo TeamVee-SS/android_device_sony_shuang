@@ -79,7 +79,13 @@ TARGET_PROVIDES_LIBLIGHT := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/sony/falconss/bluetooth
 
+# Assert
+TARGET_OTA_ASSERT_DEVICE := D2004,D2005,D2104,D2105,D2114
+
+# Init
 TARGET_INIT_VENDOR_LIB := libinit_msm
+TARGET_LIBINIT_DEFINES_FILE := device/sony/falconss/init/init_falconss.c
+TARGET_UNIFIED_DEVICE := true
 
 # FSTAB
 TARGET_RECOVERY_FSTAB := device/sony/falconss/rootdir/root/fstab.qcom
