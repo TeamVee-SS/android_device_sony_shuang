@@ -1,4 +1,4 @@
-Copyright (C) TeamVee-SS
+Copyright (C) 2016 The CyanogenMod Project
 =============================================
 
 Device configuration for Sony Xperia E1 (falconss)

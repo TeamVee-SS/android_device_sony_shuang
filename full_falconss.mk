@@ -1,4 +1,5 @@
-# Copyright 2015 The Android Open Source Project
+#
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,16 +14,17 @@
 # limitations under the License.
 #
 
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
 # Inherit device configuration
 $(call inherit-product, device/sony/falconss/device.mk)
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := falconss
 PRODUCT_NAME := full_falconss
-PRODUCT_BRAND := Sony
+PRODUCT_DEVICE := falconss
+PRODUCT_BRAND := sony
 PRODUCT_MODEL := falconss
-PRODUCT_MANUFACTURER := Sony
-PRODUCT_CHARACTERISTICS := phone
+PRODUCT_MANUFACTURER := sony
 
-# Release name
-PRODUCT_RELEASE_NAME := XperiaE1
+$(call inherit-product-if-exists, vendor/sony/falconss/falconss-vendor.mk)

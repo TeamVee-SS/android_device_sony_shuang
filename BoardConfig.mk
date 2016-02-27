@@ -1,4 +1,5 @@
-# Copyright 2013 The Android Open Source Project
+#
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,33 +16,112 @@
 # inherit from the proprietary version
 -include vendor/sony/falconss/BoardConfigVendor.mk
 
-USE_CAMERA_STUB := false
+BOARD_VENDOR := sony
 
+# Platform
+TARGET_BOARD_PLATFORM := msm8610
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno302
+
+# Architecture
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_SMP := true
+TARGET_ARCH := arm
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_CPU_VARIANT := krait
+TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 TARGET_GLOBAL_CFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
 
-TARGET_ARCH := arm
-TARGET_NO_BOOTLOADER := true
-TARGET_CPU_ABI := armeabi-v7a
-TARGET_CPU_ABI2 := armeabi
-TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_CPU_VARIANT := krait
-TARGET_CPU_SMP := true
-ARCH_ARM_HAVE_TLS_REGISTER := true
-
-TARGET_BOARD_PLATFORM := msm8610
+# Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8610
+TARGET_NO_BOOTLOADER := true
 
-TARGET_KERNEL_CONFIG := cyanogenmod_falconss_defconfig
 BOARD_KERNEL_SEPARATED_DT := true
-BOARD_KERNEL_BOOTIMG := true
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 maxcpus=2 msm_rtb.filter=0x3F ehci-hcd.park=3 msm_rtb.enable=0 lpj=192598 dwc3.maximum_speed=high dwc3_msm.prop_chg_detect=Y
-BOARD_KERNEL_BASE := 0x00008000
-BOARD_KERNEL_PAGESIZE := 2048
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x2000000 --tags_offset 0x01e00000
 BOARD_CUSTOM_BOOTIMG_MK := device/sony/falconss/boot/custombootimg.mk
+TARGET_KERNEL_CONFIG := cyanogenmod_falconss_defconfig
+BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 maxcpus=2 msm_rtb.filter=0x3F ehci-hcd.park=3 msm_rtb.enable=0 lpj=192598 dwc3.maximum_speed=high dwc3_msm.prop_chg_detect=Y
 
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01E00000
 
+WLAN_MODULES:
+	mkdir -p $(KERNEL_MODULES_OUT)/pronto
+	mv $(KERNEL_MODULES_OUT)/wlan.ko $(KERNEL_MODULES_OUT)/pronto/pronto_wlan.ko
+	ln -sf /system/lib/modules/pronto/pronto_wlan.ko $(TARGET_OUT)/lib/modules/wlan.ko
+
+TARGET_KERNEL_MODULES += WLAN_MODULES
+
+# Lights
+TARGET_PROVIDES_LIBLIGHT := true
+
+# Use qcom power hal
+TARGET_POWERHAL_VARIANT := qcom
+
+# Qualcomm support
+TARGET_QCOM_DISPLAY_VARIANT := caf-new
+TARGET_USES_QCOM_BSP := true
+BOARD_USES_QCOM_HARDWARE := true
+COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
+COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
+
+# Camera
+USE_DEVICE_SPECIFIC_CAMERA := true
+
+# Camera ABI Compatiblily
+TARGET_DISPLAY_INSECURE_MM_HEAP := true
+
+# GPS
+BOARD_USES_QCOM_LIBRPC := true
+BOARD_USES_QCOM_GPS := true
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
+
+# Enable WEBGL in WebKit
+ENABLE_WEBGL := true
+TARGET_FORCE_CPU_UPLOAD := true
+
+# Enables Adreno RS driver
+OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+
+# BootAnimation
+TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := false
+
+# Display
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+TARGET_QCOM_DISPLAY_VARIANT := caf-new
+TARGET_USES_C2D_COMPOSITION := true
+TARGET_USES_ION := true
+USE_OPENGL_RENDERER := true
+TARGET_DISPLAY_USE_RETIRE_FENCE := true
+
+# Media
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
+TARGET_QCOM_MEDIA_VARIANT := caf-new
+
+# Wifi
+BOARD_HAS_QCOM_WLAN := true
+BOARD_WLAN_DEVICE := qcwcn
+BOARD_HOSTAPD_DRIVER := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_qcwcn
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
+WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
+WIFI_DRIVER_MODULE_NAME := "wlan"
+WPA_SUPPLICANT_VERSION := VER_0_8_X
+
+# Audio
+TARGET_QCOM_AUDIO_VARIANT := caf
+BOARD_USES_ALSA_AUDIO := true
+
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_QCOM := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/sony/falconss/bluetooth
+BLUETOOTH_HCI_USE_MCT := true
+
+# Partitions & Storage
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 20971520
@@ -49,34 +129,14 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1436549120
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 2176826880
 BOARD_CACHEIMAGE_PARTITION_SIZE := 209715200
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 # Vold
+BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
+BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 BOARD_VOLD_MAX_PARTITIONS := 21
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
-
-# QCOM Hardware
-BOARD_USES_QCOM_HARDWARE := true
-
-# QCOM Display and Graphics
-TARGET_QCOM_DISPLAY_VARIANT := caf
-TARGET_QCOM_MEDIA_VARIANT := caf
-TARGET_USES_QCOM_BSP := true
-TARGET_DISPLAY_USE_RETIRE_FENCE := true
-
-# Audio
-TARGET_QCOM_AUDIO_VARIANT := caf
-BOARD_USES_ALSA_AUDIO := true
-
-# QC AV Enhancements
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
-
-# Light
-TARGET_PROVIDES_LIBLIGHT := true
-
-# BT
-BOARD_HAVE_BLUETOOTH := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/sony/falconss/bluetooth
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := D2004,D2005,D2104,D2105,D2114,falconss
@@ -136,17 +196,3 @@ BOARD_SEPOLICY_UNION += \
     system.te \
     ueventd.te \
     wpa_supplicant.te
-
-# Wlan
-BOARD_HAS_QCOM_WLAN := true
-BOARD_HAS_QCOM_WLAN_SDK := true
-BOARD_WLAN_DEVICE := qcwcn
-WPA_SUPPLICANT_VERSION := VER_0_8_X
-BOARD_WPA_SUPPLICANT_DRIVER := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-BOARD_HOSTAPD_DRIVER := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
-WIFI_DRIVER_MODULE_NAME := "wlan"
-WIFI_DRIVER_FW_PATH_STA := "sta"
-WIFI_DRIVER_FW_PATH_AP := "ap"
