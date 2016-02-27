@@ -29,7 +29,7 @@
 # Modifications are licensed under the License.
 #
 
-import init.sony.usb.rc
+import init.qcom.usb.rc
 import init.target.rc
 
 on early-init
@@ -64,8 +64,7 @@ on early-boot
     # Allow subsystem (modem etc) debugging
     write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}
     write /sys/kernel/boot_adsp/boot 1
-    exec /system/bin/sh /init.qcom.early_boot.sh ${ro.board.platform}
-    exec /system/bin/sh /init.qcom.syspart_fixup.sh ${ro.board.platform} ${ro.serialno}
+    exec /system/bin/sh /init.qcom.wifi.sh ${ro.board.platform} ${ro.serialno}
 
 on boot
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
@@ -95,6 +94,9 @@ on boot
     mkdir /dev/socket/qmux_audio 2770 media audio
     mkdir /dev/socket/qmux_bluetooth 2770 bluetooth bluetooth
     mkdir /dev/socket/qmux_gps 2770 gps gps
+
+    # create directory for scd
+    mkdir /dev/socket/scd 0755 system system
 
     setprop wifi.interface wlan0
 
@@ -184,6 +186,9 @@ on boot
     # Set the default message loglevel to KERN_INFO
     write /proc/sys/kernel/printk "6 6 1 7"
 
+    write /sys/bus/i2c/drivers/ft5x06_ts/1-0038/update_fw 1
+    chown system system /sys/class/leds/torch-light/brightness
+
 # msm specific files that need to be created on /data
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
@@ -250,6 +255,8 @@ on post-fs-data
 
     # Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
+
+    mkdir /data/credmgr 0700 system system
 
 service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
     class core

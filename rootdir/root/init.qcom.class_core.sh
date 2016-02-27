@@ -44,106 +44,6 @@ else
     soc_hwver=`cat /sys/devices/system/soc/soc0/platform_version` 2> /dev/null
 fi
 
-
-# Dynamic Memory Managment (DMM) provides a sys file system to the userspace
-# that can be used to plug in/out memory that has been configured as unstable.
-# This unstable memory can be in Active or In-Active State.
-# Each of which the userspace can request by writing to a sys file.
-#
-# ro.dev.dmm = 1; Indicates that DMM is enabled in the Android User Space. This
-# property is set in the Android system properties file.
-#
-# If ro.dev.dmm.dpd.start_address is set here then the target has a memory
-# configuration that supports DynamicMemoryManagement.
-init_DMM()
-{
-    block=-1
-
-    case "$target" in
-    "msm7630_surf" | "msm7630_1x" | "msm7630_fusion" | "msm8960")
-        ;;
-    *)
-        return
-        ;;
-    esac
-
-    mem="/sys/devices/system/memory"
-    op=`cat $mem/movable_start_bytes`
-    case "$op" in
-    "0")
-        log -p i -t DMM DMM Disabled. movable_start_bytes not set: $op
-        ;;
-
-    "$mem/movable_start_bytes: No such file or directory ")
-        log -p i -t DMM DMM Disabled. movable_start_bytes does not exist: $op
-        ;;
-
-    *)
-        log -p i -t DMM DMM available. movable_start_bytes at $op
-        movable_start_bytes=0x`cat $mem/movable_start_bytes`
-        block_size_bytes=0x`cat $mem/block_size_bytes`
-        block=$((#${movable_start_bytes}/${block_size_bytes}))
-
-        chown -h system.system $mem/memory$block/state
-        chown -h system.system $mem/probe
-        chown -h system.system $mem/active
-        chown -h system.system $mem/remove
-
-        case "$target" in
-        "msm7630_surf" | "msm7630_1x" | "msm7630_fusion")
-            echo $movable_start_bytes > $mem/probe
-            case "$?" in
-            "0")
-                log -p i -t DMM $movable_start_bytes to physical hotplug succeeded.
-                ;;
-            *)
-                log -p e -t DMM $movable_start_bytes to physical hotplug failed.
-                return
-                ;;
-            esac
-
-            echo online > $mem/memory$block/state
-            case "$?" in
-            "0")
-                log -p i -t DMM \'echo online\' to logical hotplug succeeded.
-                ;;
-            *)
-                log -p e -t DMM \'echo online\' to logical hotplug failed.
-                return
-                ;;
-            esac
-            ;;
-        esac
-
-        setprop ro.dev.dmm.dpd.start_address $movable_start_bytes
-        setprop ro.dev.dmm.dpd.block $block
-        ;;
-    esac
-
-    case "$target" in
-    "msm8960")
-        return
-        ;;
-    esac
-
-    # For 7X30 targets:
-    # ro.dev.dmm.dpd.start_address is set when the target has a 2x256Mb memory
-    # configuration. This is also used to indicate that the target is capable of
-    # setting EBI-1 to Deep Power Down or Self Refresh.
-    op=`cat $mem/low_power_memory_start_bytes`
-    case "$op" in
-    "0")
-        log -p i -t DMM Self-Refresh-Only Disabled. low_power_memory_start_bytes not set:$op
-        ;;
-    "$mem/low_power_memory_start_bytes No such file or directory ")
-        log -p i -t DMM Self-Refresh-Only Disabled. low_power_memory_start_bytes does not exist:$op
-        ;;
-    *)
-        log -p i -t DMM Self-Refresh-Only available. low_power_memory_start_bytes at $op
-        ;;
-    esac
-}
-
 #
 # For controlling console and shell on console on 8960 - perist.serial.enable 8960
 # On other target use default ro.debuggable property.
@@ -151,26 +51,7 @@ init_DMM()
 serial=`getprop persist.serial.enable`
 dserial=`getprop ro.debuggable`
 case "$target" in
-    "msm8960")
-        case "$serial" in
-            "0")
-                echo 0 > /sys/devices/platform/msm_serial_hsl.0/console
-                ;;
-            "1")
-                echo 1 > /sys/devices/platform/msm_serial_hsl.0/console
-                start console
-                ;;
-            *)
-                case "$dserial" in
-                     "1")
-                         start console
-                         ;;
-                esac
-                ;;
-        esac
-        ;;
-
-    "msm8610" | "msm8974" | "msm8226")
+    "msm8610")
 	case "$serial" in
 	     "0")
 		echo 0 > /sys/devices/f991f000.serial/console
@@ -209,19 +90,3 @@ case "$fake_batt_capacity" in
     ;;
 esac
 
-case "$target" in
-    "msm7630_surf" | "msm7630_1x" | "msm7630_fusion")
-        insmod /system/lib/modules/ss_mfcinit.ko
-        insmod /system/lib/modules/ss_vencoder.ko
-        insmod /system/lib/modules/ss_vdecoder.ko
-        chmod -h 0666 /dev/ss_mfc_reg
-        chmod -h 0666 /dev/ss_vdec
-        chmod -h 0666 /dev/ss_venc
-
-        init_DMM
-        ;;
-
-    "msm8960")
-        init_DMM
-        ;;
-esac

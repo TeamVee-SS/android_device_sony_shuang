@@ -33,20 +33,6 @@
 # do not have unique serial number.
 # User needs to set unique usb serial number to persist.usb.serialno
 #
-serialno=`getprop persist.usb.serialno`
-case "$serialno" in
-    "")
-    serialnum=`getprop ro.serialno`
-    case "$serialnum" in
-        "");; #Do nothing, use default serial number
-        *)
-        echo "$serialnum" > /sys/class/android_usb/android0/iSerial
-    esac
-    ;;
-    *)
-    echo "$serialno" > /sys/class/android_usb/android0/iSerial
-esac
-
 chown -h root.system /sys/devices/platform/msm_hsusb/gadget/wakeup
 chmod -h 220 /sys/devices/platform/msm_hsusb/gadget/wakeup
 
@@ -120,3 +106,8 @@ case "$baseband" in
           chown -h radio.radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
     ;;
 esac
+
+echo `getprop ro.serialno` > /sys/class/android_usb/android0/iSerial
+echo `getprop ro.product.manufacturer` > /sys/class/android_usb/android0/iManufacturer
+echo `getprop ro.product.manufacturer` > /sys/class/android_usb/android0/f_rndis/manufacturer
+echo `getprop ro.product.model` > /sys/class/android_usb/android0/iProduct

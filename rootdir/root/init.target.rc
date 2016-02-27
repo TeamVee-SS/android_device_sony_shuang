@@ -27,10 +27,6 @@
 #
 #
 
-on early-init
-    mkdir /firmware 0771 system system
-    symlink /data/tombstones /tombstones
-
 on fs
     mount_all fstab.qcom
     swapon_all fstab.qcom
@@ -45,30 +41,10 @@ on fs
     class_start trimarea
     exec /sbin/wait4tad_static
 
-on init
-    # create directory for scd
-    mkdir /dev/socket/scd 0755 system system
-
-on boot
-   write /sys/bus/i2c/drivers/ft5x06_ts/1-0038/update_fw 1
-   chown system system /sys/class/leds/torch-light/brightness
-
-on post-fs-data
-    mkdir /data/credmgr 0700 system system
-    mkdir /data/tombstones 0771 system system
-    mkdir /tombstones/modem 0771 system system
-
 on post-fs
     export LD_PRELOAD /vendor/lib/libNimsWrap.so
     # Change to socket location on libkeyctrl/suntory for /data encryption
     mkdir /dev/socket/suntory 0755 system system
-
-# Allow usb charging to be disabled persistently
-on property:persist.usb.chgdisabled=1
-    write /sys/class/power_supply/battery/charging_enabled 0
-
-on property:persist.usb.chgdisabled=0
-    write /sys/class/power_supply/battery/charging_enabled 1
 
 on boot
     insmod /system/lib/modules/adsprpc.ko
