@@ -172,8 +172,7 @@ TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_MAX_BRIGHTNESS := 255
 
 # Sepolicy
-BOARD_SEPOLICY_DIRS += \
-    device/sony/falconss/sepolicy
+BOARD_SEPOLICY_DIRS += device/sony/falconss/sepolicy
 
 BOARD_SEPOLICY_UNION += \
     file_contexts \
