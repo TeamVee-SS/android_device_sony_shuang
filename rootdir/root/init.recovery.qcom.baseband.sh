@@ -31,9 +31,7 @@ PATH=/sbin:/system/sbin:/system/bin:/system/xbin
 export PATH
 
 # Set baseband based on modem
-case `getprop gsm.version.baseband | grep "8x10-"` in
-	"") setprop gsm.version.baseband `strings /dev/block/platform/msm_sdcc.1/by-name/TA | grep "8x10-" | head -1` ;;
-esac
+setprop gsm.version.baseband `strings /dev/block/platform/msm_sdcc.1/by-name/TA | grep "8x10-" | head -1`
 
 # Get device based on baseband
 deviceset=`getprop gsm.version.baseband | grep -o -e "D2004" -e "D2005" -e "D2104" -e "D2105" -e "D2114" | head -1`

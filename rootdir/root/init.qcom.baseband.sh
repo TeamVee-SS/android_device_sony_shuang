@@ -31,9 +31,7 @@ PATH=/sbin:/system/sbin:/system/bin:/system/xbin
 export PATH
 
 # Set baseband based on modem
-case `getprop gsm.version.baseband | grep "8x10-"` in
-	"") setprop gsm.version.baseband `strings /dev/block/platform/msm_sdcc.1/by-name/TA | grep "8x10-" | head -1` ;;
-esac
+setprop gsm.version.baseband `strings /dev/block/platform/msm_sdcc.1/by-name/TA | grep "8x10-" | head -1`
 
 # Set essential configs
 setprop ro.build.description "`getprop ro.build.product`-`getprop ro.build.type` `getprop ro.build.version.release` `getprop ro.build.id` `getprop ro.build.version.incremental` `getprop ro.build.tags`"
