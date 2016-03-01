@@ -47,13 +47,13 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
     UNUSED(msm_ver);
     UNUSED(board_type);
 
-    fp = popen("/system/xbin/strings /dev/block/platform/msm_sdcc.1/by-name/TA | /system/bin/grep -o -e 'D2004' -e 'D2005' -e 'D2104' -e 'D2105' -e 'D2114' | /system/xbin/head -1", "r");
+    fp = popen("/system/xbin/strings /dev/block/platform/msm_sdcc.1/by-name/TA | /system/bin/grep -o -e 'D2004' -e 'D2005' -e 'D2104' -e 'D2105' -e 'D2114'", "r");
     fgets(bbversion, sizeof(bbversion), fp);
     pclose(fp);
 
     property_set("ro.product.device", bbversion);
     property_set("ro.product.model", bbversion);
-
+/*
     if (strstr(bbversion, "D2004") || strstr(bbversion, "D2005")) {
         property_set("persist.radio.multisim.config", "none");
         property_set("persist.multisim.config", "none");
@@ -62,10 +62,8 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
         property_set("persist.radio.multisim.config", "none");
         property_set("persist.multisim.config", "none");
         property_set("ro.multi.rild", "false");
-    } else {
-        property_set("persist.test.config", "WTF");
     };
-
+*/
     property_get("ro.product.device", device);
     ERROR("Found %s baseband setting build properties for %s device\n", bbversion, device);
 }
