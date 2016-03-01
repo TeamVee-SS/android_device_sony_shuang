@@ -230,6 +230,7 @@ vendor/lib/libmmosal.so
 vendor/lib/libmmparser.so
 vendor/lib/libmmstillomx.so
 vendor/lib/libnetmgr.so
+vendor/lib/libNimsWrap.so
 vendor/lib/liboemcamera.so
 vendor/lib/libOpenCL.so
 vendor/lib/libOpenVG.so
