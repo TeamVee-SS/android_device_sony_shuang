@@ -30,10 +30,12 @@
 #
 
 import init.qcom.usb.rc
-import init.target.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
+    mkdir /firmware 0771 system system
+    # Permission for /proc/cmdline
+    chmod 666 /proc/cmdline
 
 on init
     # Set permissions for persist partition
@@ -57,6 +59,20 @@ on init
     symlink /mnt/shell/emulated/0 /storage/emulated/legacy
     symlink /storage/sdcard1 /extSdCard
     symlink /storage/sdcard1 /mnt/extSdCard
+
+on fs
+    mount_all fstab.qcom
+    swapon_all fstab.qcom
+
+    wait /dev/block/platform/msm_sdcc.1/by-name/LTALabel
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/LTALabel /lta-label nosuid nodev noatime noexec ro barrier=0
+
+    chown system system /lta-label
+    chmod 0555 /lta-label
+
+    wait /dev/block/platform/msm_sdcc.1/by-name/TA
+    class_start trimarea
+    exec /sbin/wait4tad_static
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -189,6 +205,8 @@ on boot
     write /sys/bus/i2c/drivers/ft5x06_ts/1-0038/update_fw 1
     chown system system /sys/class/leds/torch-light/brightness
 
+    #insmod /system/lib/modules/adsprpc.ko
+
 # msm specific files that need to be created on /data
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
@@ -257,6 +275,11 @@ on post-fs-data
     mkdir /data/data/media 0770 media media
 
     mkdir /data/credmgr 0700 system system
+
+on post-fs
+    export LD_PRELOAD /vendor/lib/libNimsWrap.so
+    # Change to socket location on libkeyctrl/suntory for /data encryption
+    mkdir /dev/socket/suntory 0755 system system
 
 service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
     class core
@@ -578,14 +601,6 @@ service ril-daemon1 /system/bin/rild -c 1
     disabled
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 
-service ril-daemon2 /system/bin/rild -c 2
-    class main
-    socket rild2 stream 660 root radio
-    socket rild-debug2 stream 660 radio system
-    user root
-    disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
-
 service profiler_daemon /system/bin/profiler_daemon
     class late_start
     user root
@@ -641,6 +656,95 @@ service bbset /system/bin/sh /init.qcom.baseband.sh
     class main
     oneshot
 
+service scd /system/bin/scd
+    class main
+    user system
+    group system
+
+# Start the qcom-system-daemon service
+service qcomsysd /system/bin/qcom-system-daemon
+    class main
+
+service time_daemon /system/bin/time_daemon
+    class late_start
+    user root
+    group root
+
+service mpdecision /system/bin/mpdecision --avg_comp
+    user root
+    disabled
+
+# Start GNSS/Sensor interface daemon
+service gsiff_daemon /system/bin/gsiff_daemon
+    class late_start
+    user system
+    group gps net_raw
+
+service thermal-engine /system/bin/thermal-engine
+    class main
+    user root
+    group root
+
+service qseecomd /system/bin/qseecomd
+    class late_start
+    user root
+    group root
+
+service qrngd /system/bin/qrngd -f
+    class main
+    user root
+    group root
+
+service qrngp /system/bin/qrngp
+    class main
+    user root
+    group root
+    oneshot
+    disabled
+
+# Start camera server as daemon
+service qcamerasvr /system/bin/mm-qcamera-daemon
+    class late_start
+    user camera
+    group camera system inet input graphics
+
+service audiod /system/bin/audiod
+    class late_start
+    user system
+    group system
+
+service wcnss-service /system/bin/wcnss_service
+    class late_start
+    user root
+    group system wifi
+    oneshot
+
+service ppd /system/bin/mm-pp-daemon
+    class late_start
+    user system
+    socket pps stream 0660 system system
+    group system graphics
+
+# Start suntrold
+service suntrold /system/bin/suntrold
+    user system
+    group system
+    oneshot
+    class main
+
+# Start Credential manager daemon
+service credmgrd /system/bin/credmgrd
+    user system
+    group system
+    socket credmgr stream 0660 system system
+    class main
+
+service tad_static /sbin/tad_static /dev/block/platform/msm_sdcc.1/by-name/TA 0,16
+    class trimarea
+    user root
+    group root
+    socket tad stream 0660 system system
+
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
@@ -694,7 +798,6 @@ on property:persist.debug.trace=1
 
 on property:vold.decrypt=trigger_restart_framework
     start qcom-c_main-sh
-    start config_bluetooth
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
@@ -750,4 +853,16 @@ on property:persist.usb.hvdcp.detect=true
 
 on property:persist.usb.hvdcp.detect=false
     stop hvdcp
+
+on property:gsm.nitz.time=*
+    exec /system/bin/scdnotifier nitz
+
+on property:sys.boot_completed=1
+    start qrngp
+
+on property:init.svc.surfaceflinger=stopped
+    stop ppd
+
+on property:init.svc.surfaceflinger=running
+    start ppd
 
