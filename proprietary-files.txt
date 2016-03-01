@@ -51,6 +51,7 @@ lib/libmorpho_scene_detector.so
 lib/libmorpho_super_resolution.so
 lib/libmorpho_wdr.so
 lib/libpin-cache.so
+lib/libqomx_core.so
 lib/libril.so
 lib/librilutils.so
 lib/libta.so
