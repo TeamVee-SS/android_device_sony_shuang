@@ -54,6 +54,7 @@ lib/libpin-cache.so
 lib/libril.so
 lib/librilutils.so
 lib/libta.so
+vendor/firmware/keymaster/keymaster.mdt
 vendor/lib/egl/eglsubAndroid.so
 vendor/lib/egl/libEGL_adreno.so
 vendor/lib/egl/libGLESv1_CM_adreno.so
