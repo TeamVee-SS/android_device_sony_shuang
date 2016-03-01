@@ -21,37 +21,38 @@ ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure="false"
 endif
 # USB
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config="mtp"
-# QCOM Display
-PRODUCT_PROPERTY_OVERRIDES += debug.sf.fb_always_on="1"
-PRODUCT_PROPERTY_OVERRIDES += debug.egl.hw="1"
-PRODUCT_PROPERTY_OVERRIDES += debug.sf.hw="1"
-PRODUCT_PROPERTY_OVERRIDES += debug.composition.type="dyn"
-PRODUCT_PROPERTY_OVERRIDES += persist.hwc.mdpcomp.enable="true"
-PRODUCT_PROPERTY_OVERRIDES += debug.mdpcomp.logs="0"
-PRODUCT_PROPERTY_OVERRIDES += debug.enabletr="0"
 # QCOM
 PRODUCT_PROPERTY_OVERRIDES += com.qc.hardware="true"
-# Media
-PRODUCT_PROPERTY_OVERRIDES += lpa.decode="true"
-PRODUCT_PROPERTY_OVERRIDES += qcom.hw.aac.encoder="true"
-PRODUCT_PROPERTY_OVERRIDES += ro.sf.lcd_density="240"
-# HWC
-PRODUCT_PROPERTY_OVERRIDES += persist.hwc.mdpcomp.enable="true"
-# OffLoad
-PRODUCT_PROPERTY_OVERRIDES += av.offload.enable="false"
-PRODUCT_PROPERTY_OVERRIDES += av.streaming.offload.enable="false"
-# Smooth Streaming
-PRODUCT_PROPERTY_OVERRIDES += mm.enable.smoothstreaming="true"
-# Audio
-PRODUCT_PROPERTY_OVERRIDES += audio.offload.24bit.enable="false"
-PRODUCT_PROPERTY_OVERRIDES += audio.offload.buffer.size.kb="32"
-PRODUCT_PROPERTY_OVERRIDES += audio.offload.gapless.enabled="false"
-PRODUCT_PROPERTY_OVERRIDES += audio.offload.multiple.enabled="false"
-PRODUCT_PROPERTY_OVERRIDES += audio.offload.pcm.enable="true"
-# RIL
 PRODUCT_PROPERTY_OVERRIDES += ro.vendor.extension_library="/vendor/lib/libqc-opt.so"
+PRODUCT_PROPERTY_OVERRIDES += ro.use_data_netmgrd="true"
+PRODUCT_PROPERTY_OVERRIDES += persist.timed.enable="true"
+# OPENGL
+PRODUCT_PROPERTY_OVERRIDES += ro.opengles.version="196608"
+# Debug
+PRODUCT_PROPERTY_OVERRIDES += debug.sf.fb_always_on="1"
+PRODUCT_PROPERTY_OVERRIDES += debug.egl.hw="1"
+PRODUCT_PROPERTY_OVERRIDES += debug.gralloc.map_fb_memory="0"
+PRODUCT_PROPERTY_OVERRIDES += debug.composition.type="dyn"
+# Persist
+PRODUCT_PROPERTY_OVERRIDES += persist.hwc.mdpcomp.enable="true"
+PRODUCT_PROPERTY_OVERRIDES += persist.cne.feature="1"
+# Audio
+PRODUCT_PROPERTY_OVERRIDES += audio.offload.buffer.size.kb="32"
+PRODUCT_PROPERTY_OVERRIDES += audio.offload.gapless.enabled="true"
+PRODUCT_PROPERTY_OVERRIDES += av.offload.enable="false"
+PRODUCT_PROPERTY_OVERRIDES += ro.qc.sdk.audio.ssr="false"
+PRODUCT_PROPERTY_OVERRIDES += ro.qc.sdk.audio.fluencetype="fluence"
+PRODUCT_PROPERTY_OVERRIDES += persist.audio.fluence.voicecall="true"
+PRODUCT_PROPERTY_OVERRIDES += persist.audio.fluence.voicerec="true"
+PRODUCT_PROPERTY_OVERRIDES += persist.audio.fluence.speaker="false"
+PRODUCT_PROPERTY_OVERRIDES += tunnel.audio.encode="false"
+PRODUCT_PROPERTY_OVERRIDES += use.voice.path.for.pcm.voip="true"
+# FM Transmitter
+PRODUCT_PROPERTY_OVERRIDES += ro.fm.transmitter="false"
+# RIL
 PRODUCT_PROPERTY_OVERRIDES += persist.radio.apm_sim_not_pwdn="1"
 PRODUCT_PROPERTY_OVERRIDES += rild.libpath="/vendor/lib/libril-qc-qmi-1.so"
+PRODUCT_PROPERTY_OVERRIDES += rild.libargs="-d /dev/smd0"
 PRODUCT_PROPERTY_OVERRIDES += persist.rild.nitz_plmn=""
 PRODUCT_PROPERTY_OVERRIDES += persist.rild.nitz_long_ons_0=""
 PRODUCT_PROPERTY_OVERRIDES += persist.rild.nitz_long_ons_1=""
@@ -63,3 +64,19 @@ PRODUCT_PROPERTY_OVERRIDES += persist.rild.nitz_short_ons_2=""
 PRODUCT_PROPERTY_OVERRIDES += persist.rild.nitz_short_ons_3=""
 PRODUCT_PROPERTY_OVERRIDES += ril.subscription.types="NV,RUIM"
 PRODUCT_PROPERTY_OVERRIDES += DEVICE_PROVISIONED="1"
+PRODUCT_PROPERTY_OVERRIDES += persist.radio.msgtunnel.start="false"
+PRODUCT_PROPERTY_OVERRIDES += persist.radio.atfwd.start="true"
+PRODUCT_PROPERTY_OVERRIDES += telephony.lteOnCdmaDevice="0"
+PRODUCT_PROPERTY_OVERRIDES += persist.radio.rat_on="legacy"
+PRODUCT_PROPERTY_OVERRIDES += gsm.isNoServiceOnFstSub="false"
+PRODUCT_PROPERTY_OVERRIDES += gsm.isNoServiceOnSecSub="false"
+# Media
+PRODUCT_PROPERTY_OVERRIDES += media.stagefright.enable-player="true"
+PRODUCT_PROPERTY_OVERRIDES += media.stagefright.enable-http="true"
+PRODUCT_PROPERTY_OVERRIDES += media.stagefright.enable-aac="true"
+PRODUCT_PROPERTY_OVERRIDES += media.stagefright.enable-qcp="true"
+PRODUCT_PROPERTY_OVERRIDES += media.stagefright.enable-fma2dp="true"
+PRODUCT_PROPERTY_OVERRIDES += media.stagefright.enable-scan="true"
+PRODUCT_PROPERTY_OVERRIDES += mmp.enable.3g2="true"
+PRODUCT_PROPERTY_OVERRIDES += media.aac_51_output_enabled="true"
+PRODUCT_PROPERTY_OVERRIDES += mm.enable.qcom_parser="37491"
