@@ -53,17 +53,17 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
 
     property_set("ro.product.device", bbversion);
     property_set("ro.product.model", bbversion);
-/*
+
     if (strstr(bbversion, "D2004") || strstr(bbversion, "D2005")) {
         property_set("persist.radio.multisim.config", "none");
         property_set("persist.multisim.config", "none");
         property_set("ro.multi.rild", "false");
     } else if (strstr(bbversion, "D2104") || strstr(bbversion, "D2105") || strstr(bbversion, "D2114")) {
-        property_set("persist.radio.multisim.config", "none");
-        property_set("persist.multisim.config", "none");
-        property_set("ro.multi.rild", "false");
+        property_set("persist.radio.multisim.config", "dsds");
+        property_set("persist.multisim.config", "dsds");
+        property_set("ro.multi.rild", "true");
     };
-*/
+
     property_get("ro.product.device", device);
     ERROR("Found %s baseband setting build properties for %s device\n", bbversion, device);
 }
