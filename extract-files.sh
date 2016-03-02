@@ -18,8 +18,8 @@ for FILE in `egrep -v '(^#|^$)' proprietary-files.txt`; do
   if [ ! -d ../../../vendor/sony/falconss/proprietary/$DIR ]; then
     mkdir -p ../../../vendor/sony/falconss/proprietary/$DIR
   fi
-  # Try CM target first
-  adb pull /system/$FILE ../../../vendor/sony/falconss/proprietary/$FILE
+  # Use a local system folder to get files
+  cp ../system/$FILE ../../../vendor/sony/falconss/proprietary/$FILE
   # if file does not exist try OEM target
   if [ "$?" != "0" ]
   then
