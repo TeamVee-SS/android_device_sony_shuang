@@ -18,7 +18,6 @@ etc/firmware/image/keymaste.b01
 etc/firmware/image/keymaste.b02
 etc/firmware/image/keymaste.b03
 etc/firmware/image/keymaste.mdt
-etc/firmware/wlan/prima/WCNSS_cfg.dat
 etc/firmware/a225p5_pm4.fw
 etc/firmware/a225_pfp.fw
 etc/firmware/a225_pm4.fw
