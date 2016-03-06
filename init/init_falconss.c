@@ -47,7 +47,7 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
     UNUSED(msm_ver);
     UNUSED(board_type);
 
-    fp = popen("/system/xbin/strings /dev/block/platform/msm_sdcc.1/by-name/TA | /system/bin/grep -o -e 'D2004' -e 'D2005' -e 'D2104' -e 'D2105' -e 'D2114'", "r");
+    fp = popen("/system/xbin/strings /dev/block/platform/msm_sdcc.1/by-name/TA | /system/bin/grep -o -e 'D2004' -e 'D2005' -e 'D2104' -e 'D2105' -e 'D2114' | /system/xbin/head -1", "r");
     fgets(bbversion, sizeof(bbversion), fp);
     pclose(fp);
 
