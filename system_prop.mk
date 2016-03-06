@@ -70,6 +70,7 @@ PRODUCT_PROPERTY_OVERRIDES += telephony.lteOnCdmaDevice="0"
 PRODUCT_PROPERTY_OVERRIDES += persist.radio.rat_on="legacy"
 PRODUCT_PROPERTY_OVERRIDES += gsm.isNoServiceOnFstSub="false"
 PRODUCT_PROPERTY_OVERRIDES += gsm.isNoServiceOnSecSub="false"
+PRODUCT_PROPERTY_OVERRIDES += ro.telephony.call_ring.multiple="false"
 # Media
 PRODUCT_PROPERTY_OVERRIDES += media.stagefright.enable-player="true"
 PRODUCT_PROPERTY_OVERRIDES += media.stagefright.enable-http="true"
@@ -80,3 +81,5 @@ PRODUCT_PROPERTY_OVERRIDES += media.stagefright.enable-scan="true"
 PRODUCT_PROPERTY_OVERRIDES += mmp.enable.3g2="true"
 PRODUCT_PROPERTY_OVERRIDES += media.aac_51_output_enabled="true"
 PRODUCT_PROPERTY_OVERRIDES += mm.enable.qcom_parser="37491"
+# WiFi
+PRODUCT_PROPERTY_OVERRIDES += wifi.interface="wlan0"

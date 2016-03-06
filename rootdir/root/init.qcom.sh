@@ -26,135 +26,30 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-target=`getprop ro.board.platform`
-if [ -f /sys/devices/soc0/soc_id ]; then
-    platformid=`cat /sys/devices/soc0/soc_id`
-else
-    platformid=`cat /sys/devices/system/soc/soc0/id`
-fi
-#
-# Function to start sensors for DSPS enabled platforms
-#
-start_sensors()
-{
-    if [ -c /dev/msm_dsps -o -c /dev/sensors ]; then
-        chmod -h 775 /persist/sensors
-        chmod -h 664 /persist/sensors/sensors_settings
-        chown -h system.root /persist/sensors/sensors_settings
-
-        mkdir -p /data/misc/sensors
-        chmod -h 775 /data/misc/sensors
-
-        start sensors
-    fi
-}
-
-start_battery_monitor()
-{
-	if ls /sys/bus/spmi/devices/qpnp-bms-*/fcc_data ; then
-		chown -h root.system /sys/module/pm8921_bms/parameters/*
-		chown -h root.system /sys/module/qpnp_bms/parameters/*
-		chown -h root.system /sys/bus/spmi/devices/qpnp-bms-*/fcc_data
-		chown -h root.system /sys/bus/spmi/devices/qpnp-bms-*/fcc_temp
-		chown -h root.system /sys/bus/spmi/devices/qpnp-bms-*/fcc_chgcyl
-		chmod -h 0660 /sys/module/qpnp_bms/parameters/*
-		chmod -h 0660 /sys/module/pm8921_bms/parameters/*
-		mkdir -p /data/bms
-		chown -h root.system /data/bms
-		chmod -h 0770 /data/bms
-		start battery_monitor
-	fi
-}
-
-start_charger_monitor()
-{
-	if ls /sys/module/qpnp_charger/parameters/charger_monitor; then
-		chown -h root.system /sys/module/qpnp_charger/parameters/*
-		chown -h root.system /sys/class/power_supply/battery/input_current_max
-		chown -h root.system /sys/class/power_supply/battery/input_current_trim
-		chown -h root.system /sys/class/power_supply/battery/input_current_settled
-		chown -h root.system /sys/class/power_supply/battery/voltage_min
-		chmod -h 0664 /sys/class/power_supply/battery/input_current_max
-		chmod -h 0664 /sys/class/power_supply/battery/input_current_trim
-		chmod -h 0664 /sys/class/power_supply/battery/input_current_settled
-		chmod -h 0664 /sys/class/power_supply/battery/voltage_min
-		chmod -h 0664 /sys/module/qpnp_charger/parameters/charger_monitor
-		start charger_monitor
-	fi
-}
-
-baseband=`getprop ro.baseband`
-izat_premium_enablement=`getprop ro.qc.sdk.izat.premium_enabled`
-izat_service_mask=`getprop ro.qc.sdk.izat.service_mask`
-
-#
-# Suppress default route installation during RA for IPV6; user space will take
-# care of this
-# exception default ifc
 for file in /proc/sys/net/ipv6/conf/*
-do
-  echo 0 > $file/accept_ra_defrtr
+	do echo 0 > $file/accept_ra_defrtr
 done
 echo 1 > /proc/sys/net/ipv6/conf/default/accept_ra_defrtr
 
-#
-# Start gpsone_daemon for SVLTE Type I & II devices
-#
-
-# platform id 126 is for MSM8974
-case "$platformid" in
-        "126")
-        start gpsone_daemon
-esac
-case "$baseband" in
-        "svlte2a")
-        start gpsone_daemon
-        start bridgemgrd
-        ;;
-        "sglte" | "sglte2")
-        start gpsone_daemon
-        ;;
-esac
-
-let "izat_service_gtp_wifi=$izat_service_mask & 2#1"
-let "izat_service_gtp_wwan_lite=($izat_service_mask & 2#10)>>1"
-let "izat_service_pip=($izat_service_mask & 2#100)>>2"
-
-if [ "$izat_premium_enablement" -ne 1 ]; then
-    if [ "$izat_service_gtp_wifi" -ne 0 ]; then
-# GTP WIFI bit shall be masked by the premium service flag
-        let "izat_service_gtp_wifi=0"
-    fi
+if [ -c /dev/msm_dsps -o -c /dev/sensors ]; then
+	chmod -h 775 /persist/sensors
+	chmod -h 664 /persist/sensors/sensors_settings
+	chown -h system.root /persist/sensors/sensors_settings
+	mkdir -p /data/misc/sensors
+	chmod -h 775 /data/misc/sensors
+	start sensors
 fi
 
-if [ "$izat_service_gtp_wwan_lite" -ne 0 ] ||
-   [ "$izat_service_gtp_wifi" -ne 0 ] ||
-   [ "$izat_service_pip" -ne 0 ]; then
-# OS Agent would also be started under the same condition
-    start location_mq
+if ls /sys/module/qpnp_charger/parameters/charger_monitor; then
+	chown -h root.system /sys/module/qpnp_charger/parameters/*
+	chown -h root.system /sys/class/power_supply/battery/input_current_max
+	chown -h root.system /sys/class/power_supply/battery/input_current_trim
+	chown -h root.system /sys/class/power_supply/battery/input_current_settled
+	chown -h root.system /sys/class/power_supply/battery/voltage_min
+	chmod -h 0664 /sys/class/power_supply/battery/input_current_max
+	chmod -h 0664 /sys/class/power_supply/battery/input_current_trim
+	chmod -h 0664 /sys/class/power_supply/battery/input_current_settled
+	chmod -h 0664 /sys/class/power_supply/battery/voltage_min
+	chmod -h 0664 /sys/module/qpnp_charger/parameters/charger_monitor
+	start charger_monitor
 fi
-
-if [ "$izat_service_gtp_wwan_lite" -ne 0 ] ||
-   [ "$izat_service_gtp_wifi" -ne 0 ]; then
-# start GTP services shared by WiFi and WWAN Lite
-    start xtwifi_inet
-    start xtwifi_client
-fi
-
-if [ "$izat_service_gtp_wifi" -ne 0 ] ||
-   [ "$izat_service_pip" -ne 0 ]; then
-# advanced WiFi scan service shared by WiFi and PIP
-    start lowi-server
-fi
-
-if [ "$izat_service_pip" -ne 0 ]; then
-# PIP services
-    start quipc_main
-    start quipc_igsn
-fi
-
-start_sensors
-
-case "$target" in
-    "msm8610") start_charger_monitor;;
-esac
