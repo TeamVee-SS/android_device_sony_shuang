@@ -1,7 +1,6 @@
 bin/ATFWD-daemon
 bin/bridgemgrd
 bin/btnvtool
-bin/btsnoop
 bin/charger_monitor
 bin/cnd
 bin/credmgrd
@@ -10,10 +9,8 @@ bin/ds_fmc_appd
 bin/dun-server
 bin/fm_qsoc_patches
 bin/ftmdaemon
-bin/gsiff_daemon
 bin/hci_qcomm_init
 bin/irsc_util
-bin/mmi
 bin/mm-pp-daemon
 bin/mm-qcamera-daemon
 bin/mpdecision
@@ -28,7 +25,6 @@ bin/rild
 bin/rmt_storage
 bin/sapd
 bin/scd
-bin/ssr_diag
 bin/suntrold
 bin/thermal-engine
 bin/time_daemon
@@ -133,6 +129,7 @@ lib/libchromatix_imx135_liveshot.so
 lib/libcredential-manager-service.so
 lib/libdivxdrmdecrypt.so
 lib/libdrmdecrypt.so
+lib/libface.so
 lib/lib_get_secure_mode.so
 lib/libkeyctrl.so
 lib/liblights-core.so

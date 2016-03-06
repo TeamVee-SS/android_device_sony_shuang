@@ -328,13 +328,6 @@ service bt-sap /system/bin/sapd 15
     disabled
     oneshot
 
-service btsnoop /system/bin/btsnoop
-    user bluetooth
-    group bluetooth net_bt_admin sdcard_rw sdcard_r
-    class late_start
-    disabled
-    oneshot
-
 service ftmd /system/bin/ftmdaemon
     class late_start
     user root
@@ -492,17 +485,6 @@ service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1
 service charger /charger
     class charger
 
-service ssr_diag /system/bin/ssr_diag
-    class late_start
-    user system
-    group system
-
-# Define fastmmi
-service fastmmi /system/bin/mmi
-    user root
-    group root
-    disabled
-
 service charger_monitor /system/bin/charger_monitor
     user system
     group system
@@ -543,12 +525,6 @@ service time_daemon /system/bin/time_daemon
 service mpdecision /system/bin/mpdecision --avg_comp
     user root
     disabled
-
-# Start GNSS/Sensor interface daemon
-service gsiff_daemon /system/bin/gsiff_daemon
-    class late_start
-    user system
-    group gps net_raw
 
 service thermal-engine /system/bin/thermal-engine
     class main
@@ -628,12 +604,6 @@ on property:bluetooth.dun.status=stopped
 on property:ro.bluetooth.ftm_enabled=true
     start ftmd
 
-on property:bluetooth.startbtsnoop=true
-    start btsnoop
-
-on property:bluetooth.startbtsnoop=false
-    stop btsnoop
-
 on property:persist.radio.atfwd.start=false
     stop atfwd
 
@@ -684,10 +654,6 @@ on property:sys.boot_completed=1
 
 on property:persist.data.ds_fmc_app.mode=1
     start ds_fmc_appd
-
-# SSR setting
-on property:persist.sys.ssr.restart_level=*
-    exec /system/bin/sh /init.qcom.ssr.sh ${persist.sys.ssr.restart_level}
 
 on property:sys.boot_completed=1
     start qrngp
