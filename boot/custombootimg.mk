@@ -20,11 +20,33 @@ $(INSTALLED_DTIMAGE_TARGET): \
 	        $(KERNEL_OUT)/arch/arm/boot/
 	@echo "----- Made DT image: $@ ------"
 
+recovery_uncompressed_ramdisk := $(PRODUCT_OUT)/ramdisk-recovery.cpio
+recovery_uncompressed_device_ramdisk := $(PRODUCT_OUT)/ramdisk-recovery-device.cpio
+$(recovery_uncompressed_device_ramdisk): $(MKBOOTFS) \
+		$(INTERNAL_RECOVERYIMAGE_FILES) \
+		$(recovery_initrc) $(recovery_sepolicy) $(recovery_kernel) \
+		$(INSTALLED_2NDBOOTLOADER_TARGET) \
+		$(recovery_build_prop) $(recovery_resource_deps) $(recovery_root_deps) \
+		$(recovery_fstab) \
+		$(RECOVERY_INSTALL_OTA_KEYS) \
+		$(INTERNAL_BOOTIMAGE_FILES)
+	$(call build-recoveryramdisk)
+	@echo "----- Making uncompressed recovery ramdisk ------"
+	$(hide) $(MKBOOTFS) $(TARGET_RECOVERY_ROOT_OUT) > $@
+	$(hide) rm -f $(recovery_uncompressed_ramdisk)
+	$(hide) cp $(recovery_uncompressed_device_ramdisk) $(recovery_uncompressed_ramdisk)
+
+recovery_ramdisk := $(PRODUCT_OUT)/ramdisk-recovery.img
+$(recovery_ramdisk): $(MINIGZIP) \
+		$(recovery_uncompressed_device_ramdisk)
+	@echo "----- Making compressed recovery ramdisk ------"
+	$(hide) $(MINIGZIP) < $(recovery_uncompressed_ramdisk) > $@
+
 INSTALLED_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
 $(INSTALLED_BOOTIMAGE_TARGET): \
 		$(PRODUCT_OUT)/kernel \
 		$(uncompressed_ramdisk) \
-		$(recovery_uncompressed_ramdisk) \
+		$(recovery_uncompressed_device_ramdisk) \
 		$(INSTALLED_RAMDISK_TARGET) \
 		$(MKBOOTIMG) $(MINIGZIP) \
 		$(INTERNAL_BOOTIMAGE_FILES) \
@@ -45,7 +67,7 @@ $(INSTALLED_BOOTIMAGE_TARGET): \
 	        --dt $(INSTALLED_DTIMAGE_TARGET) \
 	        $(BOARD_MKBOOTIMG_ARGS) \
 	        -o $(INSTALLED_BOOTIMAGE_TARGET)
-	@echo "----- Made boot image: $@ --------"
+	$(call pretty,"Made boot image: $@")
 
 INSTALLED_RECOVERYIMAGE_TARGET := $(PRODUCT_OUT)/recovery.img
 $(INSTALLED_RECOVERYIMAGE_TARGET): \
@@ -54,6 +76,7 @@ $(INSTALLED_RECOVERYIMAGE_TARGET): \
 		$(recovery_kernel) \
 		$(INSTALLED_DTIMAGE_TARGET)
 	@echo "----- Making recovery image ------"
+	$(call build-recoveryimage-target, $@)
 	$(hide) $(MKBOOTIMG) \
 	        --kernel $(PRODUCT_OUT)/kernel \
 	        --ramdisk $(recovery_ramdisk) \
@@ -63,4 +86,4 @@ $(INSTALLED_RECOVERYIMAGE_TARGET): \
 	        --dt $(INSTALLED_DTIMAGE_TARGET) \
 	        $(BOARD_MKBOOTIMG_ARGS) \
 	        -o $(INSTALLED_RECOVERYIMAGE_TARGET)
-	@echo "----- Made recovery image: $@ --------"
+	$(call pretty,"Made recovery image: $@")
