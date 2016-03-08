@@ -311,8 +311,6 @@ on post-fs-data
     chmod 2770 /dev/socket/mpdecision
 
     # Create PERFD deamon related dirs
-    mkdir /data/misc/perfd 0755 root system
-    chmod 2755 /data/misc/perfd
     mkdir /data/system/perfd 0770 root system
     chmod 2770 /data/system/perfd
 
@@ -433,6 +431,7 @@ service mpdecision /system/bin/mpdecision --avg_comp
     class main
     user root
     disabled
+    socket perfd seqpacket 0666 root system
 
 service thermal-engine /system/vendor/bin/thermal-engine
     class main
