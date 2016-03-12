@@ -17,8 +17,6 @@ bin/mpdecision
 bin/netmgrd
 bin/ptt_socket_app
 bin/qmuxd
-bin/qrngd
-bin/qrngp
 bin/qseecomd
 bin/rfs_access
 bin/rild
@@ -26,12 +24,12 @@ bin/rmt_storage
 bin/sapd
 bin/scd
 bin/suntrold
+bin/ta_qmi_service
 bin/thermal-engine
 bin/time_daemon
 bin/updatemiscta
 bin/usbhub
 bin/usbhub_init
-bin/wcnss_service
 etc/firmware/a225p5_pm4.fw
 etc/firmware/a225_pfp.fw
 etc/firmware/a225_pm4.fw
@@ -127,7 +125,6 @@ lib/hw/camera.msm8610.so
 lib/hw/lights.msm8610.so
 lib/libchromatix_imx135_liveshot.so
 lib/libcredential-manager-service.so
-lib/libdivxdrmdecrypt.so
 lib/libdrmdecrypt.so
 lib/libface.so
 lib/lib_get_secure_mode.so
@@ -152,7 +149,6 @@ lib/libmorpho_wdr.so
 lib/libpin-cache.so
 lib/libqomx_core.so
 lib/libril.so
-lib/librilutils.so
 lib/libta.so
 vendor/firmware/keymaster/keymaster.b00
 vendor/firmware/keymaster/keymaster.b01
