@@ -111,7 +111,6 @@ PRODUCT_PACKAGES += libqcomvoiceprocessing
 # Qcom SoftAP & wifi
 PRODUCT_PACKAGES += libQWiFiSoftApCfg
 
-PRODUCT_PACKAGES += libc2dcolorconvert
 PRODUCT_PACKAGES += libstagefrighthw
 PRODUCT_PACKAGES += libOmxCore
 PRODUCT_PACKAGES += libmm-omxcore
