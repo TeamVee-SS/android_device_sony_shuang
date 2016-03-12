@@ -154,9 +154,6 @@ PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 PRODUCT_PACKAGES += extract_elf_ramdisk
 PRODUCT_PACKAGES += dtbToolCM
 
-# Setup Wizard
-PRODUCT_PACKAGES += CMAccount
-
 PRODUCT_COPY_FILES += kernel/sony/falconss/drivers/staging/prima/firmware_bin/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat
 PRODUCT_COPY_FILES += kernel/sony/falconss/drivers/staging/prima/firmware_bin/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini
 
