@@ -21,6 +21,8 @@ ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure="false"
 endif
 # USB
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config="mtp"
+# Density
+PRODUCT_PROPERTY_OVERRIDES += ro.sf.lcd_density="240"
 # QCOM
 PRODUCT_PROPERTY_OVERRIDES += com.qc.hardware="true"
 PRODUCT_PROPERTY_OVERRIDES += ro.vendor.extension_library="/vendor/lib/libqc-opt.so"
