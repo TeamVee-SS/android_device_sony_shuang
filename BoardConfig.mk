@@ -185,6 +185,9 @@ TW_FLASH_FROM_STORAGE := true
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_MAX_BRIGHTNESS := 255
 
+# Override healthd HAL
+BOARD_HAL_STATIC_LIBRARIES := libhealthd.qcom
+
 # Sepolicy
 BOARD_SEPOLICY_DIRS += device/sony/falconss/sepolicy
 
