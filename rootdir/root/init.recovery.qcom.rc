@@ -26,5 +26,9 @@
 #
 import init.qcom.usb.rc
 
+on init
+    # Disable framebuffer alignment
+    write /sys/module/msm_fb/parameters/align_buffer 0
+
 service vee_main-sh /sbin/sh /init.recovery.qcom.baseband.sh
     oneshot
