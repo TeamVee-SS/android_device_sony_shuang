@@ -4,7 +4,7 @@
 
 TEMP="$1"
 
-rm -rf ../../../vendor/sony/falconss/proprietary/*
+rm -rf $(ls ../../../vendor/sony/falconss/proprietary/ | grep -v .git)
 
 for FILE in `egrep -v '(^#|^$)' proprietary-files.txt`; do
   OLDIFS=$IFS IFS=":" PARSING_ARRAY=($FILE) IFS=$OLDIFS
