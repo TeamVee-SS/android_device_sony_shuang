@@ -121,8 +121,8 @@ etc/firmware/widevine.b01
 etc/firmware/widevine.b02
 etc/firmware/widevine.b03
 etc/firmware/widevine.mdt
-lib/hw/camera.msm8610.so
-lib/hw/lights.msm8610.so
+lib/hw/camera.msm8610.so:lib/hw/camera.vendor.msm8610.so
+lib/hw/lights.msm8610.so:lib/hw/lights.vendor.msm8610.so
 lib/libchromatix_imx135_liveshot.so
 lib/libcredential-manager-service.so
 lib/libdrmdecrypt.so
