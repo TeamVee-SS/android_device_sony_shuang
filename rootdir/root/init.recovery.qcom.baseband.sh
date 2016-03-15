@@ -39,7 +39,7 @@ deviceset=`getprop gsm.version.baseband | grep -o -e "D2004" -e "D2005" -e "D210
 # Set Variant
 setprop ro.product.model "$deviceset"
 setprop ro.product.device "$deviceset"
-setprop ro.product.manufacturer "sony"
+setprop ro.product.manufacturer "Sony"
 
 # Set essential configs
 setprop ro.build.description "`getprop ro.build.product`-`getprop ro.build.type` `getprop ro.build.version.release` `getprop ro.build.id` `getprop ro.build.version.incremental` `getprop ro.build.tags`"
