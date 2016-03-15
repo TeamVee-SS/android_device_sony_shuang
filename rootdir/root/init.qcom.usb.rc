@@ -27,13 +27,7 @@
 
 on init
     write /sys/class/android_usb/android0/f_rndis/wceis 1
-    write /sys/class/android_usb/android0/f_rndis/vendorID 0FCE
-    write /sys/class/android_usb/android0/f_rndis/manufacturer Sony
-
-on boot
-    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
-    write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
-    write /sys/class/android_usb/android0/iProduct ${ro.product.model}
+    setprop persist.sys.usb.config.extra none
 
 # MTP
 on property:sys.usb.config=mtp
