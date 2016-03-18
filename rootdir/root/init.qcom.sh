@@ -54,3 +54,27 @@ if ls /sys/module/qpnp_charger/parameters/charger_monitor; then
 	chmod -h 0664 /sys/module/qpnp_charger/parameters/charger_monitor
 	start charger_monitor
 fi
+
+case `getprop ro.board.platform` in
+    "msm8610")
+        echo 4 > /sys/module/lpm_levels/enable_low_power/l2
+        echo 1 > /sys/module/msm_pm/modes/cpu0/power_collapse/suspend_enabled
+        echo 1 > /sys/module/msm_pm/modes/cpu1/power_collapse/suspend_enabled
+        echo 1 > /sys/module/msm_pm/modes/cpu0/standalone_power_collapse/suspend_enabled
+        echo 1 > /sys/module/msm_pm/modes/cpu1/standalone_power_collapse/suspend_enabled
+        echo 1 > /sys/module/msm_pm/modes/cpu0/standalone_power_collapse/idle_enabled
+        echo 1 > /sys/module/msm_pm/modes/cpu1/standalone_power_collapse/idle_enabled
+        echo 1 > /sys/module/msm_pm/modes/cpu0/power_collapse/idle_enabled
+        # Start mpdecision
+        start mpdecision
+    ;;
+esac
+
+case `getprop ro.boot.emmc` in
+    "true")
+        chown -h system /sys/devices/platform/rs300000a7.65536/force_sync
+        chown -h system /sys/devices/platform/rs300000a7.65536/sync_sts
+        chown -h system /sys/devices/platform/rs300100a7.65536/force_sync
+        chown -h system /sys/devices/platform/rs300100a7.65536/sync_sts
+    ;;
+esac
