@@ -78,8 +78,7 @@ on fs
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
-    write /sys/kernel/boot_adsp/boot 1
-    exec /system/bin/sh /init.qcom.wifi.sh ${ro.board.platform} ${ro.serialno}
+    exec /system/bin/sh /init.qcom.wifi.sh
 
 on boot
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
@@ -254,11 +253,6 @@ on post-fs-data
     mkdir /data/credmgr 0700 system system
 
     mkdir /data/misc/sensors 775
-
-on post-fs
-    export LD_PRELOAD /vendor/lib/libNimsWrap.so
-    # Change to socket location on libkeyctrl/suntory for /data encryption
-    mkdir /dev/socket/suntory 0755 system system
 
 service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
     class core
