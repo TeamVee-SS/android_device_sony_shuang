@@ -29,6 +29,4 @@ key 114   VOLUME_DOWN       WAKE_DROPPED
 key 102   HOME              WAKE_DROPPED
 key 528   FOCUS             WAKE_DROPPED
 key 766   CAMERA            WAKE_DROPPED
-#   [Arima JimCheng20130709]	add for MP3 KEY Define ++ */
-key 391   MP3               WAKE_DROPPED
-#   [Arima JimCheng20130709]	add for MP3 KEY Define  -- */
+key 391   HEADSETHOOK       WAKE_DROPPED
