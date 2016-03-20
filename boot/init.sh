@@ -8,10 +8,12 @@ busybox date >> boot.txt
 exec >> boot.txt 2>&1
 busybox rm /init
 
-triggerledrgb() {
+triggerled() {
+# Use this <http://www.nameacolor.com/Color%20numbers.htm>
 busybox echo $1 > /sys/class/leds/red/brightness
 busybox echo $2 > /sys/class/leds/green/brightness
 busybox echo $3 > /sys/class/leds/notification/brightness
+busybox echo $4 > /sys/class/leds/lm3533-light-sns/rgb_brightness
 }
 
 # include device specific vars
@@ -37,8 +39,7 @@ busybox mount -t proc proc /proc
 busybox mount -t sysfs sysfs /sys
 
 # trigger ON green LED
-triggerledrgb 0 255 0
-busybox echo "255000" > /sys/class/leds/lm3533-light-sns/rgb_brightness
+triggerled 0 255 0 65280
 
 # trigger vibration
 busybox echo 100 > /sys/class/timed_output/vibrator/enable
@@ -51,19 +52,17 @@ busybox sleep 3
 load_image=/sbin/ramdisk.cpio
 
 # boot decision
-if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline; then
-	busybox echo 'RECOVERY BOOT' >> boot.txt
+if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline
+then
+	busybox echo 0 > /sys/module/msm_fb/parameters/align_buffer
+	busybox echo "RECOVERY BOOT" >> boot.txt
 	# trigger ON cyan LED for recoveryboot
-	triggerledrgb 0 255 255
-	busybox echo "255255255" > /sys/class/leds/lm3533-light-sns/rgb_brightness
+	triggerled 0 255 255 65535
 	# recovery ramdisk
-	busybox mount -o remount,rw /
-	busybox ln -sf /sbin/busybox /sbin/sh
 	extract_elf_ramdisk -i ${BOOTREC_FOTA} -o /sbin/ramdisk-recovery.cpio -t / -c
-	busybox rm /sbin/sh
-	load_image=/sbin/ramdisk-recovery.cpio
+	load_image="/sbin/ramdisk-recovery.cpio"
 else
-	busybox echo 'ANDROID BOOT' >> boot.txt
+	busybox echo "ANDROID BOOT" >> boot.txt
 fi
 
 # kill the keycheck process
@@ -73,8 +72,7 @@ busybox pkill -f "busybox cat ${BOOTREC_EVENT}"
 busybox cpio -i < ${load_image}
 
 # trigger OFF LED
-triggerledrgb 0 0 0
-busybox echo "0" > /sys/class/leds/lm3533-light-sns/rgb_brightness
+triggerled 0 0 0 0
 
 busybox umount /proc
 busybox umount /sys
