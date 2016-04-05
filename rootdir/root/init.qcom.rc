@@ -492,10 +492,6 @@ service diag_mdlog_stop /system/bin/diag_mdlog -k
     disabled
     oneshot
 
-service bbset /system/bin/sh /init.qcom.baseband.sh
-    class main
-    oneshot
-
 service scd /system/bin/scd
     class main
     user system
