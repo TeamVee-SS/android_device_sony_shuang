@@ -39,31 +39,31 @@
 
 void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type)
 {
-    char device[PROP_VALUE_MAX];
-    char bbversion[92];
+    char gversionbb[92];
+    char dversionbb[92];
     FILE *fp;
 
     UNUSED(msm_id);
     UNUSED(msm_ver);
     UNUSED(board_type);
 
-    fp = popen("/system/xbin/strings /dev/block/platform/msm_sdcc.1/by-name/TA | /system/bin/grep -o -e 'D2004' -e 'D2005' -e 'D2104' -e 'D2105' -e 'D2114' | /system/xbin/head -1", "r");
-    fgets(bbversion, sizeof(bbversion), fp);
+    fp = popen("/system/xbin/printf $(/system/xbin/strings /dev/block/platform/msm_sdcc.1/by-name/TA | /system/bin/grep '8x10-' | /system/xbin/head -1)", "r");
+    fgets(gversionbb, sizeof(gversionbb), fp);
+    pclose(fp);
+    property_set("gsm.version.baseband", gversionbb);
+
+    fp = popen("/system/xbin/printf $(/system/xbin/strings /dev/block/platform/msm_sdcc.1/by-name/TA | /system/bin/grep -o -e 'D2004' -e 'D2005' -e 'D2104' -e 'D2105' -e 'D2114' | /system/xbin/head -1)", "r");
+    fgets(dversionbb, sizeof(dversionbb), fp);
     pclose(fp);
 
-    property_set("ro.product.device", bbversion);
-    property_set("ro.product.model", bbversion);
+    property_set("ro.product.device", dversionbb);
+    property_set("ro.product.model", dversionbb);
 
-    if (strstr(bbversion, "D2004") || strstr(bbversion, "D2005")) {
-        property_set("persist.radio.multisim.config", "none");
-        property_set("persist.multisim.config", "none");
-        property_set("ro.multi.rild", "false");
-    } else if (strstr(bbversion, "D2104") || strstr(bbversion, "D2105") || strstr(bbversion, "D2114")) {
+    if (strstr(dversionbb, "D2104") || strstr(dversionbb, "D2105") || strstr(dversionbb, "D2114")) {
         property_set("persist.radio.multisim.config", "dsds");
         property_set("persist.multisim.config", "dsds");
         property_set("ro.multi.rild", "true");
     };
 
-    property_get("ro.product.device", device);
-    ERROR("Found %s baseband setting build properties for %s device\n", bbversion, device);
+    ERROR("Found %s gsm baseband setting build properties for %s device\n", gversionbb, dversionbb);
 }

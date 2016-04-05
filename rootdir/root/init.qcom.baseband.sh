@@ -31,9 +31,6 @@
 PATH=/sbin:/system/sbin:/system/bin:/system/xbin
 export PATH
 
-# Set baseband based on modem
-setprop gsm.version.baseband `strings /dev/block/platform/msm_sdcc.1/by-name/TA | grep "8x10-" | head -1`
-
 # Set essential USB configs
 echo `getprop ro.serialno` > /sys/class/android_usb/android0/iSerial
 echo `getprop ro.product.manufacturer` > /sys/class/android_usb/android0/iManufacturer
