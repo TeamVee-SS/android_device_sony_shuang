@@ -27,10 +27,13 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-#
-# start ril-daemon only for targets on which radio is present
-#
-multisim=`getprop persist.radio.multisim.config`
-if [ "$multisim" = "dsds" ] || [ "$multisim" = "dsda" ]; then
+# Start ril-daemon1 for dualsim
+if [ $(getprop persist.radio.multisim.config) -eq dsds ]
+then
 	start ril-daemon1
 fi
+
+# Set secondary things
+setprop ro.build.description "$(getprop ro.build.product)-$(getprop ro.build.type) $(getprop ro.build.version.release) $(getprop ro.build.id) $(getprop ro.build.version.incremental) $(getprop ro.build.tags)"
+setprop ro.build.fingerprint "$(getprop ro.product.manufacturer)/$(getprop ro.build.product)/$(getprop ro.build.product):$(getprop ro.build.version.release)/$(getprop ro.build.id):$(getprop ro.build.type)/$(getprop ro.build.tags)"
+
