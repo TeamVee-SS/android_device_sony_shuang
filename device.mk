@@ -24,11 +24,6 @@ PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/sony/falconss/rootd
 # Config Files
 PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/sony/falconss/rootdir/system,system)
 
-# TWRP FSTAB V1
-$(shell mkdir -p out/target/product/falconss/recovery/root/etc)
-$(shell cp device/sony/falconss/recovery/twrp.fstab out/target/product/falconss/recovery/root/etc/twrp.fstab)
-# WORKAROUND HACK
-
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml
 PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml
