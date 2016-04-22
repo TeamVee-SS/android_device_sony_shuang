@@ -47,12 +47,12 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
     UNUSED(msm_ver);
     UNUSED(board_type);
 
-    fp = popen("/system/xbin/printf $(/system/xbin/strings /dev/block/platform/msm_sdcc.1/by-name/TA | /system/bin/grep '8x10-' | /system/xbin/head -1)", "r");
+    fp = popen("/sbin/busybox printf $(/sbin/busybox strings /dev/block/platform/msm_sdcc.1/by-name/TA | /sbin/busybox grep '8x10-' | /sbin/busybox head -1)", "r");
     fgets(gversionbb, sizeof(gversionbb), fp);
     pclose(fp);
     property_set("gsm.version.baseband", gversionbb);
 
-    fp = popen("/system/xbin/printf $(/system/xbin/strings /dev/block/platform/msm_sdcc.1/by-name/TA | /system/bin/grep -o -e 'D2004' -e 'D2005' -e 'D2104' -e 'D2105' -e 'D2114' | /system/xbin/head -1)", "r");
+    fp = popen("/sbin/busybox printf $(/sbin/busybox strings /dev/block/platform/msm_sdcc.1/by-name/TA | /sbin/busybox grep -o -e 'D2004' -e 'D2005' -e 'D2104' -e 'D2105' -e 'D2114' | /sbin/busybox head -1)", "r");
     fgets(dversionbb, sizeof(dversionbb), fp);
     pclose(fp);
 
