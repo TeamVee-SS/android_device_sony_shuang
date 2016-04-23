@@ -43,7 +43,7 @@ on init
     mkdir /lta-label 0771 system system
 
     # Symlink firmware, since we not have this partition
-    symlink /system/etc/firmware /firmware
+    #symlink /system/etc/firmware /firmware
 
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
@@ -78,7 +78,7 @@ on fs
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
-    exec /system/bin/sh /init.qcom.wifi.sh
+    #exec /system/bin/sh /init.qcom.wifi.sh
 
 on boot
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
@@ -269,12 +269,12 @@ service qcom-sh /system/bin/sh /init.qcom.sh
     user root
     oneshot
 
-service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
-    class late_start
-    user root
-    group system
-    disabled
-    oneshot
+#service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
+#    class late_start
+#    user root
+#    group system
+#    disabled
+#    oneshot
 
 # Export GPIO56 for fusion targets to enable/disable hub
 service usbhub_init /system/bin/usbhub_init
@@ -449,11 +449,11 @@ service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
     oneshot
     disabled
 
-service ds_fmc_appd /system/bin/ds_fmc_appd -p "rmnet0" -D
-    class late_start
-    group radio wifi inet
-    disabled
-    oneshot
+#service ds_fmc_appd /system/bin/ds_fmc_appd -p "rmnet0" -D
+#    class late_start
+#    group radio wifi inet
+#    disabled
+#    oneshot
 
 service ril-daemon1 /system/bin/rild -c 1
     class main
@@ -636,8 +636,8 @@ on property:drmdiag.load=0
 on property:sys.boot_completed=1
     start qcom-post-boot
 
-on property:persist.data.ds_fmc_app.mode=1
-    start ds_fmc_appd
+#on property:persist.data.ds_fmc_app.mode=1
+#    start ds_fmc_appd
 
 on property:sys.boot_completed=1
     start qrngp
