@@ -54,7 +54,6 @@ PRODUCT_PROPERTY_OVERRIDES += ro.fm.transmitter="false"
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += persist.radio.apm_sim_not_pwdn="1"
 PRODUCT_PROPERTY_OVERRIDES += rild.libpath="/vendor/lib/libril-qc-qmi-1.so"
-PRODUCT_PROPERTY_OVERRIDES += rild.libargs="-d /dev/smd0"
 PRODUCT_PROPERTY_OVERRIDES += persist.rild.nitz_plmn=""
 PRODUCT_PROPERTY_OVERRIDES += persist.rild.nitz_long_ons_0=""
 PRODUCT_PROPERTY_OVERRIDES += persist.rild.nitz_long_ons_1=""
