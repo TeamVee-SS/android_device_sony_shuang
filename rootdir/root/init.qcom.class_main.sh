@@ -1,6 +1,6 @@
 #!/system/bin/sh
 # Copyright (c) 2013, The Linux Foundation. All rights reserved.
-# Copyright (C) 2016, TeamVeeSS. All rights reserved.
+# Copyright (c) 2016, TeamVee-SS. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -36,4 +36,3 @@ fi
 # Set secondary things
 setprop ro.build.description "$(getprop ro.build.product)-$(getprop ro.build.type) $(getprop ro.build.version.release) $(getprop ro.build.id) $(getprop ro.build.version.incremental) $(getprop ro.build.tags)"
 setprop ro.build.fingerprint "$(getprop ro.product.manufacturer)/$(getprop ro.build.product)/$(getprop ro.build.product):$(getprop ro.build.version.release)/$(getprop ro.build.id):$(getprop ro.build.type)/$(getprop ro.build.tags)"
-
