@@ -26,6 +26,7 @@ PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/sbin/tad_static:root/sbi
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.sh:root/init.qcom.sh
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.rc:root/init.qcom.rc
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.class_main.sh:root/init.qcom.class_main.sh
+PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.fm.sh:root/init.qcom.fm.sh
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.wifi.sh:root/init.qcom.wifi.sh
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/fstab.qcom:root/fstab.qcom
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/ueventd.qcom.rc:root/ueventd.qcom.rc
@@ -33,8 +34,6 @@ PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.usb.rc:root/in
 
 # Config Files
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/audio_policy.conf:system/etc/audio_policy.conf
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/init.qcom.coex.sh:system/etc/init.qcom.coex.sh
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/media_codecs.xml:system/etc/media_codecs.xml
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/media_profiles.xml:system/etc/media_profiles.xml
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/mixer_paths.xml:system/etc/mixer_paths.xml

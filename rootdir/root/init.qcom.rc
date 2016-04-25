@@ -264,7 +264,7 @@ service qcom-sh /system/bin/sh /init.qcom.sh
     user root
     oneshot
 
-#service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
+#service fm_dl /system/bin/sh /init.qcom.fm.sh
 #    class late_start
 #    user root
 #    group system
