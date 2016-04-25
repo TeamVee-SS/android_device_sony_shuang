@@ -23,14 +23,14 @@ PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/sbin/wait4tad_static:roo
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/sbin/tad_static:root/sbin/tad_static
 
 # Rootdir files
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.sh:root/init.qcom.sh
+PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/fstab.qcom:root/fstab.qcom
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.rc:root/init.qcom.rc
+PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.sh:root/init.qcom.sh
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.class_main.sh:root/init.qcom.class_main.sh
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.fm.sh:root/init.qcom.fm.sh
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.wifi.sh:root/init.qcom.wifi.sh
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/fstab.qcom:root/fstab.qcom
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/ueventd.qcom.rc:root/ueventd.qcom.rc
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.usb.rc:root/init.qcom.usb.rc
+PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/init.qcom.wifi.sh:root/init.qcom.wifi.sh
+PRODUCT_COPY_FILES += device/sony/falconss/rootdir/root/ueventd.qcom.rc:root/ueventd.qcom.rc
 
 # Config Files
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/audio_policy.conf:system/etc/audio_policy.conf
@@ -38,30 +38,30 @@ PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/media_codecs.xml:s
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/media_profiles.xml:system/etc/media_profiles.xml
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/mixer_paths.xml:system/etc/mixer_paths.xml
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/sec_config:system/etc/sec_config
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/snd_soc_msm/snd_soc_msm_8x10_wcd_skuaa:system/etc/snd_soc_msm/snd_soc_msm_8x10_wcd_skuaa
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/snd_soc_msm/snd_soc_msm_8x10_wcd:system/etc/snd_soc_msm/snd_soc_msm_8x10_wcd
+PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/snd_soc_msm/snd_soc_msm_8x10_wcd_skuaa:system/etc/snd_soc_msm/snd_soc_msm_8x10_wcd_skuaa
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/snd_soc_msm/snd_soc_msm_8x10_wcd_skuab:system/etc/snd_soc_msm/snd_soc_msm_8x10_wcd_skuab
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/thermal-engine-8610.conf:system/etc/thermal-engine-8610.conf
 
 # WIFI Config Files
+PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/wcn3620/p2p_supplicant_overlay.conf:system/etc/wcn3620/p2p_supplicant_overlay.conf
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/wcn3620/wpa_supplicant_overlay.conf:system/etc/wcn3620/wpa_supplicant_overlay.conf
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/wcn3620/wpa_supplicant_wcn.conf:system/etc/wcn3620/wpa_supplicant_wcn.conf
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/wcn3620/p2p_supplicant_overlay.conf:system/etc/wcn3620/p2p_supplicant_overlay.conf
 
 # HostAPD Config Files
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/hostapd/hostapd.deny:system/etc/hostapd/hostapd.deny
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/hostapd/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf
+PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/hostapd/hostapd.deny:system/etc/hostapd/hostapd.deny
 
 # KeyLayout Files
+PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/usr/keylayout/atmel_mxt_ts.kl:system/usr/keylayout/atmel_mxt_ts.kl
+PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/usr/keylayout/ft5x06_ts.kl:system/usr/keylayout/ft5x06_ts.kl
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/usr/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/usr/keylayout/ft5x06_ts.kl:system/usr/keylayout/ft5x06_ts.kl
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/usr/keylayout/atmel_mxt_ts.kl:system/usr/keylayout/atmel_mxt_ts.kl
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml
