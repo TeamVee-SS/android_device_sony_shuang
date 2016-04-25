@@ -165,22 +165,16 @@ PRODUCT_PACKAGES += librs_jni
 PRODUCT_PACKAGES += com.android.future.usb.accessory
 
 # FM
-PRODUCT_PACKAGES += FM2
-PRODUCT_PACKAGES += FMRecord
-PRODUCT_PACKAGES += libqcomfm_jni
-PRODUCT_PACKAGES += qcom.fmradio
+#PRODUCT_PACKAGES += FM2
+#PRODUCT_PACKAGES += FMRecord
+#PRODUCT_PACKAGES += libqcomfm_jni
+#PRODUCT_PACKAGES += qcom.fmradio
 
 # Lights
 PRODUCT_PACKAGES += lights.msm8610
 
 # GPS
 PRODUCT_PACKAGES += gps.msm8610
-
-# Misc
-PRODUCT_PACKAGES += curl
-PRODUCT_PACKAGES += libbson
-PRODUCT_PACKAGES += libcurl
-PRODUCT_PACKAGES += tcpdump
 
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
