@@ -1,3 +1,5 @@
+app/com.qualcomm.location.apk
+app/com.qualcomm.msapm.apk
 bin/ATFWD-daemon
 bin/bridgemgrd
 bin/btnvtool
@@ -93,6 +95,7 @@ etc/firmware/widevine.b01
 etc/firmware/widevine.b02
 etc/firmware/widevine.b03
 etc/firmware/widevine.mdt
+etc/permissions/com.qualcomm.location.xml
 lib/hw/camera.msm8610.so:lib/hw/camera.vendor.msm8610.so
 lib/hw/lights.msm8610.so:lib/hw/lights.vendor.msm8610.so
 lib/libchromatix_imx135_liveshot.so
