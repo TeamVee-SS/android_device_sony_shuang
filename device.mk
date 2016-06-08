@@ -171,7 +171,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     p2p_supplicant_overlay.conf \
     wpa_supplicant_overlay.conf \
-    wcnss_service
+    wcnss_service \
+    wificond
 
 # Boot tools
 PRODUCT_PACKAGES += \
