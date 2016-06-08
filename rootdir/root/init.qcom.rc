@@ -105,6 +105,10 @@ on boot
 
     # Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
+    # Mark the copy complete flag to not completed
+    write /data/misc/radio/copy_complete 0
+    chown radio radio /data/misc/radio/copy_complete
+    chmod 0660 /data/misc/radio/copy_complete
 
     # Create directory for scd
     mkdir /dev/socket/scd 0755 system system
