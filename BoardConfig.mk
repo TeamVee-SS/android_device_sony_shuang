@@ -37,13 +37,12 @@ TARGET_GLOBAL_CPPFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
 TARGET_BOOTLOADER_BOARD_NAME := MSM8610
 TARGET_NO_BOOTLOADER := true
 
-BOARD_KERNEL_SEPARATED_DT := true
 BOARD_CUSTOM_BOOTIMG_MK := device/sony/falconss/boot/custombootimg.mk
 TARGET_KERNEL_CONFIG := cyanogenmod_falconss_defconfig
+BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 maxcpus=2 msm_rtb.filter=0x3F ehci-hcd.park=3 msm_rtb.enable=0 lpj=192598 dwc3.maximum_speed=high dwc3_msm.prop_chg_detect=Y androidboot.selinux=permissive
-
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01E00000
 
 WLAN_MODULES:
@@ -53,6 +52,9 @@ WLAN_MODULES:
 
 TARGET_KERNEL_MODULES += WLAN_MODULES
 
+# GPS
+TARGET_NO_RPC := true
+
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
@@ -60,24 +62,12 @@ TARGET_PROVIDES_LIBLIGHT := true
 TARGET_POWERHAL_VARIANT := qcom
 
 # Qualcomm support
-TARGET_QCOM_DISPLAY_VARIANT := caf-new
-TARGET_USES_QCOM_BSP := true
+COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 BOARD_USES_QCOM_HARDWARE := true
 
-# Camera
-USE_DEVICE_SPECIFIC_CAMERA := true
-
-# Camera ABI Compatiblily
-TARGET_DISPLAY_INSECURE_MM_HEAP := true
-
 # GPS
-BOARD_USES_QCOM_LIBRPC := true
-BOARD_USES_QCOM_GPS := true
-BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
-
-# Enable WEBGL in WebKit
-ENABLE_WEBGL := true
-TARGET_FORCE_CPU_UPLOAD := true
+TARGET_NO_RPC := true
 
 # Enables Adreno RS driver
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
@@ -87,14 +77,8 @@ TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := false
 
 # Display
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_USES_ION := true
 USE_OPENGL_RENDERER := true
-TARGET_DISPLAY_USE_RETIRE_FENCE := true
-
-# Media
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
-TARGET_QCOM_MEDIA_VARIANT := caf
 
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
@@ -112,16 +96,18 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Audio
 TARGET_QCOM_AUDIO_VARIANT := caf
+TARGET_USES_QCOM_COMPRESSED_AUDIO := true
 AUDIO_FEATURE_DISABLED_FM := false
 AUDIO_FEATURE_DISABLED_SSR := true
-BOARD_HAVE_QCOM_FM := true
 AUDIO_FEATURE_DISABLED_ANC_HEADSET := true
 AUDIO_FEATURE_DISABLED_DS1_DOLBY_DDP := true
+AUDIO_FEATURE_DEEP_BUFFER_PRIMARY := true
+AUDIO_FEATURE_DYNAMIC_VOLUME_MIXER := true
+BOARD_HAVE_QCOM_FM := true
 BOARD_USES_ALSA_AUDIO := true
 BOARD_USES_FLUENCE_INCALL := true
 BOARD_USES_SEPERATED_AUDIO_INPUT := true
 BOARD_USES_SEPERATED_VOICE_SPEAKER := true
-TARGET_USES_QCOM_COMPRESSED_AUDIO := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -152,6 +138,15 @@ TARGET_OTA_ASSERT_DEVICE := D2004,D2005,D2104,D2105,D2114,falconss
 # Enable suspend during charger mode
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
+# Override healthd HAL
+BOARD_HAL_STATIC_LIBRARIES := libhealthd.qcom
+
+# Time services
+BOARD_USES_QC_TIME_SERVICES := true
+
+# Encryption
+TARGET_HW_DISK_ENCRYPTION := true
+
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_msm
 TARGET_LIBINIT_DEFINES_FILE := device/sony/falconss/init/init_falconss.c
@@ -176,12 +171,8 @@ TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 TW_DEFAULT_EXTERNAL_STORAGE := true
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 
-# Override healthd HAL
-BOARD_HAL_STATIC_LIBRARIES := libhealthd.qcom
-
 # Sepolicy
 BOARD_SEPOLICY_DIRS += device/sony/falconss/sepolicy
-
 BOARD_SEPOLICY_UNION += \
     file_contexts \
     app.te \
