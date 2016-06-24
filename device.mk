@@ -138,9 +138,9 @@ PRODUCT_PACKAGES += \
 
 # Tiny Files
 PRODUCT_PACKAGES += \
-    tinycap
-    tinymix
-    tinypcminfo
+    tinycap \
+    tinymix \
+    tinypcminfo \
     tinyplay
 
 # JNI Files
@@ -172,6 +172,9 @@ PRODUCT_PACKAGES += \
     libOmxQcelp13Enc \
     libdivxdrmdecrypt \
     libdashplayer
+
+PRODUCT_BOOT_JARS += \
+    qcmediaplayer
 
 # USB
 PRODUCT_PACKAGES += \
