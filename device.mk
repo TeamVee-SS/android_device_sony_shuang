@@ -44,7 +44,6 @@ PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/snd_soc_msm/snd_so
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/thermal-engine-8610.conf:system/etc/thermal-engine-8610.conf
 
 # WIFI Config Files
-PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin
 PRODUCT_COPY_FILES += device/sony/falconss/rootdir/system/etc/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
