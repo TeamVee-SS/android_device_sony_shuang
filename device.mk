@@ -178,6 +178,14 @@ PRODUCT_PACKAGES += gps.msm8610
 
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
+# QRNG
+PRODUCT_PACKAGES += qrngp
+
+PRODUCT_PACKAGES += \
+    wlan_module_symlink \
+    wlan_persist_symlink \
+    wcnss_service
+
 # Boot bins
 PRODUCT_PACKAGES += extract_elf_ramdisk
 PRODUCT_PACKAGES += dtbToolCM
