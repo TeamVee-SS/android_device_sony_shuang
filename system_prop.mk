@@ -84,3 +84,5 @@ PRODUCT_PROPERTY_OVERRIDES += media.aac_51_output_enabled="true"
 PRODUCT_PROPERTY_OVERRIDES += mm.enable.qcom_parser="37491"
 # WiFi
 PRODUCT_PROPERTY_OVERRIDES += wifi.interface="wlan0"
+PRODUCT_PROPERTY_OVERRIDES += wlan.driver.ath="0"
+PRODUCT_PROPERTY_OVERRIDES += wlan.driver.config="/system/etc/wifi/WCNSS_qcom_cfg.ini"

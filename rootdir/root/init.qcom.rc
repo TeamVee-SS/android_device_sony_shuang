@@ -32,7 +32,6 @@
 import init.qcom.usb.rc
 
 on early-init
-    mount debugfs debugfs /sys/kernel/debug
     # Permission for /proc/cmdline
     chmod 666 /proc/cmdline
 
@@ -41,9 +40,6 @@ on init
     mkdir /persist 0771 system system
     mkdir /firmware 0755 system system
     mkdir /lta-label 0771 system system
-
-    # Symlink firmware, since we not have this partition
-    #symlink /system/etc/firmware /firmware
 
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
@@ -78,7 +74,6 @@ on fs
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
-    #exec /system/bin/sh /init.qcom.wifi.sh
 
 on boot
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
@@ -111,13 +106,6 @@ on boot
 
     # create directory for scd
     mkdir /dev/socket/scd 0755 system system
-
-    # Set SUID bit for usbhub
-    chmod 4755 /system/bin/usbhub
-    chmod 755 /system/bin/usbhub_init
-
-    # Remove SUID bit for iproute2 ip tool
-    chmod 0755 /system/bin/ip
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
@@ -189,8 +177,7 @@ on boot
     # an ack packet comes out of order
     write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
 
-    write /sys/bus/i2c/drivers/ft5x06_ts/1-0038/update_fw 1
-    chown system system /sys/class/leds/torch-light/brightness
+    write /sys/module/wcnsscore/parameters/has_calibrated_data 1
 
 # msm specific files that need to be created on /data
 on post-fs-data
@@ -211,17 +198,6 @@ on post-fs-data
     # Create directory used by audio subsystem
     mkdir /data/misc/audio 0770 audio audio
 
-    chmod 0664 /sys/devices/platform/msm_sdcc.1/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.2/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.4/polling
-
-    # Chown polling nodes as needed from UI running on system server
-    chown system system /sys/devices/platform/msm_sdcc.1/polling
-    chown system system /sys/devices/platform/msm_sdcc.2/polling
-    chown system system /sys/devices/platform/msm_sdcc.3/polling
-    chown system system /sys/devices/platform/msm_sdcc.4/polling
-
     # Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
     mkdir /data/system 0775 system system
 
@@ -236,9 +212,6 @@ on post-fs-data
     # Create directory from IMS services
     mkdir /data/shared 0755 system system
 
-    # Create directory for FOTA
-    mkdir /data/fota 0771 system system
-
     # Create directory for hostapd
     mkdir /data/hostapd 0770 system wifi
 
@@ -251,8 +224,6 @@ on post-fs-data
     mkdir /data/data/media 0770 media media
 
     mkdir /data/credmgr 0700 system system
-
-    mkdir /data/misc/sensors 775
 
 service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
     class main

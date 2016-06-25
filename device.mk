@@ -34,7 +34,6 @@ PRODUCT_COPY_FILES += \
     device/sony/falconss/rootdir/root/init.qcom.class_main.sh:root/init.qcom.class_main.sh \
     device/sony/falconss/rootdir/root/init.qcom.fm.sh:root/init.qcom.fm.sh \
     device/sony/falconss/rootdir/root/init.qcom.usb.rc:root/init.qcom.usb.rc \
-    device/sony/falconss/rootdir/root/init.qcom.wifi.sh:root/init.qcom.wifi.sh \
     device/sony/falconss/rootdir/root/sbin/wait4tad_static:root/sbin/wait4tad_static \
     device/sony/falconss/rootdir/root/sbin/tad_static:root/sbin/tad_static \
     device/sony/falconss/rootdir/root/ueventd.qcom.rc:root/ueventd.qcom.rc
@@ -52,7 +51,7 @@ PRODUCT_COPY_FILES += \
     device/sony/falconss/rootdir/system/etc/thermal-engine-8610.conf:system/etc/thermal-engine-8610.conf \
     device/sony/falconss/rootdir/system/etc/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
     device/sony/falconss/rootdir/system/etc/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
-    device/sony/falconss/rootdir/system/etc/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    device/sony/falconss/rootdir/system/etc/wifi/WCNSS_qcom_wlan_cal.bin:system/etc/wifi/WCNSS_qcom_wlan_cal.bin \
     device/sony/falconss/rootdir/system/etc/wcn3620/p2p_supplicant_overlay.conf:system/etc/wcn3620/p2p_supplicant_overlay.conf \
     device/sony/falconss/rootdir/system/etc/wcn3620/wpa_supplicant_overlay.conf:system/etc/wcn3620/wpa_supplicant_overlay.conf \
     device/sony/falconss/rootdir/system/etc/wcn3620/wpa_supplicant_wcn.conf:system/etc/wcn3620/wpa_supplicant_wcn.conf \
@@ -91,6 +90,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     kernel/sony/falconss/drivers/staging/prima/firmware_bin/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
     kernel/sony/falconss/drivers/staging/prima/firmware_bin/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini
+
+# WiFi firmware
+PRODUCT_COPY_FILES += \
+    device/sony/falconss/rootdir/system/etc/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/WCNSS_qcom_wlan_nv.bin
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -195,7 +198,6 @@ PRODUCT_PACKAGES += \
 # WiFi Hacks
 PRODUCT_PACKAGES += \
     wlan_module_symlink \
-    wlan_persist_symlink \
     wcnss_service
 
 # Sony Kernel Things
