@@ -3,24 +3,6 @@ DEVICE=falconss
 VENDOR=sony
 BASE=../../../vendor/${VENDOR}/${DEVICE}/proprietary
 
-while getopts ":nhd:" options
-do
-  case $options in
-    n ) NC=1 ;;
-    d ) LDIR=${OPTARG} ;;
-    h ) echo "Usage: `basename $0` [OPTIONS] "
-        echo "  -n  No clenup"
-        echo "  -d  Fetch blob from filesystem"
-        echo "  -h  Show this help"
-        exit ;;
-    * ) ;;
-  esac
-done
-
-if [ "x${NC}" != "x1" ]; then
-  rm -rf ${BASE}/*
-fi
-
 for FILE in `grep -v ^# ../${DEVICE}/proprietary-files.txt | grep -v ^$ | sort`
 do
   # Split the file from the destination (format is "file[:destination]")
@@ -38,19 +20,11 @@ do
     mkdir -p ${BASE}/${DIR}
   fi
 
-  if [ -z ${LDIR} ]; then
-    adb pull /system/${FILE} ${BASE}/${DEST}
-  else
-    cp ${LDIR}/system/${FILE} ${BASE}/${DEST}
-  fi
+  adb pull /system/${FILE} ${BASE}/${DEST}
   # if file dot not exist try destination
   if [ "$?" != "0" ]; then
-    if [ -z ${LDIR} ]; then
-      adb pull /system/${DEST} ${BASE}/${DEST}
-    else
-      cp ${LDIR}/system/${DEST} ${BASE}/${DEST}
-    fi
+    adb pull /system/${DEST} ${BASE}/${DEST}
   fi
 done
 
-. setup-makefiles.sh ${DEVICE} ${VENDOR}
+. setup-makefiles.sh

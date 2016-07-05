@@ -1,9 +1,6 @@
 #!/bin/bash
-if [[ ${1} = "" || ${2} = "" }]; then
-  exit
-fi
-DEVICE=${1}
-VENDOR=${2}
+DEVICE=falconss
+VENDOR=sony
 CORE_MAKEFILE=../../../vendor/${VENDOR}/${DEVICE}/${DEVICE}-vendor-blobs.mk
 
 (cat << EOF) > ${CORE_MAKEFILE}
