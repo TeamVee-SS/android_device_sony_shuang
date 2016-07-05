@@ -170,8 +170,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     qrngp
 
-# HealthD Lib
+# Qualcomm HALs
 PRODUCT_PACKAGES += \
+    lights.qcom \
     libhealthd.qcom
 
 # WiFi

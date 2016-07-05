@@ -48,7 +48,7 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01E00000
 # GPS
 TARGET_NO_RPC := true
 
-# Lights
+# Lights HAL
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Use qcom power hal
