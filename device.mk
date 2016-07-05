@@ -162,10 +162,6 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
-# Lights
-PRODUCT_PACKAGES += \
-    lights.msm8610
-
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8610
