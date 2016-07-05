@@ -173,6 +173,7 @@ PRODUCT_PACKAGES += \
 # Qualcomm HALs
 PRODUCT_PACKAGES += \
     lights.qcom \
+    power.qcom \
     libhealthd.qcom
 
 # WiFi

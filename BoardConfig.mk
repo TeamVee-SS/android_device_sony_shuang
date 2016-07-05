@@ -51,8 +51,9 @@ TARGET_NO_RPC := true
 # Lights HAL
 TARGET_PROVIDES_LIBLIGHT := true
 
-# Use qcom power hal
+# Power HAL
 TARGET_POWERHAL_VARIANT := qcom
+CM_POWERHAL_EXTENSION := qcom
 
 # Qualcomm support
 TARGET_QCOM_MEDIA_VARIANT := caf-new
