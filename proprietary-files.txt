@@ -32,9 +32,6 @@ bin/time_daemon
 bin/updatemiscta
 bin/usbhub
 bin/usbhub_init
-etc/hostapd/hostapd.accept
-etc/hostapd/hostapd.deny
-etc/hostapd/hostapd_default.conf
 etc/firmware/a225p5_pm4.fw
 etc/firmware/a225_pfp.fw
 etc/firmware/a225_pm4.fw
@@ -129,6 +126,9 @@ etc/firmware/widevine.mdt
 etc/firmware/wlan/prima/WCNSS_cfg.dat
 etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini
 etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
+etc/hostapd/hostapd.accept
+etc/hostapd/hostapd_default.conf
+etc/hostapd/hostapd.deny
 etc/permissions/com.qualcomm.location.xml
 etc/wcn3620/p2p_supplicant_overlay.conf
 etc/wcn3620/wpa_supplicant_overlay.conf
@@ -297,6 +297,7 @@ vendor/lib/libimage-jpeg-enc-omx-comp.so
 vendor/lib/libimage-omx-common.so
 vendor/lib/libizat_core.so
 vendor/lib/liblbs_core.so
+vendor/lib/libllvm-qcom.so
 vendor/lib/liblocationservice.so
 vendor/lib/libmm-abl.so
 vendor/lib/libmmcamera2_c2d_module.so
@@ -366,8 +367,8 @@ vendor/lib/libQSEEComAPI.so
 vendor/lib/libquipc_os_api.so
 vendor/lib/libril-qc-qmi-1.so
 vendor/lib/librpmb.so
-vendor/lib/librs_adreno.so
 vendor/lib/librs_adreno_sha1.so
+vendor/lib/librs_adreno.so
 vendor/lib/libRSDriver_adreno.so
 vendor/lib/libsc-a2xx.so
 vendor/lib/libsc-a3xx.so
