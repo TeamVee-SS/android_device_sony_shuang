@@ -36,7 +36,6 @@ PRODUCT_PROPERTY_OVERRIDES += debug.egl.hw="1"
 PRODUCT_PROPERTY_OVERRIDES += debug.gralloc.map_fb_memory="0"
 PRODUCT_PROPERTY_OVERRIDES += debug.composition.type="dyn"
 # Persist
-PRODUCT_PROPERTY_OVERRIDES += persist.hwc.mdpcomp.enable="true"
 PRODUCT_PROPERTY_OVERRIDES += persist.cne.feature="1"
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += audio.offload.buffer.size.kb="32"
@@ -88,3 +87,5 @@ PRODUCT_PROPERTY_OVERRIDES += wlan.driver.ath="0"
 PRODUCT_PROPERTY_OVERRIDES += wlan.driver.config="/system/etc/wifi/WCNSS_qcom_cfg.ini"
 # SDCard
 PRODUCT_PROPERTY_OVERRIDES += persist.fuse_sdcard="true"
+# VIDC
+PRODUCT_PROPERTY_OVERRIDES += vidc.debug.level="1"
