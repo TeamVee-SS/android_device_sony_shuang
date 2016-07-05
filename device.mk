@@ -174,6 +174,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     qrngp
 
+# HealthD Lib
+PRODUCT_PACKAGES += \
+    libhealthd.qcom
+
 # WiFi
 PRODUCT_PACKAGES += \
     p2p_supplicant_overlay.conf \
