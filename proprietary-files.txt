@@ -32,6 +32,9 @@ bin/time_daemon
 bin/updatemiscta
 bin/usbhub
 bin/usbhub_init
+etc/hostapd/hostapd.accept
+etc/hostapd/hostapd.deny
+etc/hostapd/hostapd_default.conf
 etc/firmware/a225p5_pm4.fw
 etc/firmware/a225_pfp.fw
 etc/firmware/a225_pm4.fw
@@ -123,7 +126,16 @@ etc/firmware/widevine.b01
 etc/firmware/widevine.b02
 etc/firmware/widevine.b03
 etc/firmware/widevine.mdt
+etc/firmware/wlan/prima/WCNSS_cfg.dat
+etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini
+etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
 etc/permissions/com.qualcomm.location.xml
+etc/wcn3620/p2p_supplicant_overlay.conf
+etc/wcn3620/wpa_supplicant_overlay.conf
+etc/wcn3620/wpa_supplicant_wcn.conf
+etc/wifi/WCNSS_qcom_cfg.ini
+etc/wifi/WCNSS_qcom_wlan_cal.bin
+etc/wifi/WCNSS_qcom_wlan_nv.bin
 lib/hw/camera.msm8610.so:lib/hw/camera.vendor.msm8610.so
 lib/hw/lights.msm8610.so:lib/hw/lights.vendor.msm8610.so
 lib/libchromatix_imx135_liveshot.so
