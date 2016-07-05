@@ -86,3 +86,5 @@ PRODUCT_PROPERTY_OVERRIDES += mm.enable.qcom_parser="37491"
 PRODUCT_PROPERTY_OVERRIDES += wifi.interface="wlan0"
 PRODUCT_PROPERTY_OVERRIDES += wlan.driver.ath="0"
 PRODUCT_PROPERTY_OVERRIDES += wlan.driver.config="/system/etc/wifi/WCNSS_qcom_cfg.ini"
+# SDCard
+PRODUCT_PROPERTY_OVERRIDES += persist.fuse_sdcard="true"
