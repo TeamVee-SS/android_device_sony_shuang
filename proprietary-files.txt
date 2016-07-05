@@ -366,6 +366,10 @@ vendor/lib/libQSEEComAPI.so
 vendor/lib/libquipc_os_api.so
 vendor/lib/libril-qc-qmi-1.so
 vendor/lib/librpmb.so
+vendor/lib/librs_adreno.so
+vendor/lib/librs_adreno_sha1.so
+vendor/lib/libRSDriver_adreno.so
+vendor/lib/libsc-a2xx.so
 vendor/lib/libsc-a3xx.so
 vendor/lib/libSHIMDivxDrm.so
 vendor/lib/libtime_genoff.so
