@@ -172,6 +172,7 @@ PRODUCT_PACKAGES += \
 
 # Qualcomm HALs
 PRODUCT_PACKAGES += \
+    camera.qcom \
     lights.qcom \
     power.qcom \
     libhealthd.qcom
