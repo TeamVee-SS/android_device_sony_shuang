@@ -42,26 +42,26 @@ static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 static android::Mutex gLightWrapperLock;
 static hw_module_t *gVendorModule = 0;
 
-static int open_lights(const hw_module_t* module, const char* name,
-                       hw_device_t** device);
-static int lights_device_close(hw_device_t* device);
-static int lights_set_light(struct light_device_t* dev,
-                            struct light_state_t const* state);
+static int open_lights(const hw_module_t *module, const char *name,
+        hw_device_t **device);
+static int lights_device_close(hw_device_t *device);
+static int lights_set_light(struct light_device_t *dev,
+        struct light_state_t const *state);
 
 struct hw_module_methods_t lights_module_methods = {
-    open: open_lights,
+    .open = open_lights,
 };
 
 hw_module_t HAL_MODULE_INFO_SYM = {
-    tag: HARDWARE_MODULE_TAG,
-    version_major: 1,
-    version_minor: 0,
-    id: LIGHTS_HARDWARE_MODULE_ID,
-    name: "Xperia Lights Wrapper",
-    author: "The CyanogenMod Project",
-    methods: &lights_module_methods,
-    dso: NULL,
-    reserved: {0},
+    .tag = HARDWARE_MODULE_TAG,
+    .version_major = 1,
+    .version_minor = 0,
+    .id = LIGHTS_HARDWARE_MODULE_ID,
+    .name = "Xperia Lights Wrapper",
+    .author = "The CyanogenMod Project",
+    .methods = &lights_module_methods,
+    .dso = NULL, /* remove compilation warnings */
+    .reserved = {0}, /* remove compilation warnings */
 };
 
 typedef struct wrapper_light_device {
@@ -70,7 +70,7 @@ typedef struct wrapper_light_device {
 } wrapper_light_device_t;
 
 #define VENDOR_CALL(dev, func, ...) ({ \
-    wrapper_light_device_t *__wrapper_dev = (wrapper_light_device_t*) dev; \
+    wrapper_light_device_t *__wrapper_dev = (wrapper_light_device_t *) dev; \
     __wrapper_dev->vendor->func(__wrapper_dev->vendor, ##__VA_ARGS__); \
 })
 
@@ -82,25 +82,27 @@ static int check_vendor_module()
     if (gVendorModule)
         return 0;
 
-    rv = hw_get_module_by_class("lights", "vendor", (const hw_module_t **)&gVendorModule);
+    rv = hw_get_module_by_class("lights", "vendor",
+            (const hw_module_t **)&gVendorModule);
     if (rv)
         ALOGE("failed to open vendor light module");
 
     return rv;
 }
 
-static int lights_set_light(struct light_device_t* dev,
-                     struct light_state_t const* state)
+static int lights_set_light(struct light_device_t *dev,
+        struct light_state_t const *state)
 {
-    ALOGV("%s->%08X->%08X", __FUNCTION__, (uintptr_t)dev, (uintptr_t)(((wrapper_light_device_t*)dev)->vendor));
+    ALOGV("%s->%08X->%08X", __FUNCTION__, (uintptr_t)dev,
+            (uintptr_t)(((wrapper_light_device_t *)dev)->vendor));
 
-    if(!dev)
+    if (!dev)
         return -EINVAL;
 
     return VENDOR_CALL(dev, set_light, state);
 }
 
-static int lights_device_close(hw_device_t* device)
+static int lights_device_close(hw_device_t *device)
 {
     int ret = 0;
     wrapper_light_device_t *wrapper_dev = NULL;
@@ -114,16 +116,17 @@ static int lights_device_close(hw_device_t* device)
         goto done;
     }
 
-    wrapper_dev = (wrapper_light_device_t*) device;
+    wrapper_dev = (wrapper_light_device_t *)device;
 
-    wrapper_dev->vendor->common.close((hw_device_t*)wrapper_dev->vendor);
+    wrapper_dev->vendor->common.close((hw_device_t *)wrapper_dev->vendor);
     free(wrapper_dev);
 
 done:
     return ret;
 }
 
-static int write_int (const char *path, int value) {
+static int write_int (const char *path, int value)
+{
     int fd;
     static int already_warned = 0;
 
@@ -131,7 +134,7 @@ static int write_int (const char *path, int value) {
     if (fd < 0) {
         if (already_warned == 0) {
             ALOGE("write_int failed to open %s\n", path);
-                already_warned = 1;
+            already_warned = 1;
         }
         return -errno;
     }
@@ -144,7 +147,8 @@ static int write_int (const char *path, int value) {
     return written == -1 ? -errno : 0;
 }
 
-static int write_string (const char *path, const char *value) {
+static int write_string (const char *path, const char *value)
+{
     int fd;
     static int already_warned = 0;
 
@@ -165,17 +169,20 @@ static int write_string (const char *path, const char *value) {
     return written == -1 ? -errno : 0;
 }
 
-static int rgb_to_brightness (struct light_state_t const* state) {
+static int rgb_to_brightness (struct light_state_t const *state)
+{
     int color = state->color & 0x00ffffff;
-    return ((77*((color>>16)&0x00ff))
-            + (150*((color>>8)&0x00ff)) + (29*(color&0x00ff))) >> 8;
+    return ((77 * ((color >> 16) & 0x00ff)) + (150 * ((color >> 8) & 0x00ff))
+            + (29 * (color & 0x00ff))) >> 8;
 }
 
 #ifdef ENABLE_GAMMA_CORRECTION
-static int brightness_apply_gamma (int brightness) {
+static int brightness_apply_gamma (int brightness)
+{
     double floatbrt = (double) brightness;
     floatbrt /= 255.0;
-    ALOGV("%s: brightness = %d, floatbrt = %f", __FUNCTION__, brightness, floatbrt);
+    ALOGV("%s: brightness = %d, floatbrt = %f", __FUNCTION__, brightness,
+            floatbrt);
     floatbrt = pow(floatbrt, 2.2);
     ALOGV("%s: gamma corrected floatbrt = %f", __FUNCTION__, floatbrt);
     floatbrt *= 255.0;
@@ -185,20 +192,21 @@ static int brightness_apply_gamma (int brightness) {
 }
 #endif
 
-static int get_max_brightness() {
+static int get_max_brightness()
+{
     char value[6];
     int fd, len, max_brightness;
 
     if ((fd = open(MAX_BRIGHTNESS_FILE, O_RDONLY)) < 0) {
         ALOGE("[%s]: Could not open max brightness file %s: %s", __FUNCTION__,
-                     MAX_BRIGHTNESS_FILE, strerror(errno));
+                MAX_BRIGHTNESS_FILE, strerror(errno));
         ALOGE("[%s]: Assume max brightness 255", __FUNCTION__);
         return 255;
     }
 
     if ((len = read(fd, value, sizeof(value))) <= 1) {
         ALOGE("[%s]: Could not read max brightness file %s: %s", __FUNCTION__,
-                     MAX_BRIGHTNESS_FILE, strerror(errno));
+                MAX_BRIGHTNESS_FILE, strerror(errno));
         ALOGE("[%s]: Assume max brightness 255", __FUNCTION__);
         close(fd);
         return 255;
@@ -210,7 +218,9 @@ static int get_max_brightness() {
     return (unsigned int) max_brightness;
 }
 
-static int lights_set_light_backlight (struct light_device_t *dev, struct light_state_t const *state) {
+static int lights_set_light_backlight (struct light_device_t *dev,
+        struct light_state_t const *state)
+{
     int err = 0;
     int brightness = rgb_to_brightness(state);
     int max_brightness = get_max_brightness();
@@ -224,7 +234,8 @@ static int lights_set_light_backlight (struct light_device_t *dev, struct light_
             brightness = LCD_BRIGHTNESS_MIN;
     }
 
-    ALOGV("[%s] brightness %d max_brightness %d", __FUNCTION__, brightness, max_brightness);
+    ALOGV("[%s] brightness %d max_brightness %d", __FUNCTION__, brightness,
+            max_brightness);
 
     pthread_mutex_lock(&g_lock);
     err |= write_int (LCD_BACKLIGHT_FILE, brightness);
@@ -234,14 +245,14 @@ static int lights_set_light_backlight (struct light_device_t *dev, struct light_
     return err;
 }
 
-static int open_lights(const hw_module_t* module, const char* name,
-                       hw_device_t** device)
+static int open_lights(const hw_module_t *module, const char *name,
+        hw_device_t **device)
 {
     int rv = 0;
-    int (*set_light)(struct light_device_t* dev,
-                     struct light_state_t const* state);
+    int (*set_light)(struct light_device_t *dev,
+            struct light_state_t const *state);
 
-    wrapper_light_device_t* light_device = NULL;
+    wrapper_light_device_t *light_device = NULL;
 
     android::Mutex::Autolock lock(gLightWrapperLock);
 
@@ -251,7 +262,7 @@ static int open_lights(const hw_module_t* module, const char* name,
         if (check_vendor_module())
             return -EINVAL;
 
-        light_device = (wrapper_light_device_t*)malloc(sizeof(*light_device));
+        light_device = (wrapper_light_device_t *)malloc(sizeof(*light_device));
         if (!light_device) {
             ALOGE("light_device allocation fail");
             rv = -ENOMEM;
@@ -259,11 +270,14 @@ static int open_lights(const hw_module_t* module, const char* name,
         }
         memset(light_device, 0, sizeof(*light_device));
 
-        if (rv = gVendorModule->methods->open((const hw_module_t*)gVendorModule, name, (hw_device_t**)&(light_device->vendor))) {
+        rv = gVendorModule->methods->open((const hw_module_t *)gVendorModule,
+                name, (hw_device_t **)&(light_device->vendor));
+        if (rv) {
             ALOGE("vendor light open fail");
             goto fail;
         }
-        ALOGV("[%s]: got vendor light device 0x%08X", __FUNCTION__, (uintptr_t)(light_device->vendor));
+        ALOGV("[%s]: got vendor light device 0x%08X", __FUNCTION__,
+                (uintptr_t)(light_device->vendor));
 
         if (0 == strcmp(LIGHT_ID_BACKLIGHT, name))
             set_light = lights_set_light_backlight;
@@ -280,13 +294,13 @@ static int open_lights(const hw_module_t* module, const char* name,
         else
             return -EINVAL;
 
-        light_device->base.common.tag     = HARDWARE_DEVICE_TAG;
+        light_device->base.common.tag = HARDWARE_DEVICE_TAG;
         light_device->base.common.version = 0;
-        light_device->base.common.module  = (hw_module_t *)(module);
-        light_device->base.common.close   = lights_device_close;
-        light_device->base.set_light      = set_light;
+        light_device->base.common.module = (hw_module_t *)(module);
+        light_device->base.common.close = lights_device_close;
+        light_device->base.set_light = set_light;
 
-        *device = (struct hw_device_t*)light_device;
+        *device = (struct hw_device_t *)light_device;
     }
 
     return rv;
