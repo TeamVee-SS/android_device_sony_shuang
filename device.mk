@@ -91,29 +91,33 @@ PRODUCT_PACKAGES += \
     charger \
     charger_res_images
 
-# Display HALs
+# Qualcomm Display
 PRODUCT_PACKAGES += \
-    gralloc.msm8610 \
     libgenlock \
+    libmemalloc \
+    liboverlay \
+    libqdutils \
+    libtilerenderer \
+    libI420colorconvert
+
+# Display HAL
+PRODUCT_PACKAGES += \
     copybit.msm8610 \
+    gralloc.msm8610 \
     hwcomposer.msm8610 \
     memtrack.msm8610 \
-    power.msm8610 \
-    liboverlay \
-    libmemalloc \
-    libqdutils \
-    libtilerenderer
+    power.msm8610
 
-# Audio HALs
+# Audio HAL
 PRODUCT_PACKAGES += \
-    audio.msm8610 \
-    audio_policy.msm8610 \
-    audio.primary.msm8610 \
     audio.a2dp.default \
+    audio.msm8610 \
+    audio.primary.msm8610 \
+    audio.r_submix.default \
     audio.usb.default \
-    audio.r_submix.default
+    audio_policy.msm8610
 
-# Audio HALs Libs
+# Audio HAL
 PRODUCT_PACKAGES += \
     libalsa-intf \
     libaudioutils \
@@ -122,7 +126,7 @@ PRODUCT_PACKAGES += \
     libqcomvisualizer \
     libqcomvoiceprocessing
 
-# Audio HALs Bins
+# Audio HAL
 PRODUCT_PACKAGES += \
     audiod \
     aplay \
@@ -152,21 +156,22 @@ PRODUCT_PACKAGES += \
     libQWiFiSoftApCfg \
     libqsap_sdk
 
-# Media HALs
+# Media HAL
 PRODUCT_PACKAGES += \
-    libstagefrighthw \
+    libOmxAacEnc \
+    libOmxAmrEnc \
     libOmxCore \
-    libmm-omxcore \
+    libOmxEvrcEnc \
+    libOmxQcelp13Enc \
     libOmxVdec \
     libOmxVdecHevc \
     libOmxVenc \
-    qcmediaplayer \
-    libOmxAacEnc \
-    libOmxAmrEnc \
-    libOmxEvrcEnc \
-    libOmxQcelp13Enc \
+    libc2dcolorconvert \
+    libdashplayer \
     libdivxdrmdecrypt \
-    libdashplayer
+    libmm-omxcore \
+    libstagefrighthw \
+    qcmediaplayer
 
 PRODUCT_BOOT_JARS += \
     qcmediaplayer
@@ -179,11 +184,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     gps.msm8610
 
-# QRNG
+# Qualcomm
 PRODUCT_PACKAGES += \
-    qrngp
+    qrngp \
+    qrngd
 
-# Qualcomm HALs
+# Qualcomm
 PRODUCT_PACKAGES += \
     camera.qcom \
     lights.qcom \
@@ -197,12 +203,101 @@ PRODUCT_PACKAGES += \
     wlan_module_symlink \
     wcnss_service
 
-# Sony Kernel Things
+# Boot
 PRODUCT_PACKAGES += \
     extract_elf_ramdisk \
     dtbToolCM
 
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
-# Call System Props
-include device/sony/falconss/system_prop.mk
+# For userdebug builds
+ifeq ($(TARGET_BUILD_VARIANT),userdebug)
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.secure="false" \
+    ro.adb.secure="false"
+endif
+
+# USB
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config="mtp"
+
+# LCD Density
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.sf.lcd_density="240"
+
+# Qualcomm
+PRODUCT_PROPERTY_OVERRIDES += \
+    com.qc.hardware="true" \
+    ro.vendor.extension_library="/vendor/lib/libqc-opt.so" \
+    ro.use_data_netmgrd="true" \
+    persist.hwc.mdpcomp.enable=true \
+    persist.timed.enable="true"
+
+# OpenGL
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.opengles.version="196608"
+
+# Debug
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.composition.type="dyn" \
+    debug.egl.hw="1" \
+    debug.gralloc.map_fb_memory="0" \
+    debug.sf.fb_always_on="1" \
+    vidc.debug.level="1"
+
+# CNE
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.cne.feature="1"
+
+# Audio
+PRODUCT_PROPERTY_OVERRIDES += \
+    audio.offload.buffer.size.kb="32" \
+    audio.offload.gapless.enabled="true" \
+    av.offload.enable="false" \
+    persist.audio.fluence.speaker="false" \
+    persist.audio.fluence.voicecall="true" \
+    persist.audio.fluence.voicerec="true" \
+    ro.qc.sdk.audio.fluencetype="fluence" \
+    ro.qc.sdk.audio.ssr="false" \
+    tunnel.audio.encode="false" \
+    use.voice.path.for.pcm.voip="true"
+
+# FM Transmitter
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.fm.transmitter="false"
+
+# RIL
+PRODUCT_PROPERTY_OVERRIDES += \
+    DEVICE_PROVISIONED="1" \
+    gsm.isNoServiceOnFstSub="false" \
+    gsm.isNoServiceOnSecSub="false" \
+    persist.radio.apm_sim_not_pwdn="1" \
+    persist.radio.atfwd.start="true" \
+    persist.radio.msgtunnel.start="false" \
+    persist.radio.rat_on="legacy" \
+    ril.subscription.types="NV,RUIM" \
+    rild.libpath="/vendor/lib/libril-qc-qmi-1.so" \
+    ro.telephony.call_ring.multiple="false" \
+    telephony.lteOnCdmaDevice="0"
+
+# Media
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.aac_51_output_enabled="true" \
+    media.stagefright.enable-aac="true" \
+    media.stagefright.enable-fma2dp="true" \
+    media.stagefright.enable-http="true" \
+    media.stagefright.enable-player="true" \
+    media.stagefright.enable-qcp="true" \
+    media.stagefright.enable-scan="true" \
+    mm.enable.qcom_parser="37491" \
+    mmp.enable.3g2="true"
+
+# WiFi
+PRODUCT_PROPERTY_OVERRIDES += \
+    wlan.driver.ath="0" \
+    wlan.driver.config="/system/etc/wifi/WCNSS_qcom_cfg.ini" \
+    wifi.interface="wlan0"
+
+# SDCard
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.fuse_sdcard="true"
