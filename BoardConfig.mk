@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+TARGET_SPECIFIC_HEADER_PATH += device/sony/falconss/include
+
 # inherit from the proprietary version
 -include vendor/sony/falconss/BoardConfigVendor.mk
 
