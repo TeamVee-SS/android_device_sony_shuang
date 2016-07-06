@@ -147,9 +147,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     keystore.msm8610
 
-# Qcom SoftAP & wifi
+# SoftAP
 PRODUCT_PACKAGES += \
-    libQWiFiSoftApCfg
+    libQWiFiSoftApCfg \
+    libqsap_sdk
 
 # Media HALs
 PRODUCT_PACKAGES += \
