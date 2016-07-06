@@ -41,11 +41,23 @@ PRODUCT_COPY_FILES += \
 # Config Files
 PRODUCT_COPY_FILES += \
     device/sony/falconss/rootdir/system/etc/audio_policy.conf:system/etc/audio_policy.conf \
+    device/sony/falconss/rootdir/system/etc/firmware/wlan/prima/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    device/sony/falconss/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
+    device/sony/falconss/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
+    device/sony/falconss/rootdir/system/etc/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept \
+    device/sony/falconss/rootdir/system/etc/hostapd/hostapd.deny:system/etc/hostapd/hostapd.deny \
+    device/sony/falconss/rootdir/system/etc/hostapd/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
     device/sony/falconss/rootdir/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
     device/sony/falconss/rootdir/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
     device/sony/falconss/rootdir/system/etc/mixer_paths.xml:system/etc/mixer_paths.xml \
     device/sony/falconss/rootdir/system/etc/sec_config:system/etc/sec_config \
     device/sony/falconss/rootdir/system/etc/thermal-engine-8610.conf:system/etc/thermal-engine-8610.conf \
+    device/sony/falconss/rootdir/system/etc/wcn3620/p2p_supplicant_overlay.conf:system/etc/wcn3620/p2p_supplicant_overlay.conf \
+    device/sony/falconss/rootdir/system/etc/wcn3620/wpa_supplicant_overlay.conf:system/etc/wcn3620/wpa_supplicant_overlay.conf \
+    device/sony/falconss/rootdir/system/etc/wcn3620/wpa_supplicant_wcn.conf:system/etc/wcn3620/wpa_supplicant_wcn.conf \
+    device/sony/falconss/rootdir/system/etc/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    device/sony/falconss/rootdir/system/etc/wifi/WCNSS_qcom_wlan_cal.bin:system/etc/wifi/WCNSS_qcom_wlan_cal.bin \
+    device/sony/falconss/rootdir/system/etc/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
     device/sony/falconss/rootdir/system/usr/keylayout/atmel_mxt_ts.kl:system/usr/keylayout/atmel_mxt_ts.kl \
     device/sony/falconss/rootdir/system/usr/keylayout/ft5x06_ts.kl:system/usr/keylayout/ft5x06_ts.kl \
     device/sony/falconss/rootdir/system/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
