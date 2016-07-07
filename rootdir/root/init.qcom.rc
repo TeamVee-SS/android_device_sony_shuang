@@ -247,6 +247,13 @@ service qcom-sh /system/bin/sh /init.qcom.sh
 #    disabled
 #    oneshot
 
+#service hciattach /system/bin/sh /init.qcom.bt.sh
+#    class late_start
+#    user bluetooth
+#    group qcom_oncrpc bluetooth net_bt_admin system net_bt_stack
+#    disabled
+#    oneshot
+
 # Export GPIO56 for fusion targets to enable/disable hub
 service usbhub_init /system/bin/usbhub_init
     class late_start
