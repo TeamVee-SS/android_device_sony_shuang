@@ -230,7 +230,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     com.qc.hardware="true" \
     ro.vendor.extension_library="/vendor/lib/libqc-opt.so" \
     ro.use_data_netmgrd="true" \
-    persist.hwc.mdpcomp.enable=true \
+    persist.hwc.mdpcomp.enable="true" \
     persist.timed.enable="true"
 
 # OpenGL
