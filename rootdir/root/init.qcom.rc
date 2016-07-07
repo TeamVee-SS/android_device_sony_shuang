@@ -184,6 +184,14 @@ on boot
 
     write /sys/module/wcnsscore/parameters/has_calibrated_data 1
 
+    # add missing magnetic permissions
+    # TODO: fix this permissions inside kernel
+    chmod 0755 /sys/class/sensors/magnetic/enable_acc
+    chmod 0755 /sys/class/sensors/magnetic/delay_acc
+    chmod 0755 /sys/class/sensors/magnetic/delay
+    chmod 0755 /sys/class/sensors/magnetic/enable_ori
+    chmod 0755 /sys/class/sensors/magnetic/delay_ori
+
 # msm specific files that need to be created on /data
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
