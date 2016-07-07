@@ -302,3 +302,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # SDCard
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.fuse_sdcard="true"
+
+# BlueTooth
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qualcomm.bt.hci_transport="smd"

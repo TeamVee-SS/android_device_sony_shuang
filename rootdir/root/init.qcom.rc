@@ -247,12 +247,12 @@ service qcom-sh /system/bin/sh /init.qcom.sh
 #    disabled
 #    oneshot
 
-#service hciattach /system/bin/sh /init.qcom.bt.sh
-#    class late_start
-#    user bluetooth
-#    group qcom_oncrpc bluetooth net_bt_admin system net_bt_stack
-#    disabled
-#    oneshot
+service hciattach /system/bin/sh /init.qcom.bt.sh
+    class late_start
+    user bluetooth
+    group qcom_oncrpc bluetooth net_bt_admin system net_bt_stack
+    disabled
+    oneshot
 
 # Export GPIO56 for fusion targets to enable/disable hub
 service usbhub_init /system/bin/usbhub_init
@@ -592,3 +592,9 @@ on property:init.svc.surfaceflinger=stopped
 
 on property:init.svc.surfaceflinger=running
     start ppd
+
+on property:bluetooth.hciattach=true
+    start hciattach
+
+on property:bluetooth.hciattach=false
+    setprop bluetooth.status off
