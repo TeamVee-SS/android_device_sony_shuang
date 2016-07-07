@@ -20,8 +20,10 @@ do
     mkdir -p ${BASE}/${DIR}
   fi
 
-  adb pull /system/${FILE} ${BASE}/${DEST}
-  # if file dot not exist try destination
+  cp ../system/${FILE} ${BASE}/${DEST}
+  if [ "$?" != "0" ]; then
+    adb pull /system/${FILE} ${BASE}/${DEST}
+  fi
   if [ "$?" != "0" ]; then
     adb pull /system/${DEST} ${BASE}/${DEST}
   fi
