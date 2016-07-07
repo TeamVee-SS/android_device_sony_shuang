@@ -141,6 +141,7 @@ lib/libidd.so
 lib/libkeyctrl.so
 lib/liblights-core.so
 lib/libloc_api_v02.so
+lib/libloc_core.so
 lib/libloc_ds_api.so
 lib/libMiscTaAccessor.so
 lib/libmiscta.so
