@@ -5,7 +5,7 @@ bin/charger_monitor
 bin/cnd
 bin/credmgrd
 bin/diag_mdlog
-bin/drmdiag
+bin/drmdiagapp
 bin/ds_fmc_appd
 bin/dun-server
 bin/fmconfig
