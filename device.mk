@@ -273,7 +273,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     gsm.isNoServiceOnFstSub="false" \
     gsm.isNoServiceOnSecSub="false" \
     persist.radio.apm_sim_not_pwdn="1" \
-    persist.radio.atfwd.start="true" \
     persist.radio.msgtunnel.start="false" \
     persist.radio.rat_on="legacy" \
     ril.subscription.types="NV,RUIM" \
