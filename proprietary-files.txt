@@ -280,7 +280,10 @@ vendor/lib/libchromatix_skuf_ov5648_p5v23c_default_video.so
 vendor/lib/libchromatix_skuf_ov5648_p5v23c_preview.so
 vendor/lib/libchromatix_skuf_ov5648_p5v23c_snapshot.so
 vendor/lib/libcneqmiutils.so
+vendor/lib/libcneutils.so
+vendor/lib/libCommandSvc.so
 vendor/lib/libdiag.so
+vendor/lib/libdisp-aba.so
 vendor/lib/libDivxDrm.so
 vendor/lib/libdrmdiag.so
 vendor/lib/libdrmfs.so
