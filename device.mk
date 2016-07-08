@@ -208,6 +208,13 @@ PRODUCT_PACKAGES += \
     extract_elf_ramdisk \
     dtbToolCM
 
+# FM
+PRODUCT_PACKAGES += \
+    FM2 \
+    FMRecord \
+    libqcomfm_jni \
+    qcom.fmradio \
+
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
 # For userdebug builds

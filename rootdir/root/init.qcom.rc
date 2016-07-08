@@ -192,6 +192,11 @@ on boot
     chmod 0755 /sys/class/sensors/magnetic/enable_ori
     chmod 0755 /sys/class/sensors/magnetic/delay_ori
 
+    chown system system /sys/devices/platform/rs300000a7.65536/force_sync
+    chown system system /sys/devices/platform/rs300000a7.65536/sync_sts
+    chown system system /sys/devices/platform/rs300100a7.65536/force_sync
+    chown system system /sys/devices/platform/rs300100a7.65536/sync_sts
+
 # msm specific files that need to be created on /data
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
@@ -248,24 +253,17 @@ service qcom-sh /system/bin/sh /init.qcom.sh
     user root
     oneshot
 
-#service fm_dl /system/bin/sh /init.qcom.fm.sh
-#    class late_start
-#    user root
-#    group system
-#    disabled
-#    oneshot
+service fm_dl /system/bin/sh /init.qcom.fm.sh
+    class late_start
+    user root
+    group system
+    disabled
+    oneshot
 
 service hciattach /system/bin/sh /init.qcom.bt.sh
     class late_start
     user bluetooth
     group qcom_oncrpc bluetooth net_bt_admin system net_bt_stack
-    disabled
-    oneshot
-
-# Export GPIO56 for fusion targets to enable/disable hub
-service usbhub_init /system/bin/usbhub_init
-    class late_start
-    user root
     disabled
     oneshot
 
@@ -417,11 +415,11 @@ service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
     oneshot
     disabled
 
-#service ds_fmc_appd /system/bin/ds_fmc_appd -p "rmnet0" -D
-#    class late_start
-#    group radio wifi inet
-#    disabled
-#    oneshot
+service ds_fmc_appd /system/bin/ds_fmc_appd -p "rmnet0" -D
+    class late_start
+    group radio wifi inet
+    disabled
+    oneshot
 
 service ril-daemon1 /system/bin/rild -c 1
     class main
@@ -461,20 +459,6 @@ service charger_monitor /system/bin/charger_monitor
     user system
     group system
     disabled
-
-service diag_mdlog_start /system/bin/diag_mdlog
-    class late_start
-    user sdcard_rw
-    group system qcom_diag sdcard_rw sdcard_r media_rw
-    disabled
-    oneshot
-
-service diag_mdlog_stop /system/bin/diag_mdlog -k
-    class late_start
-    user sdcard_rw
-    group system qcom_diag sdcard_rw sdcard_r media_rw
-    disabled
-    oneshot
 
 service scd /system/bin/scd
     class main
@@ -589,8 +573,8 @@ on property:drmdiag.load=0
 on property:sys.boot_completed=1
     start qcom-post-boot
 
-#on property:persist.data.ds_fmc_app.mode=1
-#    start ds_fmc_appd
+on property:persist.data.ds_fmc_app.mode=1
+    start ds_fmc_appd
 
 on property:sys.boot_completed=1
     start qrngp

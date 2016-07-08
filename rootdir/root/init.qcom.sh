@@ -55,9 +55,3 @@ echo 1 > /sys/module/msm_pm/modes/cpu1/standalone_power_collapse/idle_enabled
 echo 1 > /sys/module/msm_pm/modes/cpu0/power_collapse/idle_enabled
 # Start mpdecision
 start mpdecision
-
-chown -h system /sys/devices/platform/rs300000a7.65536/force_sync
-chown -h system /sys/devices/platform/rs300000a7.65536/sync_sts
-chown -h system /sys/devices/platform/rs300100a7.65536/force_sync
-chown -h system /sys/devices/platform/rs300100a7.65536/sync_sts
-

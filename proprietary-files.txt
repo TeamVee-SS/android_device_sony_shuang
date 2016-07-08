@@ -4,7 +4,6 @@ bin/btnvtool
 bin/charger_monitor
 bin/cnd
 bin/credmgrd
-bin/diag_mdlog
 bin/drmdiagapp
 bin/ds_fmc_appd
 bin/dun-server
@@ -32,8 +31,6 @@ bin/ta_qmi_service
 bin/thermal-engine
 bin/time_daemon
 bin/updatemiscta
-bin/usbhub
-bin/usbhub_init
 etc/firmware/a225p5_pm4.fw
 etc/firmware/a225_pfp.fw
 etc/firmware/a225_pm4.fw
