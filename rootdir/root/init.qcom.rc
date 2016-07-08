@@ -36,10 +36,12 @@ on early-init
     chmod 666 /proc/cmdline
 
 on init
-    # Make some partitions
+    # Make folder partitions
     mkdir /persist 0771 system system
-    mkdir /firmware 0755 system system
     mkdir /lta-label 0771 system system
+
+    # Make symlink of firmware files
+    symlink /system/etc/firmware /firmware
 
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /storage/sdcard1 0775 system system
