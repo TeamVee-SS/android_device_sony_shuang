@@ -112,7 +112,6 @@ PRODUCT_PACKAGES += \
 # Audio HAL
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
-    audio.msm8610 \
     audio.primary.msm8610 \
     audio.r_submix.default \
     audio.usb.default \
@@ -253,15 +252,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.buffer.size.kb="32" \
-    audio.offload.gapless.enabled="true" \
-    av.offload.enable="false" \
-    persist.audio.fluence.speaker="false" \
-    persist.audio.fluence.voicecall="true" \
-    persist.audio.fluence.voicerec="true" \
-    ro.qc.sdk.audio.fluencetype="fluence" \
+    audio.offload.gapless.enabled="false" \
+    audio.offload.multiple.enabled="false" \
+    audio.offload.pcm.enable="enable" \
+    av.offload.enable="enable" \
+    av.streaming.offload.enable="enable" \
     ro.qc.sdk.audio.ssr="false" \
-    tunnel.audio.encode="false" \
-    use.voice.path.for.pcm.voip="true"
+    ro.qc.sdk.audio.fluencetype=none \
+    persist.audio.fluence.voicecall=true \
+    persist.audio.fluence.voicerec=false \
+    persist.audio.fluence.speaker=true
 
 # FM Transmitter
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -269,12 +269,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
-    DEVICE_PROVISIONED="1" \
-    gsm.isNoServiceOnFstSub="false" \
-    gsm.isNoServiceOnSecSub="false" \
     persist.radio.apm_sim_not_pwdn="1" \
-    persist.radio.msgtunnel.start="false" \
-    persist.radio.rat_on="legacy" \
     ril.subscription.types="NV,RUIM" \
     rild.libpath="/vendor/lib/libril-qc-qmi-1.so" \
     ro.telephony.call_ring.multiple="false" \
