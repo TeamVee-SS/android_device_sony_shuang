@@ -156,7 +156,7 @@ TARGET_HW_DISK_ENCRYPTION := true
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_msm
-TARGET_LIBINIT_DEFINES_FILE := device/sony/falconss/init/init_falconss.c
+TARGET_LIBINIT_DEFINES_FILE := device/sony/falconss/init/init_falconss.cpp
 TARGET_UNIFIED_DEVICE := true
 
 # FSTAB
