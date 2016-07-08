@@ -235,6 +235,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Qualcomm
 PRODUCT_PROPERTY_OVERRIDES += \
     com.qc.hardware="true" \
+    ro.telephony.ril.v3="signalstrength" \
     ro.vendor.extension_library="/vendor/lib/libqc-opt.so" \
     ro.use_data_netmgrd="true" \
     persist.hwc.mdpcomp.enable="true" \
