@@ -64,11 +64,12 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
         property_set("ro.product.model", "falconss");
     };
 
-    if (strstr(dversionbb, "D2104") || strstr(dversionbb, "D2105") || strstr(dversionbb, "D2114")) {
-        property_set("persist.radio.multisim.config", "dsds");
-        property_set("persist.multisim.config", "dsds");
-        property_set("ro.multi.rild", "true");
-    };
+// Disable DualSim until we fix system crash
+//    if (strstr(dversionbb, "D2104") || strstr(dversionbb, "D2105") || strstr(dversionbb, "D2114")) {
+//        property_set("persist.radio.multisim.config", "dsds");
+//        property_set("persist.multisim.config", "dsds");
+//        property_set("ro.multi.rild", "true");
+//    };
 
     ERROR("Found %s gsm baseband setting build properties for %s device\n", gversionbb, dversionbb);
 }
