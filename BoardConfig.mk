@@ -16,7 +16,7 @@
 TARGET_SPECIFIC_HEADER_PATH += device/sony/falconss/include
 
 # inherit from the proprietary version
--include vendor/sony/falconss/BoardConfigVendor.mk
+include vendor/sony/falconss/BoardConfigVendor.mk
 
 BOARD_VENDOR := sony
 
