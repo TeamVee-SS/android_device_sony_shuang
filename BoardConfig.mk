@@ -34,7 +34,6 @@ TARGET_CPU_VARIANT := krait
 TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 TARGET_GLOBAL_CFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon-vfpv4 -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8610
@@ -59,7 +58,10 @@ TARGET_POWERHAL_VARIANT := qcom
 CM_POWERHAL_EXTENSION := qcom
 
 # Camera
+TARGET_GLOBAL_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 TARGET_PROVIDES_CAMERA_HAL := true
+BOARD_CAMERA_HAVE_ISO := true
+USE_DEVICE_SPECIFIC_CAMERA := true
 
 # RIL
 BOARD_PROVIDES_LIBRIL := true
@@ -75,15 +77,23 @@ COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 BOARD_USES_QCOM_HARDWARE := true
 USE_OPENGL_RENDERER := true
+TARGET_DISPLAY_USE_RETIRE_FENCE := true
 
 # GPS
-TARGET_NO_RPC := true
+TARGET_PROVIDES_GPS_LOC_API := true
 
 # Graphics
-TARGET_DISPLAY_USE_RETIRE_FENCE := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+
+# Shader cache config options
+# Maximum size of the  GLES Shaders that can be cached for reuse.
+# Increase the size if shaders of size greater than 12KB are used.
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
+
+# Maximum GLES shader cache size for each app to store the compiled shader
+# binaries. Decrease the size if RAM or Flash Storage size is a limitation
+# of the device.
 MAX_EGL_CACHE_SIZE := 2048*1024
 
 # BootAnimation
