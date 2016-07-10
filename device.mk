@@ -201,7 +201,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     p2p_supplicant_overlay.conf \
     wpa_supplicant_overlay.conf \
-    wlan_module_symlink \
     wcnss_service
 
 # Boot

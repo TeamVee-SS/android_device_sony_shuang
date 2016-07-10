@@ -15,29 +15,7 @@
 #
 
 ifeq ($(TARGET_DEVICE),falconss)
-include $(call all-makefiles-under,$(LOCAL_PATH))
-
 LOCAL_PATH := $(call my-dir)
 
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := wlan_module_symlink
-LOCAL_MODULE_CLASS := FAKE
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE): WLAN_MODULE := /system/lib/modules/pronto/pronto_wlan.ko
-$(LOCAL_BUILT_MODULE): SYMLINK := $(TARGET_OUT_SHARED_LIBRARIES)/modules/wlan.ko
-$(LOCAL_BUILT_MODULE): $(LOCAL_PATH)/Android.mk
-$(LOCAL_BUILT_MODULE):
-	$(hide) echo "Symlink: $(SYMLINK) -> $(WLAN_MODULE)"
-	$(hide) mkdir -p $(dir $@)
-	$(hide) mkdir -p $(dir $(SYMLINK))
-	$(hide) rm -rf $@
-	$(hide) rm -rf $(SYMLINK)
-	$(hide) ln -sf $(WLAN_MODULE) $(SYMLINK)
-	$(hide) touch $@
-
 include $(call all-makefiles-under,$(LOCAL_PATH))
-
 endif
