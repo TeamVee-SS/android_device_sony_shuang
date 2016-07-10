@@ -47,9 +47,6 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 maxcpus=2 msm_rtb.filter=0x3F ehci-hcd.park=3 msm_rtb.enable=0 lpj=192598 dwc3.maximum_speed=high dwc3_msm.prop_chg_detect=Y androidboot.selinux=permissive
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01E00000
 
-# GPS
-TARGET_NO_RPC := true
-
 # Lights HAL
 TARGET_PROVIDES_LIBLIGHT := true
 
@@ -80,6 +77,7 @@ USE_OPENGL_RENDERER := true
 TARGET_DISPLAY_USE_RETIRE_FENCE := true
 
 # GPS
+TARGET_NO_RPC := true
 TARGET_PROVIDES_GPS_LOC_API := true
 
 # Graphics
