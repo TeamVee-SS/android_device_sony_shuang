@@ -149,8 +149,8 @@ PRODUCT_PACKAGES += \
     libimscamera_jni
 
 # Keystore
-PRODUCT_PACKAGES += \
-    keystore.msm8610
+#PRODUCT_PACKAGES += \
+#    keystore.msm8610
 
 # SoftAP
 PRODUCT_PACKAGES += \
