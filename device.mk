@@ -237,7 +237,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library="/vendor/lib/libqc-opt.so" \
     ro.use_data_netmgrd="true" \
     persist.hwc.mdpcomp.enable="true" \
-    persist.timed.enable="true"
+    persist.timed.enable="true" \
+    persist.gralloc.cp.level3="1"
 
 # OpenGL
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -248,7 +249,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.composition.type="dyn" \
     debug.egl.hw="1" \
     debug.gralloc.map_fb_memory="0" \
-    debug.sf.fb_always_on="1" \
     vidc.debug.level="1"
 
 # CNE
@@ -258,16 +258,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.buffer.size.kb="32" \
-    audio.offload.gapless.enabled="false" \
-    audio.offload.multiple.enabled="false" \
-    audio.offload.pcm.enable="enable" \
-    av.offload.enable="enable" \
-    av.streaming.offload.enable="enable" \
+    audio.offload.gapless.enabled="true" \
+    av.offload.enable="false" \
     ro.qc.sdk.audio.ssr="false" \
-    ro.qc.sdk.audio.fluencetype=none \
-    persist.audio.fluence.voicecall=true \
-    persist.audio.fluence.voicerec=false \
-    persist.audio.fluence.speaker=true
+    ro.qc.sdk.audio.fluencetype="fluence" \
+    persist.audio.fluence.voicecall="true" \
+    persist.audio.fluence.voicerec="true" \
+    persist.audio.fluence.speaker="false" \
+    tunnel.audio.encode="false" \
+    af.resampler.quality="4"
 
 # FM Transmitter
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -306,3 +305,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # BlueTooth
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.bt.hci_transport="smd"
+
+# DASH video streaming
+# Specify max allowed resolution/bandwidth for representations
+# Set allowed avsync window during playback
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.dash.max.rep.resolution="1280*720" \
+    persist.dash.max.rep.bandwidth="4000000" \
+    persist.dash.avsync.window.msec="100"
