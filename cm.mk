@@ -27,5 +27,3 @@ TARGET_SCREEN_WIDTH := 480
 # Device identifier. This must come after all inclusions
 PRODUCT_NAME := cm_falconss
 PRODUCT_RELEASE_NAME := Xperia E1
-
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
