@@ -100,10 +100,7 @@
 /dev/jpeg0                0660   system     camera
 /dev/jpeg1                0660   system     camera
 /dev/jpeg2                0660   system     camera
-# Arima Rockyang modified 20140324 - permission from 0664 -> 0660 for CTS
-#/dev/adsprpc-smd          0664   system     system
-/dev/adsprpc-smd          0660   system     system
-# Arima Rockyang modified end
+/dev/adsprpc-smd          0664   system     system
 /dev/msm_camera/*         0660   system     camera
 /dev/gemini/              0660   system     camera
 /dev/mercury0             0660   system     camera
@@ -112,7 +109,7 @@
 /dev/msm_vidc_dec_sec     0660   system     audio
 /dev/msm_vidc_enc         0660   system     audio
 /dev/msm_rotator          0660   system     system
-/dev/hw_random            0660   system     system
+/dev/hw_random            0664   system     system
 
 #permissions for audio
 /dev/msm_qcelp            0660   system     audio
@@ -138,7 +135,7 @@
 /dev/msm_preproc_ctl      0660   system     audio
 /dev/msm_rtac             0660   system     audio
 /dev/msm_voicememo        0660   system     audio
-/dev/radio0               0640   fm_radio   fm_radio
+/dev/radio0               0640   system     system
 /dev/smd3                 0660   bluetooth  net_bt_stack
 /dev/smd2                 0660   bluetooth  net_bt_stack
 /dev/ttyHSL1              0660   system     system
