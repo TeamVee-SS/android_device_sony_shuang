@@ -177,7 +177,6 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 RECOVERY_VARIANT := omni
 TW_EXTERNAL_STORAGE_PATH := "/external sd"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
-TW_DEFAULT_EXTERNAL_STORAGE := true
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 
 # Sepolicy
