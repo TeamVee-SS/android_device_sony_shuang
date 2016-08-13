@@ -48,20 +48,18 @@ busybox echo 100 > /sys/class/timed_output/vibrator/enable
 busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
 busybox sleep 3
 
-# android ramdisk
-load_image=/sbin/ramdisk.cpio
-
 # boot decision
 if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline
 then
-	busybox echo 0 > /sys/module/msm_fb/parameters/align_buffer
-	busybox echo "RECOVERY BOOT" >> boot.txt
 	# trigger ON cyan LED for recoveryboot
 	triggerled 0 255 255 65535
 	# recovery ramdisk
 	extract_elf_ramdisk -i ${BOOTREC_FOTA} -o /sbin/ramdisk-recovery.cpio -t / -c
 	load_image="/sbin/ramdisk-recovery.cpio"
+	busybox echo "RECOVERY BOOT" >> boot.txt
 else
+	# android ramdisk
+	load_image="/sbin/ramdisk.cpio"
 	busybox echo "ANDROID BOOT" >> boot.txt
 fi
 
