@@ -11,7 +11,9 @@ bin/fmconfig
 bin/fm_qsoc_patches
 bin/ftmdaemon
 bin/hci_qcomm_init
+bin/illumination_service
 bin/irsc_util
+bin/magnetic
 bin/mm-pp-daemon
 bin/mm-qcamera-daemon
 bin/mpdecision
