@@ -30,4 +30,7 @@
 #define BTA_BLE_SKIP_CONN_UPD	FALSE
 #define BLE_PERIPHERAL_ADV_NAME	FALSE
 
+/* Defined if the kernel does not have support for CLOCK_BOOTTIME_ALARM */
+#define KERNEL_MISSING_CLOCK_BOOTTIME_ALARM TRUE
+
 #endif
