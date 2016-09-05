@@ -606,6 +606,10 @@ service illumination /system/bin/illumination_service
     class main
     user root
 
+on property:init.svc.bootanim=running
+    write /sys/class/graphics/fb0/blank 1
+    write /sys/class/graphics/fb0/blank 0
+
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
