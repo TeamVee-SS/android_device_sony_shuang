@@ -42,7 +42,7 @@
 /dev/smd6                 0660   system     system
 /dev/smd7                 0660   bluetooth  bluetooth
 
-#permissions for CSVT
+# permissions for CSVT
 /dev/smd11                0660   radio      radio
 
 /dev/radio0               0640   system     system
@@ -92,6 +92,7 @@
 /dev/hsicctl14            0640   radio      radio
 /dev/hsicctl15            0640   radio      radio
 /dev/hsicctl16            0640   radio      radio
+/sys/devices/virtual/smdpkt/smdcntl*   0664   radio     radio
 /dev/video*               0660   system     camera
 /dev/media*               0660   system     camera
 /dev/v4l-subdev*          0660   system     camera
@@ -111,7 +112,7 @@
 /dev/msm_rotator          0660   system     system
 /dev/hw_random            0664   system     system
 
-#permissions for audio
+# permissions for audio
 /dev/msm_qcelp            0660   system     audio
 /dev/msm_evrc             0660   system     audio
 /dev/msm_wma              0660   system     audio
@@ -140,7 +141,6 @@
 /dev/smd2                 0660   bluetooth  net_bt_stack
 /dev/ttyHSL1              0660   system     system
 /dev/mdm                  0660   system     radio
-/sys/devices/virtual/smdpkt/smdcntl*       open_timeout   0664 radio radio
 /dev/sdio_tty_ciq_00      0660   system     system
 /dev/tty_sdio_00          0660   system     system
 /dev/ttyGS0               0660   system     system
@@ -156,20 +156,19 @@
 /dev/tsc_ci0              0660   media       media
 
 # sensors
-/sys/devices/i2c-12/12-*  pollrate_ms 0664 system system
-/sys/devices/f9925000.i2c/i2c-0/0-* enable          0660     input     system
-/sys/devices/f9925000.i2c/i2c-0/0-* poll_delay      0660     input     system
-/sys/devices/virtual/optical_sensors/proximity      ps_adc         0660    input    system
-/sys/devices/virtual/optical_sensors/proximity      ps_poll_delay  0660    input    system
-/sys/devices/virtual/optical_sensors/lightsensor    ls_auto        0660    input    system
-/sys/devices/virtual/optical_sensors/lightsensor    ls_poll_delay  0660    input    system
-/sys/devices/virtual/input/input*                   poll           0660    input    system
-/sys/devices/virtual/input/input*                   pollrate_ms    0660    input    system
+/sys/devices/f9925000.i2c/i2c-0/0-* 0660   input     system
+/sys/devices/f9925000.i2c/i2c-0/0-* 0660   input     system
+/sys/devices/virtual/input/input*   0660   input     system
+/sys/devices/virtual/input/input*   0660   input     system
+
+# magnetic
+/dev/magnetic             0660   system     system
 
 # wlan
 /dev/wcnss_wlan           0660   system     system
 /dev/wcnss_ctrl           0660   system     system
-#nfc permissions
+
+# nfc permissions
 /dev/nfc-nci              0660    nfc         nfc
 
 # UIO devices

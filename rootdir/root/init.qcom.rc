@@ -186,29 +186,28 @@ on boot
 
     write /sys/module/wcnsscore/parameters/has_calibrated_data 1
 
-    # add sensor class permissions
-    # accelerometer
+    # add sensor class permissions to accelerometer
     chown system system /sys/class/sensors/accelerometer/enable
     chown system system /sys/class/sensors/accelerometer/delay
     chown system system /sys/class/sensors/accelerometer/deviceInfor
     chown system system /sys/class/sensors/accelerometer/calibrate
     chown system system /sys/class/sensors/accelerometer/dumpLevel
 
-    # proximity
+    # add sensor class permissions to proximity
     chown system system /sys/class/sensors/proximity/enable
     chown system system /sys/class/sensors/proximity/delay
     chown system system /sys/class/sensors/proximity/deviceInfor
     chown system system /sys/class/sensors/proximity/calibrate
     chown system system /sys/class/sensors/proximity/dumpLevel
 
-    # light
+    # add sensor class permissions to light
     chown system system /sys/class/sensors/light/enable
     chown system system /sys/class/sensors/light/delay
     chown system system /sys/class/sensors/light/deviceInfor
     chown system system /sys/class/sensors/light/calibrate
     chown system system /sys/class/sensors/light/dumpLevel
 
-    # magnetic
+    # add sensor class permissions to magnetic
     chown system system /sys/class/sensors/magnetic/enable
     chown system system /sys/class/sensors/magnetic/delay
     chown system system /sys/class/sensors/magnetic/deviceInfor
@@ -220,32 +219,29 @@ on boot
     chown system system /sys/class/sensors/magnetic/delay_ori
     chown system system /sys/class/sensors/magnetic/accel
 
-    chown system system /sys/class/timed_output/vibrator/enable
-
+    # add sensor class permissions to leds
     chown system system /sys/class/leds/lm3533-light-backlight/charger_brightness
     chown system system /sys/class/leds/lm3533-light-sns/rgb_brightness
     chown system system /sys/class/leds/lm3533-light-sns/fade_time
     chown system system /sys/class/leds/lm3533-light-sns/theme
     chown system system /sys/class/leds/lm3533-light-sns/button2
-
     chown system system /sys/class/leds/notification/brightness
     chown system system /sys/class/leds/notification/blinking
-
     chown system system /sys/class/leds/keyboard-backlight/brightness
     chown system system /sys/class/leds/lcd-backlight/brightness
     chown system system /sys/class/leds/button-backlight/brightness
     chown system system /sys/class/leds/jogball-backlight/brightness
-
     chown system system /sys/class/leds/green/brightness
-
     chown system system /sys/class/leds/blue/brightness_dimming
     chown system system /sys/class/leds/blue/brightness
-
     chown system system /sys/class/leds/red/brightness
     chown system system /sys/class/leds/red/brightness_dimming
     chown system system /sys/class/leds/red/device/grpfreq
     chown system system /sys/class/leds/red/device/grppwm
     chown system system /sys/class/leds/red/device/blink
+
+    # vibration control
+    chown system system /sys/class/timed_output/vibrator/enable
 
     chown system system /sys/devices/platform/rs300000a7.65536/force_sync
     chown system system /sys/devices/platform/rs300000a7.65536/sync_sts
