@@ -36,14 +36,14 @@
 /dev/ion                  0664   system     system
 /dev/rtc0                 0600   system     system
 /dev/smd0                 0660   system     system
+/dev/smd2                 0660   bluetooth  net_bt_stack
+/dev/smd3                 0660   bluetooth  net_bt_stack
 /dev/smd4                 0660   system     system
-/dev/smd_cxm_qmi          0640   radio      radio
 /dev/smd5                 0660   system     system
 /dev/smd6                 0660   system     system
-/dev/smd7                 0660   bluetooth  bluetooth
-
-# permissions for CSVT
+/dev/smd7                 0660   bluetooth  net_bt_stack
 /dev/smd11                0660   radio      radio
+/dev/smd_cxm_qmi          0640   radio      radio
 
 /dev/radio0               0640   system     system
 /dev/rfcomm0              0660   bluetooth  bluetooth
@@ -137,8 +137,6 @@
 /dev/msm_rtac             0660   system     audio
 /dev/msm_voicememo        0660   system     audio
 /dev/radio0               0640   system     system
-/dev/smd3                 0660   bluetooth  net_bt_stack
-/dev/smd2                 0660   bluetooth  net_bt_stack
 /dev/ttyHSL1              0660   system     system
 /dev/mdm                  0660   system     radio
 /dev/sdio_tty_ciq_00      0660   system     system
@@ -157,8 +155,6 @@
 
 # sensors
 /sys/devices/f9925000.i2c/i2c-0/0-* 0660   input     system
-/sys/devices/f9925000.i2c/i2c-0/0-* 0660   input     system
-/sys/devices/virtual/input/input*   0660   input     system
 /sys/devices/virtual/input/input*   0660   input     system
 
 # magnetic

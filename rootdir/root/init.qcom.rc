@@ -547,12 +547,6 @@ service qrngp /system/bin/qrngp
     oneshot
     disabled
 
-# Start camera server as daemon
-service qcamerasvr /system/bin/mm-qcamera-daemon
-    class late_start
-    user camera
-    group camera system inet input graphics
-
 service wcnss-service /system/bin/wcnss_service
     class late_start
     user root
@@ -563,7 +557,14 @@ service ppd /system/bin/mm-pp-daemon
     class late_start
     user system
     socket pps stream 0660 system system
-    group system graphics
+    group system graphics qcom_diag
+    disabled
+
+# Start camera server as daemon
+service qcamerasvr /system/bin/mm-qcamera-daemon
+    class late_start
+    user camera
+    group camera system inet input
 
 # Start suntrold
 service suntrold /system/bin/suntrold
@@ -602,7 +603,7 @@ service akmd /system/bin/magnetic -m 6
     group system
 
 service illumination /system/bin/illumination_service
-    socket illumination stream 0660 root system
+    socket illumination stream 0660 system camera
     class main
     user root
 
