@@ -138,16 +138,12 @@ etc/firmware/widevine.b01
 etc/firmware/widevine.b02
 etc/firmware/widevine.b03
 etc/firmware/widevine.mdt
-etc/flp.conf
-etc/gps.conf
 etc/permissions/com.qualcomm.location.xml
 etc/sap.conf
-lib/hw/audio.primary.msm8610.so
 lib/hw/camera.msm8610.so:lib/hw/camera.vendor.msm8610.so
 lib/hw/lights.msm8610.so:lib/hw/lights.vendor.msm8610.so
 lib/hw/sensors.msm8610.so
 lib/lib_asb_tee.so
-lib/libaudioroute.so
 lib/libchromatix_imx135_liveshot.so
 lib/libcredential-manager-service.so
 lib/libdrmdecrypt.so
@@ -183,8 +179,6 @@ lib/libqomx_core.so
 lib/libril.so
 lib/libsys-utils.so
 lib/libta.so
-lib/libtinyalsa.so
-lib/libtinycompress.so
 vendor/firmware/keymaster/keymaster.b00
 vendor/firmware/keymaster/keymaster.b01
 vendor/firmware/keymaster/keymaster.b02
