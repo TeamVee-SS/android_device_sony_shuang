@@ -37,7 +37,7 @@
 
 void vendor_load_properties()
 {
-    char baseband_version[92];
+    std::string baseband_version;
     char model_number[92];
     FILE *get_model;
 
@@ -101,7 +101,7 @@ void vendor_load_properties()
     };
 
     // Get baseband version just for log
-    property_get("gsm.version.baseband", baseband_version);
+    baseband_version = property_get("gsm.version.baseband");
     ERROR("Found %s gsm baseband setting build properties for %s device\n",
-          baseband_version, model_number);
+          baseband_version.c_str(), model_number);
 }
