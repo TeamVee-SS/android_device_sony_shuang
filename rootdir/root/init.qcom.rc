@@ -607,6 +607,16 @@ service illumination /system/bin/illumination_service
     class main
     user root
 
+service rfs_access /system/bin/rfs_access
+    class core
+    user system
+    group system net_raw
+
+service atfwd /system/bin/ATFWD-daemon
+    class late_start
+    user system
+    group system radio
+
 on property:init.svc.bootanim=running
     write /sys/class/graphics/fb0/blank 1
     write /sys/class/graphics/fb0/blank 0
