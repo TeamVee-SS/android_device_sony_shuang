@@ -38,22 +38,15 @@ busybox mknod -m 666 /dev/null c 1 3
 busybox mount -t proc proc /proc
 busybox mount -t sysfs sysfs /sys
 
-# bypass if booting to charger
-if [ $(busybox cat /proc/cmdline | busybox grep -o androidboot.mode=charger) == "androidboot.mode=charger" ]
-then
-	# do nothing
-	echo "entering in charger mode"
-else
-	# trigger ON green LED
-	triggerled 0 255 0 65280
+# trigger ON green LED
+triggerled 0 255 0 65280
 
-	# trigger vibration
-	busybox echo 100 > /sys/class/timed_output/vibrator/enable
+# trigger vibration
+busybox echo 100 > /sys/class/timed_output/vibrator/enable
 
-	# keycheck
-	busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
-	busybox sleep 3
-fi
+# keycheck
+busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
+busybox sleep 3
 
 # boot decision
 if [ -s /dev/keycheck ] || busybox grep -q warmboot=0x77665502 /proc/cmdline
@@ -73,18 +66,11 @@ else
 	busybox echo "ANDROID BOOT" >> boot.txt
 fi
 
-# bypass if booting to charger
-if [ $(busybox cat /proc/cmdline | busybox grep -o androidboot.mode=charger) == "androidboot.mode=charger" ]
-then
-	# do nothing
-	echo "entering in charger mode"
-else
-	# kill the keycheck process
-	busybox pkill -f "busybox cat ${BOOTREC_EVENT}"
+# kill the keycheck process
+busybox pkill -f "busybox cat ${BOOTREC_EVENT}"
 
-	# trigger OFF LED
-	triggerled 0 0 0 0
-fi
+# trigger OFF LED
+triggerled 0 0 0 0
 
 # unpack the ramdisk image
 busybox cpio -i < ${load_image}
