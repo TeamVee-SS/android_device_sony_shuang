@@ -1,9 +1,11 @@
 -app/com.qualcomm.location.apk
+bin/adsprpcd
 bin/ATFWD-daemon
 bin/bridgemgrd
 bin/btnvtool
 bin/charger_monitor
 bin/cnd
+bin/crda
 bin/credmgrd
 bin/drmdiagapp
 bin/ds_fmc_appd
