@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2014, The CyanogenMod Project
+ * Copyright (C) 2012-2016, The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -200,6 +200,15 @@ static char *camera_fixup_getparams(int id, const char *settings)
         }
     }
 
+    // fix parameters
+    params.set(android::CameraParameters::SCENE_MODE_SOFT_SNAP, "soft-snap");
+    params.set(android::CameraParameters::SCENE_MODE_ANTI_MOTION_BLUR, "anti-motion-blur");
+    params.set(android::CameraParameters::SCENE_MODE_HAND_HELD_TWILIGHT, "hand-held-twilight");
+    params.set(android::CameraParameters::SCENE_MODE_HIGH_SENSITIVITY, "high-sensitivity");
+    params.set(android::CameraParameters::SCENE_MODE_GOURMENT, "gourment");
+    params.set(android::CameraParameters::SCENE_MODE_PET, "pet");
+    params.set(android::CameraParameters::SCENE_MODE_DOCUMENT, "document");
+
 #if !LOG_NDEBUG
     ALOGV("%s: fixed parameters:", __FUNCTION__);
     params.dump();
@@ -279,6 +288,15 @@ static char *camera_fixup_setparams(int id, const char *settings)
             params.set(KEY_SONY_IMAGE_STABILISER, VALUE_SONY_OFF);
         }
     }
+
+    // fix parameters
+    params.set(android::CameraParameters::SCENE_MODE_SOFT_SNAP, "soft-snap");
+    params.set(android::CameraParameters::SCENE_MODE_ANTI_MOTION_BLUR, "anti-motion-blur");
+    params.set(android::CameraParameters::SCENE_MODE_HAND_HELD_TWILIGHT, "hand-held-twilight");
+    params.set(android::CameraParameters::SCENE_MODE_HIGH_SENSITIVITY, "high-sensitivity");
+    params.set(android::CameraParameters::SCENE_MODE_GOURMENT, "gourment");
+    params.set(android::CameraParameters::SCENE_MODE_PET, "pet");
+    params.set(android::CameraParameters::SCENE_MODE_DOCUMENT, "document");
 
 #if !LOG_NDEBUG
     ALOGV("%s: fixed parameters:", __FUNCTION__);
