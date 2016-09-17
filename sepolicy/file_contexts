@@ -28,8 +28,3 @@
 
 /system/bin/hci_qcomm_init         u:object_r:hci_exec:s0
 /system/bin/bdAddrLoader           u:object_r:hci_exec:s0
-
-# SONY: TrimArea Daemon
-/dev/socket/tad                    u:object_r:tad_socket:s0
-/dev/socket/suntory(/.*)?          u:object_r:suntrold_sock_socket:s0
-/system/bin/suntrold               u:object_r:suntrold_exec:s0
