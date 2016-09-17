@@ -250,8 +250,10 @@ on boot
 
 # msm specific files that need to be created on /data
 on post-fs-data
+    # Create the directory for /data/media
     mkdir /data/media 0770 media_rw media_rw
 
+    # Create the directory for bluetooth
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
 
     # Create the directories used by the Wireless subsystem
@@ -287,11 +289,13 @@ on post-fs-data
     # Create /data/time folder for time-services
     mkdir /data/time 0700 system system
 
+    # Create a folder for audio
     mkdir /data/audio 0770 media audio
 
     # Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
 
+    # Create a folder for cred manager
     mkdir /data/credmgr 0700 system system
 
 service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
@@ -580,6 +584,8 @@ service credmgrd /system/bin/credmgrd
     socket credmgr stream 0660 system system
     class main
 
+# SONY: TrimArea Daemon
+# Last 2 args: start block(blk size 128k), number of blocks(partitionsize(kb)/128(kb))
 service tad_static /sbin/tad_static /dev/block/platform/msm_sdcc.1/by-name/TA 0,16
     class trimarea
     user root
