@@ -148,6 +148,7 @@ lib/hw/lights.msm8610.so:lib/hw/lights.vendor.msm8610.so
 lib/hw/sensors.msm8610.so
 lib/lib_asb_tee.so
 lib/libchromatix_imx135_liveshot.so
+lib/libcnefeatureconfig.so
 lib/libcredential-manager-service.so
 lib/libdrmdecrypt.so
 lib/libface.so
@@ -182,6 +183,7 @@ lib/libqomx_core.so
 lib/libril.so
 lib/libsys-utils.so
 lib/libta.so
+lib/libxml2.so
 vendor/firmware/keymaster/keymaster.b00
 vendor/firmware/keymaster/keymaster.b01
 vendor/firmware/keymaster/keymaster.b02
@@ -303,6 +305,10 @@ vendor/lib/libchromatix_skuf_ov5648_p5v23c_common.so
 vendor/lib/libchromatix_skuf_ov5648_p5v23c_default_video.so
 vendor/lib/libchromatix_skuf_ov5648_p5v23c_preview.so
 vendor/lib/libchromatix_skuf_ov5648_p5v23c_snapshot.so
+vendor/lib/libcneapiclient.so
+vendor/lib/libcneconn.so
+vendor/lib/libcneqmiutils.so
+vendor/lib/libcneutils.so
 vendor/lib/libCommandSvc.so
 vendor/lib/libdiag.so
 vendor/lib/libdisp-aba.so
@@ -420,6 +426,7 @@ vendor/lib/libulp2.so
 vendor/lib/libwvdrm_L3.so
 vendor/lib/libwvm.so
 vendor/lib/libWVStreamControlAPI_L3.so
+vendor/lib/libxml.so
 vendor/lib/mediadrm/libwvdrmengine.so
 vendor/lib/rfsa/adsp/libadsp_jpege_skel.so
 vendor/lib/soundfx/libqcbassboost.so
