@@ -300,6 +300,10 @@ on post-fs-data
     # Create a folder for cred manager
     mkdir /data/credmgr 0700 system system
 
+    # Communicate with mpdecision and thermald
+    mkdir /dev/socket/mpdecision 0770 system system
+    chmod 2770 /dev/socket/mpdecision
+
 service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
     class main
     user root
