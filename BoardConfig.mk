@@ -149,9 +149,6 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 # Override healthd HAL
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.qcom
 
-# Encryption
-TARGET_HW_DISK_ENCRYPTION := true
-
 # FM radio
 TARGET_QCOM_NO_FM_FIRMWARE := true
 
