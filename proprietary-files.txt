@@ -10,8 +10,6 @@ bin/credmgrd
 bin/drmdiagapp
 bin/ds_fmc_appd
 bin/dun-server
-bin/fmconfig
-bin/fm_qsoc_patches
 bin/ftmdaemon
 bin/hci_qcomm_init
 bin/illumination_service
