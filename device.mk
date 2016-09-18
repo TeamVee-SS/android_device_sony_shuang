@@ -33,7 +33,6 @@ PRODUCT_COPY_FILES += \
     device/sony/falconss/rootdir/root/init.qcom.sh:root/init.qcom.sh \
     device/sony/falconss/rootdir/root/init.qcom.bt.sh:root/init.qcom.bt.sh \
     device/sony/falconss/rootdir/root/init.qcom.class_main.sh:root/init.qcom.class_main.sh \
-    device/sony/falconss/rootdir/root/init.qcom.fm.sh:root/init.qcom.fm.sh \
     device/sony/falconss/rootdir/root/init.qcom.usb.rc:root/init.qcom.usb.rc \
     device/sony/falconss/rootdir/root/sbin/wait4tad_static:root/sbin/wait4tad_static \
     device/sony/falconss/rootdir/root/sbin/tad_static:root/sbin/tad_static \
