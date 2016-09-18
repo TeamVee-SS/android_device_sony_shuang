@@ -149,9 +149,6 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 # Override healthd HAL
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.qcom
 
-# Time services
-BOARD_USES_QC_TIME_SERVICES := true
-
 # Encryption
 TARGET_HW_DISK_ENCRYPTION := true
 
