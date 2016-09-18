@@ -4,7 +4,6 @@ bin/bridgemgrd
 bin/btnvtool
 bin/charger_monitor
 bin/cnd
-bin/crda
 bin/credmgrd
 bin/drmdiagapp
 bin/ds_fmc_appd
@@ -145,19 +144,16 @@ lib/hw/lights.msm8610.so:lib/hw/lights.vendor.msm8610.so
 lib/hw/sensors.msm8610.so
 lib/lib_asb_tee.so
 lib/libchromatix_imx135_liveshot.so
-lib/libcnefeatureconfig.so
 lib/libcredential-manager-service.so
 lib/libdrmdecrypt.so
 lib/libface.so
 lib/libfmradio.sony-iris.so
 lib/libfmradiosony.so
 lib/lib_get_secure_mode.so
-lib/libgps.utils.so
 lib/libidd.so
 lib/libkeyctrl.so
 lib/liblights-core.so
 lib/libloc_api_v02.so
-lib/libloc_core.so
 lib/libloc_ds_api.so
 lib/libMiscTaAccessor.so
 lib/libmiscta.so
@@ -180,7 +176,6 @@ lib/libqomx_core.so
 lib/libril.so
 lib/libsys-utils.so
 lib/libta.so
-lib/libxml2.so
 vendor/firmware/keymaster/keymaster.b00
 vendor/firmware/keymaster/keymaster.b01
 vendor/firmware/keymaster/keymaster.b02
