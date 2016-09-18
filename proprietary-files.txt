@@ -1,4 +1,3 @@
--app/com.qualcomm.location.apk
 bin/adsprpcd
 bin/ATFWD-daemon
 bin/bridgemgrd
