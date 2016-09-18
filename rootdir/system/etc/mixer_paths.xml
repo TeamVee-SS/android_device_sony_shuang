@@ -373,7 +373,6 @@
         <path name="incall_music_uplink" />
     </path>
 
-
     <path name="incall_music_uplink2">
         <ctl name="Incall_Music_2 Audio Mixer MultiMedia9" value="1" />
     </path>
@@ -433,12 +432,6 @@
     </path>
 
     <path name="speaker">
-        <ctl name="RX3 MIX1 INP1" value="RX1" />
-        <ctl name="SPK DAC Switch" value="1" />
-        <ctl name="RX3 Digital Volume" value="83" />
-    </path>
-
-    <path name="xloud-speaker">
         <ctl name="RX3 MIX1 INP1" value="RX1" />
         <ctl name="SPK DAC Switch" value="1" />
         <ctl name="RX3 Digital Volume" value="89" />
@@ -571,12 +564,8 @@
     </path>
 
     <path name="speaker-and-headphones">
-        <ctl name="RX3 MIX1 INP1" value="RX1" />
-        <ctl name="SPK DAC Switch" value="1" />
-        <ctl name="MI2S_RX Channels" value="Two" />
-        <ctl name="RX1 MIX1 INP1" value="RX1" />
-        <ctl name="RX2 MIX1 INP1" value="RX2" />
-        <ctl name="HPHL DAC Switch" value="1" />
+        <path name="speaker" />
+        <path name="headphones" />
         <ctl name="RX1 Digital Volume" value="74" />
         <ctl name="RX2 Digital Volume" value="74" />
         <ctl name="RX3 Digital Volume" value="87" />
