@@ -178,13 +178,6 @@ TW_IGNORE_OVERLAY := true
 include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += device/sony/falconss/sepolicy
 
-# Enable dex-preoptimization to speed up first boot sequence
-ifeq ($(HOST_OS),linux)
-  ifeq ($(WITH_DEXPREOPT),)
-      WITH_DEXPREOPT := true
-  endif
-endif
-
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
