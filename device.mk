@@ -287,7 +287,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # BlueTooth
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qualcomm.bt.hci_transport="smd"
+    qcom.bluetooth.soc=smd \
+    ro.qualcomm.bt.hci_transport=smd
 
 # DASH video streaming
 # Specify max allowed resolution/bandwidth for representations
