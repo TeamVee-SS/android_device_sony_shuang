@@ -53,5 +53,3 @@ echo 1 > /sys/module/msm_pm/modes/cpu1/standalone_power_collapse/suspend_enabled
 echo 1 > /sys/module/msm_pm/modes/cpu0/standalone_power_collapse/idle_enabled
 echo 1 > /sys/module/msm_pm/modes/cpu1/standalone_power_collapse/idle_enabled
 echo 1 > /sys/module/msm_pm/modes/cpu0/power_collapse/idle_enabled
-# Start mpdecision
-start mpdecision
