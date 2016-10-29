@@ -242,6 +242,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.composition.type="dyn" \
     debug.egl.hw="1" \
+    debug.sf.hw="1" \
     debug.gralloc.map_fb_memory="0" \
     vidc.debug.level="1"
 
