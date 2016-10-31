@@ -142,6 +142,9 @@ TARGET_OTA_ASSERT_DEVICE := D2004,D2005,D2104,D2105,D2114,falconss
 # Enable suspend during charger mode
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
+# CMHW
+BOARD_HARDWARE_CLASS := device/sony/falconss/cmhw
+
 # Override healthd HAL
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.qcom
 
