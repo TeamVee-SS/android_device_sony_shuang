@@ -434,7 +434,7 @@
     <path name="speaker">
         <ctl name="RX3 MIX1 INP1" value="RX1" />
         <ctl name="SPK DAC Switch" value="1" />
-        <ctl name="RX3 Digital Volume" value="89" />
+        <ctl name="RX3 Digital Volume" value="93" />
     </path>
 
     <path name="speaker-skuab">
@@ -449,7 +449,7 @@
 
     <path name="handset">
         <ctl name="RX1 MIX1 INP1" value="RX1" />
-        <ctl name="RX1 Digital Volume" value="84" />
+        <ctl name="RX1 Digital Volume" value="93" />
         <ctl name="DAC1 Switch" value="1" />
     </path>
 
@@ -470,8 +470,8 @@
         <ctl name="RX1 MIX1 INP1" value="RX1" />
         <ctl name="RX2 MIX1 INP1" value="RX2" />
         <ctl name="HPHL DAC Switch" value="1" />
-        <ctl name="RX1 Digital Volume" value="84" />
-        <ctl name="RX2 Digital Volume" value="84" />
+        <ctl name="RX1 Digital Volume" value="93" />
+        <ctl name="RX2 Digital Volume" value="93" />
     </path>
 
     <path name="headset-mic">
@@ -566,8 +566,8 @@
     <path name="speaker-and-headphones">
         <path name="speaker" />
         <path name="headphones" />
-        <ctl name="RX1 Digital Volume" value="74" />
-        <ctl name="RX2 Digital Volume" value="74" />
+        <ctl name="RX1 Digital Volume" value="93" />
+        <ctl name="RX2 Digital Volume" value="93" />
         <ctl name="RX3 Digital Volume" value="87" />
     </path>
 
