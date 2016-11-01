@@ -176,8 +176,6 @@ lib/libqomx_core.so
 lib/libril.so
 lib/libsys-utils.so
 lib/libta.so
-lib/soundfx/libfnrwrapper.so
-lib/soundfx/libhearingprotection.so
 lib/soundfx/libposteffectwrapper.so
 lib/soundfx/libpreeffectwrapper.so
 vendor/firmware/keymaster/keymaster.b00
