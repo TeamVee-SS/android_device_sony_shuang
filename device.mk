@@ -274,7 +274,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ril.subscription.types="NV,RUIM" \
     rild.libpath="/vendor/lib/libril-qc-qmi-1.so" \
     ro.telephony.call_ring.multiple="false" \
-    telephony.lteOnCdmaDevice="0"
+    telephony.lteOnCdmaDevice="0" \
+    persist.radio.rat_on="legacy"
 
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
