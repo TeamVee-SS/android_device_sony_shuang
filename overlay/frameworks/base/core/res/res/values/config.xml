@@ -208,4 +208,9 @@
 
     <!-- Whether to enable auto provisioning the app for new SIM card on boot.-->
     <bool name="config_auto_provision_enable">true</bool>
+
+    <!-- When true use the linux /dev/input/event subsystem to detect the switch changes
+         on the headphone/microphone jack. When false use the older uevent framework. -->
+    <bool name="config_useDevInputEventForAudioJack">true</bool>
+
 </resources>
