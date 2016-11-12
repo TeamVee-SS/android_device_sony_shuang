@@ -30,7 +30,6 @@ DEVICE_PACKAGE_OVERLAYS += device/sony/falconss/overlay
 PRODUCT_COPY_FILES += \
     device/sony/falconss/rootdir/root/fstab.qcom:root/fstab.qcom \
     device/sony/falconss/rootdir/root/init.qcom.rc:root/init.qcom.rc \
-    device/sony/falconss/rootdir/root/init.qcom.sh:root/init.qcom.sh \
     device/sony/falconss/rootdir/root/init.qcom.bt.sh:root/init.qcom.bt.sh \
     device/sony/falconss/rootdir/root/init.qcom.class_main.sh:root/init.qcom.class_main.sh \
     device/sony/falconss/rootdir/root/init.qcom.usb.rc:root/init.qcom.usb.rc \
