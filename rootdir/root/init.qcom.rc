@@ -311,9 +311,6 @@ on post-fs-data
     # Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
 
-    # Create a folder for cred manager
-    mkdir /data/credmgr 0700 system system
-
     # Communicate with mpdecision and thermald
     mkdir /dev/socket/mpdecision 0770 system system
     chmod 2770 /dev/socket/mpdecision
@@ -588,13 +585,6 @@ service suntrold /system/bin/suntrold
     user system
     group system
     oneshot
-    class main
-
-# Start Credential manager daemon
-service credmgrd /system/bin/credmgrd
-    user system
-    group system
-    socket credmgr stream 0660 system system
     class main
 
 # SONY: TrimArea Daemon
