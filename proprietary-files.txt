@@ -1,8 +1,6 @@
 bin/adsprpcd
-bin/ATFWD-daemon
 bin/bridgemgrd
 bin/btnvtool
-bin/charger_monitor
 bin/cnd
 bin/drmdiagapp
 bin/ds_fmc_appd
@@ -12,7 +10,6 @@ bin/hci_qcomm_init
 bin/illumination_service
 bin/irsc_util
 bin/magnetic
-bin/mm-pp-daemon
 bin/mm-qcamera-daemon
 bin/mpdecision
 bin/netmgrd
@@ -302,7 +299,6 @@ vendor/lib/libcneqmiutils.so
 vendor/lib/libcneutils.so
 vendor/lib/libCommandSvc.so
 vendor/lib/libdiag.so
-vendor/lib/libdisp-aba.so
 vendor/lib/libDivxDrm.so
 vendor/lib/libdrmdiag.so
 vendor/lib/libdrmfs.so
@@ -324,8 +320,6 @@ vendor/lib/libjpegehw.so
 vendor/lib/liblbs_core.so
 vendor/lib/libllvm-qcom.so
 vendor/lib/liblocationservice.so
-vendor/lib/libmm-abl-oem.so
-vendor/lib/libmm-abl.so
 vendor/lib/libmmcamera2_c2d_module.so
 vendor/lib/libmmcamera2_cpp_module.so
 vendor/lib/libmmcamera2_iface_modules.so

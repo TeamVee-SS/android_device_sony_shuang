@@ -527,11 +527,6 @@ on property:init.svc.sdcard=running
 service charger /charger
     class charger
 
-service charger_monitor /system/bin/charger_monitor
-    user system
-    group system
-    disabled
-
 service scd /system/bin/scd
     class main
     user system
@@ -573,13 +568,6 @@ service wcnss-service /system/bin/wcnss_service
     user root
     group system wifi
     oneshot
-
-service ppd /system/bin/mm-pp-daemon
-    class late_start
-    user system
-    socket pps stream 0660 system system
-    group system graphics qcom_diag
-    disabled
 
 # Start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
@@ -628,11 +616,6 @@ service rfs_access /system/bin/rfs_access
     user system
     group system net_raw
 
-service atfwd /system/bin/ATFWD-daemon
-    class late_start
-    user system
-    group system radio
-
 on property:init.svc.bootanim=running
     write /sys/class/graphics/fb0/blank 1
     write /sys/class/graphics/fb0/blank 0
@@ -671,12 +654,6 @@ on property:persist.data.ds_fmc_app.mode=1
 
 on property:sys.boot_completed=1
     start qrngp
-
-on property:init.svc.surfaceflinger=stopped
-    stop ppd
-
-on property:init.svc.surfaceflinger=running
-    start ppd
 
 on property:bluetooth.hciattach=true
     start hciattach
