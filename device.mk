@@ -163,6 +163,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
    librmnetctl
 
+# RIL
+PRODUCT_PACKAGES += \
+   libprotobuf-cpp-full
+
 # WiFi
 PRODUCT_PACKAGES += \
     p2p_supplicant_overlay.conf \
