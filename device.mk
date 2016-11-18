@@ -350,6 +350,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-swap="false" \
     dalvik.vm.image-dex2oat-filter="speed"
 
+# Aggresively optimize art for performance
+PRODUCT_PROPERTY_OVERRIDES += \
+    pm.dexopt.bg-dexopt=everything-profile \
+    pm.dexopt.core-app=everything-profile \
+    pm.dexopt.forced-dexopt=everything-profile \
+    pm.dexopt.nsys-library=everything-profile \
+    pm.dexopt.shared-apk=everything-profile
+
 # Low Memory Props
 PRODUCT_PROPERTY_OVERRIDES += \
     config.disable_atlas="true" \
