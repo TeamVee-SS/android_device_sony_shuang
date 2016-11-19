@@ -332,13 +332,6 @@ service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
     user root
     oneshot
 
-service hciattach /system/bin/sh /init.qcom.bt.sh
-    class late_start
-    user bluetooth
-    group qcom_oncrpc bluetooth net_bt_admin system net_bt_stack
-    disabled
-    oneshot
-
 service cnd /system/bin/cnd
     class late_start
     socket cnd stream 660 root inet
@@ -654,12 +647,6 @@ on property:persist.data.ds_fmc_app.mode=1
 
 on property:sys.boot_completed=1
     start qrngp
-
-on property:bluetooth.hciattach=true
-    start hciattach
-
-on property:bluetooth.hciattach=false
-    setprop bluetooth.status off
 
 on charger
     write /sys/module/lpm_levels/enable_low_power/l2 2
