@@ -15,16 +15,16 @@
  * limitations under the License.
  */
 
+#include <dirent.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <linux/input.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <dirent.h>
-#include <fcntl.h>
 #include <string.h>
-#include <sys/ioctl.h>
 #include <sys/inotify.h>
+#include <sys/ioctl.h>
 #include <sys/poll.h>
-#include <linux/input.h>
-#include <errno.h>
 #include <unistd.h>
 
 #include "keycheck.h"
@@ -34,8 +34,7 @@ static struct pollfd *ufds;
 static char **device_names;
 static int nfds;
 
-static int open_device(const char *device)
-{
+static int open_device(const char *device) {
     int version;
     int fd;
     int clkid = CLOCK_MONOTONIC;
@@ -85,8 +84,8 @@ static int open_device(const char *device)
     }
 
     ufds = new_ufds;
-    new_device_names = realloc(device_names,
-            sizeof(device_names[0]) * (nfds + 1));
+    new_device_names =
+        realloc(device_names, sizeof(device_names[0]) * (nfds + 1));
     if (new_device_names == NULL) {
         return -1;
     }
@@ -101,8 +100,7 @@ static int open_device(const char *device)
     return 0;
 }
 
-int close_device(const char *device)
-{
+int close_device(const char *device) {
     int i;
     for (i = 1; i < nfds; i++) {
         if (strcmp(device_names[i], device) == 0) {
@@ -118,8 +116,7 @@ int close_device(const char *device)
     return -1;
 }
 
-static int read_notify(const char *dirname, int nfd)
-{
+static int read_notify(const char *dirname, int nfd) {
     int res;
     char devname[PATH_MAX];
     char *filename;
@@ -157,8 +154,7 @@ static int read_notify(const char *dirname, int nfd)
     return 0;
 }
 
-static int scan_dir(const char *dirname)
-{
+static int scan_dir(const char *dirname) {
     char devname[PATH_MAX];
     char *filename;
     DIR *dir;
@@ -174,8 +170,9 @@ static int scan_dir(const char *dirname)
     *filename++ = '/';
 
     while ((de = readdir(dir))) {
-        if (de->d_name[0] == '.' && (de->d_name[1] == '\0' ||
-                (de->d_name[1] == '.' && de->d_name[2] == '\0'))) {
+        if (de->d_name[0] == '.' &&
+            (de->d_name[1] == '\0' ||
+             (de->d_name[1] == '.' && de->d_name[2] == '\0'))) {
             continue;
         }
 
@@ -186,8 +183,7 @@ static int scan_dir(const char *dirname)
     return 0;
 }
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char *argv[]) {
     int i;
     int res;
     struct input_event event;
@@ -211,8 +207,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    for (i = 1; i < argc; ++i)
-    {
+    for (i = 1; i < argc; ++i) {
         if (strcmp(argv[i], "--no-down") == 0) {
             keys &= ~KEYCHECK_CHECK_VOLUMEDOWN;
         }
@@ -232,11 +227,10 @@ int main(int argc, char* argv[])
                 }
 
                 if (event.code == KEY_VOLUMEDOWN &&
-                        (keys & KEYCHECK_CHECK_VOLUMEDOWN) != 0) {
+                    (keys & KEYCHECK_CHECK_VOLUMEDOWN) != 0) {
                     return KEYCHECK_PRESSED_VOLUMEDOWN;
-                }
-                else if (event.code == KEY_VOLUMEUP &&
-                        (keys & KEYCHECK_CHECK_VOLUMEUP) != 0) {
+                } else if (event.code == KEY_VOLUMEUP &&
+                           (keys & KEYCHECK_CHECK_VOLUMEUP) != 0) {
                     return KEYCHECK_PRESSED_VOLUMEUP;
                 }
 

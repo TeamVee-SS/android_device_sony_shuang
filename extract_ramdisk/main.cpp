@@ -33,8 +33,6 @@
 
 #include <stdlib.h>
 
-int extract_ramdisk(int argc, const char** argv);
+int extract_ramdisk(int argc, const char **argv);
 
-int main(int argc, const char** argv) {
-	return extract_ramdisk(argc, argv);
-}
+int main(int argc, const char **argv) { return extract_ramdisk(argc, argv); }
