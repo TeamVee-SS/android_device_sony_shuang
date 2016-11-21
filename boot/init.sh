@@ -33,45 +33,64 @@ export BOOTREC_FOTA="/dev/block/mmcblk0p16"
 /sbin/busybox mount -t proc proc /proc
 /sbin/busybox mount -t sysfs sysfs /sys
 
-# trigger ON green LED
-triggerled 0 255 0 65280
+if [ $(/sbin/busybox grep -q "androidboot.mode=charger" /proc/cmdline; echo $?) == "0" ]
+then
+	# prevent any recovery access on charger powerup
+	/sbin/busybox echo "DIRECT ANDROID BOOT"
+elif [ $(/sbin/busybox grep -q "mrom_kexecd=1" /proc/cmdline; echo $?) == "0" ]
+then
+	# prevent any recovery access on multirom kexec
+	/sbin/busybox echo "DIRECT ANDROID BOOT"
+else
+	# exit code zero of grep recovery reboot command stored on cmdline
+	if [ $(/sbin/busybox grep -q "warmboot=0x77665502" /proc/cmdline; echo $?) == "0" ]
+	then
+		# warning
+		/sbin/busybox echo "DIRECT RECOVERY BOOT"
 
-# trigger vibration
-/sbin/busybox echo 100 > /sys/class/timed_output/vibrator/enable
+		# go direct to recovery
+		export BOOTREC_GOTO_RECOVERY="1"
+	else
+		# trigger ON green LED
+		triggerled 0 255 0 65280
 
-# keycheck
-/sbin/busybox cat ${BOOTREC_EVENT} > /dev/keycheck&
-/sbin/busybox sleep 3
+		# trigger vibration
+		/sbin/busybox echo 100 > /sys/class/timed_output/vibrator/enable
+
+		# go to recovery if keycheck return 41 (Vol-) or 42 (Vol+)
+		/sbin/busybox timeout -t 3 /sbin/keycheck
+		if [[ $? == "41" || $? == "42" ]]; then export BOOTREC_GOTO_RECOVERY="1"; fi
+	fi
+fi
 
 # boot decision
-if [ -s /dev/keycheck ] || /sbin/busybox grep -q warmboot=0x77665502 /proc/cmdline
+if [ ${BOOTREC_GOTO_RECOVERY} == "1" ]
 then
 	# trigger ON cyan LED for recovery
 	triggerled 0 255 255 65535
 
 	# extract recovery ramdisk from fota
-	/sbin/extract_elf_ramdisk -i ${BOOTREC_FOTA} -o /sbin/ramdisk-recovery.cpio -t / -c
+	/sbin/extract_ramdisk -i ${BOOTREC_FOTA} -o /sbin/ramdisk-recovery.cpio -t / -c
 
 	# recovery ramdisk
-	load_image="/sbin/ramdisk-recovery.cpio"
+	BOOTREC_RAMDISK_IMAGE="/sbin/ramdisk-recovery.cpio"
 	/sbin/busybox echo "RECOVERY BOOT"
 else
 	# android ramdisk
-	load_image="/sbin/ramdisk.cpio"
+	BOOTREC_RAMDISK_IMAGE="/sbin/ramdisk.cpio"
 	/sbin/busybox echo "ANDROID BOOT"
 fi
-
-# kill the keycheck process
-/sbin/busybox pkill -f "busybox cat ${BOOTREC_EVENT}"
 
 # trigger OFF LED
 triggerled 0 0 0 0
 
 # unpack the ramdisk image
-/sbin/busybox cpio -i < ${load_image}
+/sbin/busybox cpio -i < ${BOOTREC_RAMDISK_IMAGE}
 
+# cleanup
 /sbin/busybox umount /proc
 /sbin/busybox umount /sys
 /sbin/busybox rm -fr /dev/*
 
+# finally execute real init
 exec /init

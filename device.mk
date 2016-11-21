@@ -190,10 +190,11 @@ PRODUCT_PACKAGES += \
     wpa_supplicant_overlay.conf \
     wcnss_service
 
-# Boot
+# Boot tools
 PRODUCT_PACKAGES += \
-    extract_elf_ramdisk \
-    dtbToolCM
+    extract_ramdisk \
+    dtbToolCM \
+    keycheck
 
 # FM
 PRODUCT_PACKAGES += \

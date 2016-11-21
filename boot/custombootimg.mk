@@ -36,7 +36,8 @@ $(INSTALLED_BOOTIMAGE_TARGET): \
     $(INSTALLED_RAMDISK_TARGET) \
     $(INITSH) \
     $(PRODUCT_OUT)/utilities/busybox \
-    $(PRODUCT_OUT)/utilities/extract_elf_ramdisk \
+    $(PRODUCT_OUT)/utilities/extract_ramdisk \
+    $(PRODUCT_OUT)/utilities/keycheck \
     $(MKBOOTIMG) $(MINIGZIP) \
     $(INTERNAL_BOOTIMAGE_FILES) \
     $(INSTALLED_DTIMAGE_TARGET)
@@ -49,7 +50,8 @@ $(INSTALLED_BOOTIMAGE_TARGET): \
 	$(hide) cp $(uncompressed_ramdisk) $(PRODUCT_OUT)/combinedroot/sbin/
 	$(hide) cp $(recovery_uncompressed_ramdisk) $(PRODUCT_OUT)/combinedroot/sbin/
 	$(hide) cp $(PRODUCT_OUT)/utilities/busybox $(PRODUCT_OUT)/combinedroot/sbin/
-	$(hide) cp $(PRODUCT_OUT)/utilities/extract_elf_ramdisk $(PRODUCT_OUT)/combinedroot/sbin/
+	$(hide) cp $(PRODUCT_OUT)/utilities/extract_ramdisk $(PRODUCT_OUT)/combinedroot/sbin/
+	$(hide) cp $(PRODUCT_OUT)/utilities/keycheck $(PRODUCT_OUT)/combinedroot/sbin/
 
 	$(hide) cp $(INITSH) $(PRODUCT_OUT)/combinedroot/sbin/init.sh
 	$(hide) chmod 755 $(PRODUCT_OUT)/combinedroot/sbin/init.sh
