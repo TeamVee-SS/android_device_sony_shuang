@@ -27,48 +27,54 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-#include "vendor_init.h"
-#include "property_service.h"
 #include "log.h"
+#include "property_service.h"
 #include "util.h"
+#include "vendor_init.h"
 
 #include "init_msm.h"
 
-void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type)
+void init_msm_properties(unsigned long msm_id, unsigned long msm_ver,
+                         char *board_type)
 {
-    char gversionbb[92];
-    char dversionbb[92];
-    FILE *fp;
+    char baseband_version[92];
+    char model_number[92];
+    FILE *get_model;
 
     UNUSED(msm_id);
     UNUSED(msm_ver);
     UNUSED(board_type);
 
-    fp = popen("/sbin/busybox printf $(/sbin/busybox strings /dev/block/platform/msm_sdcc.1/by-name/TA | /sbin/busybox grep '8x10-')", "r");
-    fgets(gversionbb, sizeof(gversionbb), fp);
-    pclose(fp);
-    property_set("gsm.version.baseband", gversionbb);
+    // Print only supported devices
+    get_model =
+        popen("/sbin/busybox printf $(/sbin/busybox strings "
+              "/dev/block/platform/msm_sdcc.1/by-name/LTALabel | /sbin/busybox "
+              "grep -o -e 'D2004' -e 'D2005' -e 'D2104' -e 'D2105' -e 'D2114')",
+              "r");
+    fgets(model_number, sizeof(model_number), get_model);
+    pclose(get_model);
 
-    fp = popen("/sbin/busybox printf $(/sbin/busybox strings /dev/block/platform/msm_sdcc.1/by-name/TA | /sbin/busybox grep -o -e 'D2004' -e 'D2005' -e 'D2104' -e 'D2105' -e 'D2114')", "r");
-    fgets(dversionbb, sizeof(dversionbb), fp);
-    pclose(fp);
-
-    if (strstr(dversionbb, "D2004") || strstr(dversionbb, "D2005") || strstr(dversionbb, "D2104") || strstr(dversionbb, "D2105") || strstr(dversionbb, "D2114")) {
-        property_set("ro.product.device", dversionbb);
-        property_set("ro.product.model", dversionbb);
+    // Check if it's Xperia D20/D21 Series
+    if (strstr(model_number, "D20") || strstr(model_number, "D21")) {
+        property_set("ro.product.device", model_number);
+        property_set("ro.product.model", model_number);
     } else {
         property_set("ro.product.device", "falconss");
         property_set("ro.product.model", "falconss");
     };
 
-    if (strstr(dversionbb, "D2104") || strstr(dversionbb, "D2105") || strstr(dversionbb, "D2114")) {
+    // All of D21 Series is DualSIM
+    if (strstr(model_number, "D21")) {
         property_set("persist.radio.multisim.config", "dsds");
         property_set("persist.multisim.config", "dsds");
         property_set("ro.multi.rild", "true");
     };
 
-    ERROR("Found %s gsm baseband setting build properties for %s device\n", gversionbb, dversionbb);
+    // Get baseband version just for log
+    property_get("gsm.version.baseband", baseband_version);
+    ERROR("Found %s gsm baseband setting build properties for %s device\n",
+          baseband_version, model_number);
 }
