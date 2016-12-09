@@ -202,6 +202,10 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
+# WiFi HIDL interfaces
+PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0-service
+
 # Sony timekeep
 PRODUCT_PACKAGES += \
     timekeep \
