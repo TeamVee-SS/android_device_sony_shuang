@@ -378,6 +378,8 @@ on post-fs-data
     mkdir /data/system/perfd 0770 root system
     chmod 2770 /data/system/perfd
 
+    setprop vold.post_fs_data_done 1
+
 service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
     class main
     user root
