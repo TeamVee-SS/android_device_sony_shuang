@@ -19,6 +19,7 @@ TARGET_SPECIFIC_HEADER_PATH += device/sony/falconss/include
 include vendor/sony/falconss/BoardConfigVendor.mk
 
 BOARD_VENDOR := sony
+BOARD_VENDOR_PLATFORM := falconss
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8610
