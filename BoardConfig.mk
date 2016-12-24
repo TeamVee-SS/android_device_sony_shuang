@@ -148,6 +148,9 @@ BOARD_HARDWARE_CLASS := device/sony/falconss/cmhw
 # Override healthd HAL
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.qcom
 
+# Time services
+BOARD_USES_QC_TIME_SERVICES := true
+
 # FM radio
 TARGET_QCOM_NO_FM_FIRMWARE := true
 
