@@ -36,3 +36,7 @@ fi
 # Set secondary things
 setprop ro.build.description "$(getprop ro.build.product)-$(getprop ro.build.type) $(getprop ro.build.version.release) $(getprop ro.build.id) $(getprop ro.build.version.incremental) $(getprop ro.build.tags)"
 setprop ro.build.fingerprint "$(getprop ro.product.manufacturer)/$(getprop ro.build.product)/$(getprop ro.build.product):$(getprop ro.build.version.release)/$(getprop ro.build.id):$(getprop ro.build.type)/$(getprop ro.build.tags)"
+
+# Set date to a time after 2008
+# This is a workaround for Zygote to preload time related classes properly
+date -s 20161102.120000
