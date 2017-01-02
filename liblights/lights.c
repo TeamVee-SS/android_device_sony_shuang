@@ -3,6 +3,7 @@
  * Copyright (C) 2011 Diogo Ferreira <defer@cyanogenmod.com>
  * Copyright (C) 2012 Alin Jerpelea <jerpelea@gmail.com>
  * Copyright (C) 2012 The CyanogenMod Project <http://www.cyanogenmod.com>
+ * Copyright (C) 2017 Caio Oliveira <caiooliveirafarias0@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,8 +55,7 @@ static int write_int(const char *path, int value)
 	fd = open(path, O_RDWR);
 	if (fd < 0) {
 		if (already_warned == 0) {
-			ALOGE("%s: write_int failed to open %s\n", __func__,
-			      path);
+			ALOGE("%s: failed to open %s\n", __func__, path);
 			already_warned = 1;
 		}
 		return -errno;
@@ -63,29 +63,6 @@ static int write_int(const char *path, int value)
 
 	char buffer[20];
 	int bytes = snprintf(buffer, sizeof(buffer), "%d\n", value);
-	int written = write(fd, buffer, bytes);
-	close(fd);
-
-	return written == -1 ? -errno : 0;
-}
-
-static int write_string(const char *path, const char *value)
-{
-	int fd;
-	static int already_warned = 0;
-
-	fd = open(path, O_RDWR);
-	if (fd < 0) {
-		if (already_warned == 0) {
-			ALOGE("%s: write_string failed to open %s\n", __func__,
-			      path);
-			already_warned = 1;
-		}
-		return -errno;
-	}
-
-	char buffer[20];
-	int bytes = snprintf(buffer, sizeof(buffer), "%s\n", value);
 	int written = write(fd, buffer, bytes);
 	close(fd);
 
@@ -113,8 +90,12 @@ static int set_light_backlight(struct light_device_t *dev,
 	int err = 0;
 	int brightness = rgb_to_brightness(state);
 
+	if (brightness < LCD_BRIGHTNESS_MIN)
+		brightness = LCD_BRIGHTNESS_MIN;
+
 	ALOGV("%s: brightness = [%d], color = [0x%08x]", __func__, brightness,
 	      state->color);
+
 	pthread_mutex_lock(&g_lock);
 	g_backlight = brightness;
 	err = write_int(LCD_BACKLIGHT_FILE, brightness);
@@ -125,25 +106,23 @@ static int set_light_backlight(struct light_device_t *dev,
 static void set_shared_light_locked(struct light_device_t *dev,
 				    struct light_state_t *state)
 {
-	int r, g, b;
+	int r, g, b, rgb;
 	int err = 0;
-	int sns = 0;
-	int delayOn, delayOff;
 
 	r = (state->color >> 16) & 0xFF;
 	g = (state->color >> 8) & 0xFF;
 	b = (state->color) & 0xFF;
-
-	delayOn = state->flashOnMS;
-	delayOff = state->flashOffMS;
+	rgb = ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);
 
 	err = write_int(RED_LED_FILE, r);
 	err = write_int(GREEN_LED_FILE, g);
 	err = write_int(BLUE_LED_FILE, b);
-	err = write_int(SNS_LED_FILE, sns);
+
+	if (is_lit(&g_notification))
+		err = write_int(SNS_LED_FILE, rgb);
 }
 
-static void handle_shared_battery_locked(struct light_device_t *dev)
+static void handle_shared_locked(struct light_device_t *dev)
 {
 	if (is_lit(&g_notification)) {
 		set_shared_light_locked(dev, &g_notification);
@@ -157,7 +136,7 @@ static int set_light_battery(struct light_device_t *dev,
 {
 	pthread_mutex_lock(&g_lock);
 	g_battery = *state;
-	handle_shared_battery_locked(dev);
+	handle_shared_locked(dev);
 	pthread_mutex_unlock(&g_lock);
 	return 0;
 }
@@ -167,7 +146,7 @@ static int set_light_notifications(struct light_device_t *dev,
 {
 	pthread_mutex_lock(&g_lock);
 	g_notification = *state;
-	handle_shared_battery_locked(dev);
+	handle_shared_locked(dev);
 	pthread_mutex_unlock(&g_lock);
 	return 0;
 }
@@ -225,6 +204,7 @@ struct hw_module_t HAL_MODULE_INFO_SYM = {
     .id = LIGHTS_HARDWARE_MODULE_ID,
     .name = "Sony lights module",
     .author = "Diogo Ferreira <defer@cyanogenmod.com>, Alin Jerpelea "
-	      "<jerpelea@gmail.com>",
+	      "<jerpelea@gmail.com>, Caio Oliveira "
+	      "<caiooliveirafarias0@gmail.com>",
     .methods = &lights_module_methods,
 };
