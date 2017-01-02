@@ -31,7 +31,7 @@
 #include <sys/types.h>
 
 #include <hardware/lights.h>
-#include "lights.h"
+#include "sony_lights.h"
 
 /* Synchronization primities */
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;

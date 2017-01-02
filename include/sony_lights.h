@@ -14,8 +14,16 @@
  * limitations under the License.
  */
 
-char const *const LCD_BACKLIGHT_FILE = "/sys/class/leds/lcd-backlight/brightness";
-char const *const LCD_BACKLIGHT2_FILE = "/dev/null";
-char const *const MAX_BRIGHTNESS_FILE = "/sys/class/leds/lcd-backlight/max_brightness";
+// Backlight
+char const *const LCD_BACKLIGHT_FILE     = "/sys/class/leds/lcd-backlight/brightness";
+//char const *const MAX_BRIGHTNESS_FILE = "/sys/class/leds/lcd-backlight/max_brightness";
 
-const int LCD_BRIGHTNESS_MIN = 10;
+//const int LCD_BRIGHTNESS_MIN = 10;
+
+// SNS/Bar Led
+char const *const SNS_LED_FILE           = "/sys/class/leds/lm3533-light-sns/rgb_brightness";
+
+// Notification Led
+char const *const RED_LED_FILE          = "/sys/class/leds/red/brightness";
+char const *const GREEN_LED_FILE        = "/sys/class/leds/green/brightness";
+char const *const BLUE_LED_FILE         = "/sys/class/leds/notification/brightness";
