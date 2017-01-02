@@ -20,18 +20,18 @@
 #define LOG_TAG "lights.sony"
 
 #include <cutils/log.h>
-#include <stdint.h>
-#include <string.h>
-#include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <pthread.h>
+#include <stdint.h>
+#include <string.h>
+#include <unistd.h>
 
 #include <sys/ioctl.h>
 #include <sys/types.h>
 
-#include <hardware/lights.h>
 #include "sony_lights.h"
+#include <hardware/lights.h>
 
 /* Synchronization primities */
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
@@ -44,21 +44,18 @@ static struct light_state_t g_battery;
 static int g_backlight = 255;
 
 /* The leds we have */
-enum {
-	LED_RED,
-	LED_GREEN,
-	LED_BLUE,
-	LED_BLANK
-};
+enum { LED_RED, LED_GREEN, LED_BLUE, LED_BLANK };
 
-static int write_int (const char *path, int value) {
+static int write_int(const char *path, int value)
+{
 	int fd;
 	static int already_warned = 0;
 
 	fd = open(path, O_RDWR);
 	if (fd < 0) {
 		if (already_warned == 0) {
-			ALOGE("write_int failed to open %s\n", path);
+			ALOGE("%s: write_int failed to open %s\n", __func__,
+			      path);
 			already_warned = 1;
 		}
 		return -errno;
@@ -66,20 +63,22 @@ static int write_int (const char *path, int value) {
 
 	char buffer[20];
 	int bytes = snprintf(buffer, sizeof(buffer), "%d\n", value);
-	int written = write (fd, buffer, bytes);
+	int written = write(fd, buffer, bytes);
 	close(fd);
 
 	return written == -1 ? -errno : 0;
 }
 
-static int write_string (const char *path, const char *value) {
+static int write_string(const char *path, const char *value)
+{
 	int fd;
 	static int already_warned = 0;
 
 	fd = open(path, O_RDWR);
 	if (fd < 0) {
 		if (already_warned == 0) {
-			ALOGE("write_string failed to open %s\n", path);
+			ALOGE("%s: write_string failed to open %s\n", __func__,
+			      path);
 			already_warned = 1;
 		}
 		return -errno;
@@ -87,38 +86,45 @@ static int write_string (const char *path, const char *value) {
 
 	char buffer[20];
 	int bytes = snprintf(buffer, sizeof(buffer), "%s\n", value);
-	int written = write (fd, buffer, bytes);
+	int written = write(fd, buffer, bytes);
 	close(fd);
 
 	return written == -1 ? -errno : 0;
 }
 
-
 /* Color tools */
-static int is_lit (struct light_state_t const* state) {
+static int is_lit(struct light_state_t const *state)
+{
 	return state->color & 0x00ffffff;
 }
 
-static int rgb_to_brightness (struct light_state_t const* state) {
+static int rgb_to_brightness(struct light_state_t const *state)
+{
 	int color = state->color & 0x00ffffff;
-	return ((77*((color>>16)&0x00ff))
-			+ (150*((color>>8)&0x00ff)) + (29*(color&0x00ff))) >> 8;
+	return ((77 * ((color >> 16) & 0x00ff)) +
+		(150 * ((color >> 8) & 0x00ff)) + (29 * (color & 0x00ff))) >>
+	       8;
 }
 
 /* The actual lights controlling section */
-static int set_light_backlight (struct light_device_t *dev, struct light_state_t const *state) {
+static int set_light_backlight(struct light_device_t *dev,
+			       struct light_state_t const *state)
+{
 	int err = 0;
 	int brightness = rgb_to_brightness(state);
 
-	ALOGV("%s brightness=%d color=0x%08x", __func__,brightness,state->color);
+	ALOGV("%s: brightness = [%d], color = [0x%08x]", __func__, brightness,
+	      state->color);
 	pthread_mutex_lock(&g_lock);
 	g_backlight = brightness;
-	err = write_int (LCD_BACKLIGHT_FILE, brightness);
+	err = write_int(LCD_BACKLIGHT_FILE, brightness);
 	pthread_mutex_unlock(&g_lock);
 	return err;
 }
 
-static void set_shared_light_locked (struct light_device_t *dev, struct light_state_t *state) {
+static void set_shared_light_locked(struct light_device_t *dev,
+				    struct light_state_t *state)
+{
 	int r, g, b;
 	int err = 0;
 	int sns = 0;
@@ -131,99 +137,94 @@ static void set_shared_light_locked (struct light_device_t *dev, struct light_st
 	delayOn = state->flashOnMS;
 	delayOff = state->flashOffMS;
 
-	if (state->flashMode != LIGHT_FLASH_NONE) {
-//		err = write_string (SNS_LED_FILE_, r);
-		sns = 255;
-//	} else {
-//		err = write_string (SNS_LED_FILE, r);
-		sns = 0;
-	}
-	err = write_int (RED_LED_FILE, r);
-	err = write_int (GREEN_LED_FILE, g);
-	err = write_int (BLUE_LED_FILE, b);
-	err = write_int (SNS_LED_FILE, sns);
+	err = write_int(RED_LED_FILE, r);
+	err = write_int(GREEN_LED_FILE, g);
+	err = write_int(BLUE_LED_FILE, b);
+	err = write_int(SNS_LED_FILE, sns);
 }
 
-static void handle_shared_battery_locked (struct light_device_t *dev) {
-	if (is_lit (&g_notification)) {
-		set_shared_light_locked (dev, &g_notification);
+static void handle_shared_battery_locked(struct light_device_t *dev)
+{
+	if (is_lit(&g_notification)) {
+		set_shared_light_locked(dev, &g_notification);
 	} else {
-		set_shared_light_locked (dev, &g_battery);
+		set_shared_light_locked(dev, &g_battery);
 	}
 }
 
-static int set_light_battery (struct light_device_t *dev, struct light_state_t const* state) {
-	pthread_mutex_lock (&g_lock);
+static int set_light_battery(struct light_device_t *dev,
+			     struct light_state_t const *state)
+{
+	pthread_mutex_lock(&g_lock);
 	g_battery = *state;
 	handle_shared_battery_locked(dev);
-	pthread_mutex_unlock (&g_lock);
+	pthread_mutex_unlock(&g_lock);
 	return 0;
 }
 
-static int set_light_notifications (struct light_device_t *dev, struct light_state_t const* state) {
-	pthread_mutex_lock (&g_lock);
+static int set_light_notifications(struct light_device_t *dev,
+				   struct light_state_t const *state)
+{
+	pthread_mutex_lock(&g_lock);
 	g_notification = *state;
 	handle_shared_battery_locked(dev);
-	pthread_mutex_unlock (&g_lock);
+	pthread_mutex_unlock(&g_lock);
 	return 0;
 }
 
 /* Initializations */
-void init_globals () {
-	pthread_mutex_init (&g_lock, NULL);
-}
+void init_globals() { pthread_mutex_init(&g_lock, NULL); }
 
 /* Glueing boilerplate */
-static int close_lights (struct light_device_t *dev) {
+static int close_lights(struct light_device_t *dev)
+{
 	if (dev)
 		free(dev);
 
 	return 0;
 }
 
-static int open_lights (const struct hw_module_t* module, char const* name,
-						struct hw_device_t** device) {
-	int (*set_light)(struct light_device_t* dev,
-					 struct light_state_t const *state);
+static int open_lights(const struct hw_module_t *module, char const *name,
+		       struct hw_device_t **device)
+{
+	int (*set_light)(struct light_device_t * dev,
+			 struct light_state_t const *state);
 
 	if (0 == strcmp(LIGHT_ID_BACKLIGHT, name)) {
 		set_light = set_light_backlight;
-	}
-	else if (0 == strcmp(LIGHT_ID_BATTERY, name)) {
+	} else if (0 == strcmp(LIGHT_ID_BATTERY, name)) {
 		set_light = set_light_battery;
-	}
-	else if (0 == strcmp(LIGHT_ID_NOTIFICATIONS, name)) {
+	} else if (0 == strcmp(LIGHT_ID_NOTIFICATIONS, name)) {
 		set_light = set_light_notifications;
-	}
-	else {
+	} else {
 		return -EINVAL;
 	}
 
-	pthread_once (&g_init, init_globals);
-	struct light_device_t *dev = malloc(sizeof (struct light_device_t));
+	pthread_once(&g_init, init_globals);
+	struct light_device_t *dev = malloc(sizeof(struct light_device_t));
 	memset(dev, 0, sizeof(*dev));
 
-	dev->common.tag 	= HARDWARE_DEVICE_TAG;
+	dev->common.tag = HARDWARE_DEVICE_TAG;
 	dev->common.version = 0;
-	dev->common.module 	= (struct hw_module_t*)module;
-	dev->common.close 	= (int (*)(struct hw_device_t*))close_lights;
-	dev->set_light 		= set_light;
+	dev->common.module = (struct hw_module_t *)module;
+	dev->common.close = (int (*)(struct hw_device_t *))close_lights;
+	dev->set_light = set_light;
 
-	*device = (struct hw_device_t*)dev;
+	*device = (struct hw_device_t *)dev;
 	return 0;
 }
 
 static struct hw_module_methods_t lights_module_methods = {
-	.open = open_lights,
+    .open = open_lights,
 };
 
-
 struct hw_module_t HAL_MODULE_INFO_SYM = {
-	.tag = HARDWARE_MODULE_TAG,
-	.version_major = 1,
-	.version_minor = 0,
-	.id = LIGHTS_HARDWARE_MODULE_ID,
-	.name = "Sony lights module",
-	.author = "Diogo Ferreira <defer@cyanogenmod.com>,Alin Jerpelea<jerpelea@gmail.com>",
-	.methods = &lights_module_methods,
+    .tag = HARDWARE_MODULE_TAG,
+    .version_major = 1,
+    .version_minor = 0,
+    .id = LIGHTS_HARDWARE_MODULE_ID,
+    .name = "Sony lights module",
+    .author = "Diogo Ferreira <defer@cyanogenmod.com>, Alin Jerpelea "
+	      "<jerpelea@gmail.com>",
+    .methods = &lights_module_methods,
 };
