@@ -20,19 +20,20 @@
 
 #define LOG_TAG "lights.sony"
 
+#define BARLED "ro.sony.lights.barled"
+
 #include <cutils/log.h>
+#include <cutils/properties.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <hardware/lights.h>
 #include <pthread.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
-#include <unistd.h>
-
 #include <sys/ioctl.h>
 #include <sys/types.h>
-
-#include "sony_lights.h"
-#include <hardware/lights.h>
+#include <unistd.h>
 
 /* Synchronization primities */
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
@@ -44,8 +45,53 @@ static struct light_state_t g_battery;
 
 static int g_backlight = 255;
 
+// Backlight
+char const *const LCD_BACKLIGHT_FILE =
+    "/sys/class/leds/lcd-backlight/brightness";
+
+// SNS/Bar Led
+char const *const SNS_LED_FILE =
+    "/sys/class/leds/lm3533-light-sns/rgb_brightness";
+
+// Notification Led
+char const *const RED_LED_FILE = "/sys/class/leds/red/brightness";
+char const *const GREEN_LED_FILE = "/sys/class/leds/green/brightness";
+char const *const BLUE_LED_FILE = "/sys/class/leds/notification/brightness";
+
 /* The leds we have */
 enum { LED_RED, LED_GREEN, LED_BLUE, LED_BLANK };
+
+bool property_get_bool(const char *key, bool default_value)
+{
+	if (!key) {
+		return default_value;
+	}
+
+	bool result = default_value;
+	char buf[PROP_VALUE_MAX] = {
+	    '\0',
+	};
+
+	int len = property_get(key, buf, "");
+	if (len == 1) {
+		char ch = buf[0];
+		if (ch == '0' || ch == 'n') {
+			result = false;
+		} else if (ch == '1' || ch == 'y') {
+			result = true;
+		}
+	} else if (len > 1) {
+		if (!strcmp(buf, "no") || !strcmp(buf, "false") ||
+		    !strcmp(buf, "off")) {
+			result = false;
+		} else if (!strcmp(buf, "yes") || !strcmp(buf, "true") ||
+			   !strcmp(buf, "on")) {
+			result = true;
+		}
+	}
+
+	return result;
+}
 
 static int write_int(const char *path, int value)
 {
@@ -78,6 +124,7 @@ static int is_lit(struct light_state_t const *state)
 static int rgb_to_brightness(struct light_state_t const *state)
 {
 	int color = state->color & 0x00ffffff;
+
 	return ((77 * ((color >> 16) & 0x00ff)) +
 		(150 * ((color >> 8) & 0x00ff)) + (29 * (color & 0x00ff))) >>
 	       8;
@@ -90,16 +137,14 @@ static int set_light_backlight(struct light_device_t *dev,
 	int err = 0;
 	int brightness = rgb_to_brightness(state);
 
-	if (brightness < LCD_BRIGHTNESS_MIN)
-		brightness = LCD_BRIGHTNESS_MIN;
-
-	ALOGV("%s: brightness = [%d], color = [0x%08x]", __func__, brightness,
-	      state->color);
+	if (brightness < 10)
+		brightness = 10;
 
 	pthread_mutex_lock(&g_lock);
 	g_backlight = brightness;
 	err = write_int(LCD_BACKLIGHT_FILE, brightness);
 	pthread_mutex_unlock(&g_lock);
+
 	return err;
 }
 
@@ -109,17 +154,27 @@ static void set_shared_light_locked(struct light_device_t *dev,
 	int r, g, b, rgb;
 	int err = 0;
 
-	r = (state->color >> 16) & 0xFF;
-	g = (state->color >> 8) & 0xFF;
-	b = (state->color) & 0xFF;
-	rgb = ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);
+	// Disable Bar LED?
+	bool barled = property_get_bool(BARLED, true);
 
+	// Convert from UserSpace (hex) to separate colors (r,g,b)
+	r = (state->color >> 16) & 0x00ff;
+	g = (state->color >> 8) & 0x00ff;
+	b = (state->color) & 0x00ff;
+
+	// Mix separate colors (r,g,b) to unique number (rgb)
+	rgb = ((r & 0x00ff) << 16) | ((g & 0x00ff) << 8) | (b & 0x00ff);
+
+	// Write these colors to sysfs
 	err = write_int(RED_LED_FILE, r);
 	err = write_int(GREEN_LED_FILE, g);
 	err = write_int(BLUE_LED_FILE, b);
-
-	if (is_lit(&g_notification))
+	if (barled)
 		err = write_int(SNS_LED_FILE, rgb);
+
+	// Log by now
+	ALOGI("%s: HEX=[%08X] R=[%i] G=[%i] B=[%i] RGB=[%i]\n", __func__,
+	      state->color, r, g, b, rgb);
 }
 
 static void handle_shared_locked(struct light_device_t *dev)
@@ -138,6 +193,7 @@ static int set_light_battery(struct light_device_t *dev,
 	g_battery = *state;
 	handle_shared_locked(dev);
 	pthread_mutex_unlock(&g_lock);
+
 	return 0;
 }
 
@@ -148,6 +204,7 @@ static int set_light_notifications(struct light_device_t *dev,
 	g_notification = *state;
 	handle_shared_locked(dev);
 	pthread_mutex_unlock(&g_lock);
+
 	return 0;
 }
 
@@ -190,6 +247,7 @@ static int open_lights(const struct hw_module_t *module, char const *name,
 	dev->set_light = set_light;
 
 	*device = (struct hw_device_t *)dev;
+
 	return 0;
 }
 
