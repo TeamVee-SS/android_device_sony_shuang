@@ -3,12 +3,11 @@ set +x
 exec >> /boot.txt 2>&1
 /sbin/busybox rm /init
 
-triggerled() {
-# Use this <http://www.nameacolor.com/Color%20numbers.htm>
-/sbin/busybox echo ${1} > /sys/class/leds/red/brightness
-/sbin/busybox echo ${2} > /sys/class/leds/green/brightness
-/sbin/busybox echo ${3} > /sys/class/leds/notification/brightness
-/sbin/busybox echo ${4} > /sys/class/leds/lm3533-light-sns/rgb_brightness
+triggerled_rgb() {
+/sbin/busybox echo "${1}" > "/sys/class/leds/red/brightness"
+/sbin/busybox echo "${2}" > "/sys/class/leds/green/brightness"
+/sbin/busybox echo "${3}" > "/sys/class/leds/notification/brightness"
+/sbin/busybox echo "$(($(($((${1} & 0xFF)) << 16)) + $(($((${2} & 0xFF)) << 8)) + $((${3} & 0xFF))))" > "/sys/class/leds/lm3533-light-sns/rgb_brightness"
 }
 
 # include device specific vars
@@ -52,7 +51,7 @@ else
 		export BOOTREC_GOTO_RECOVERY="1"
 	else
 		# trigger ON green LED
-		triggerled 0 255 0 65280
+		triggerled_rgb 0 255 0
 
 		# trigger vibration
 		/sbin/busybox echo 100 > /sys/class/timed_output/vibrator/enable
@@ -67,7 +66,7 @@ fi
 if [ ${BOOTREC_GOTO_RECOVERY} == "1" ]
 then
 	# trigger ON cyan LED for recovery
-	triggerled 0 255 255 65535
+	triggerled_rgb 0 255 255
 
 	# extract recovery ramdisk from fota
 	/sbin/extract_ramdisk -i ${BOOTREC_FOTA} -o /sbin/ramdisk-recovery.cpio -t / -c
@@ -82,7 +81,7 @@ else
 fi
 
 # trigger OFF LED
-triggerled 0 0 0 0
+triggerled_rgb 0 0 0
 
 # unpack the ramdisk image
 /sbin/busybox cpio -i < ${BOOTREC_RAMDISK_IMAGE}
