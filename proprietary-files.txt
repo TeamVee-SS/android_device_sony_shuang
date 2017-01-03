@@ -135,7 +135,6 @@ etc/firmware/widevine.mdt
 etc/permissions/com.qualcomm.location.xml
 etc/sap.conf
 lib/hw/camera.msm8610.so:lib/hw/camera.vendor.msm8610.so
-lib/hw/lights.msm8610.so:lib/hw/lights.vendor.msm8610.so
 lib/hw/sensors.msm8610.so
 lib/lib_asb_tee.so
 lib/libchromatix_imx135_liveshot.so
