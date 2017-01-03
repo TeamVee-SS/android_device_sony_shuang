@@ -83,6 +83,8 @@ on early-boot
 
     write /sys/kernel/boot_adsp/boot 1
 
+    exec /system/bin/sh /init.qcom.early_boot.sh
+
     start ta_qmi_service
     start sct_service
 

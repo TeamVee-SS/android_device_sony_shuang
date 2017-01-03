@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2013, The Linux Foundation. All rights reserved.
+# Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -26,13 +26,6 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-# Start ril-daemon1 for dualsim
-if [ $(getprop persist.radio.multisim.config) -eq dsds ]
-then
-	start ril-daemon1
-fi
-
-# Set secondary things
-setprop ro.build.description "$(getprop ro.build.product)-$(getprop ro.build.type) $(getprop ro.build.version.release) $(getprop ro.build.id) $(getprop ro.build.version.incremental) $(getprop ro.build.tags)"
-setprop ro.build.fingerprint "$(getprop ro.product.manufacturer)/$(getprop ro.build.product)/$(getprop ro.build.product):$(getprop ro.build.version.release)/$(getprop ro.build.id):$(getprop ro.build.type)/$(getprop ro.build.tags)"
-
+# Set date to a time after 2008
+# This is a workaround for Zygote to preload time related classes properly
+/system/bin/date -s 20090102.130000
