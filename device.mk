@@ -173,6 +173,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     gps.msm8610
 
+PRODUCT_PACKAGES += \
+    lights.msm8610
+
 # Qualcomm
 PRODUCT_PACKAGES += \
     qrngp \
@@ -181,7 +184,6 @@ PRODUCT_PACKAGES += \
 # Qualcomm
 PRODUCT_PACKAGES += \
     camera.qcom \
-    lights.qcom \
     libhealthd.qcom
 
 # WiFi
