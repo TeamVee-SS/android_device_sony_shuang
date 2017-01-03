@@ -171,10 +171,6 @@ static void set_shared_light_locked(struct light_device_t *dev,
 	err = write_int(BLUE_LED_FILE, b);
 	if (barled)
 		err = write_int(SNS_LED_FILE, rgb);
-
-	// Log by now
-	ALOGI("%s: HEX=[%08X] R=[%i] G=[%i] B=[%i] RGB=[%i]\n", __func__,
-	      state->color, r, g, b, rgb);
 }
 
 static void handle_shared_locked(struct light_device_t *dev)
