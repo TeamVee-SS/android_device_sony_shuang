@@ -7,7 +7,6 @@ bin/ds_fmc_appd
 bin/dun-server
 bin/ftmdaemon
 bin/hci_qcomm_init
-bin/illumination_service
 bin/irsc_util
 bin/magnetic
 bin/mm-qcamera-daemon
@@ -146,7 +145,6 @@ lib/libface.so
 lib/libfmradio.sony-iris.so
 lib/libfmradiosony.so
 lib/libkeyctrl.so
-lib/liblights-core.so
 lib/libloc_api_v02.so
 lib/libloc_ds_api.so
 lib/libMiscTaAccessor.so

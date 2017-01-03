@@ -615,11 +615,6 @@ service akmd /system/bin/magnetic -m 6
     user compass
     group system
 
-service illumination /system/bin/illumination_service
-    socket illumination stream 0660 system camera
-    class main
-    user root
-
 service rfs_access /system/bin/rfs_access
     class core
     user system
