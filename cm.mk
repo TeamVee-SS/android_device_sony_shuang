@@ -24,6 +24,10 @@ $(call inherit-product, device/sony/falconss/full_falconss.mk)
 TARGET_SCREEN_HEIGHT := 800
 TARGET_SCREEN_WIDTH := 480
 
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    BUILD_FINGERPRINT="Sony/D2114/D2114:4.4.2/20.1.B.2.30/4bd_Xw:user/release-keys" \
+    PRIVATE_BUILD_DESC="D2114-user 4.4.2 20.1.B.2.30 4bd_Xw release-keys"
+
 # Device identifier. This must come after all inclusions
 PRODUCT_NAME := cm_falconss
 PRODUCT_RELEASE_NAME := Xperia E1
