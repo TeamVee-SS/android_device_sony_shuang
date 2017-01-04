@@ -73,29 +73,23 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver,
         property_set("ro.multi.rild", "true");
     };
 
-    /*
     // Set build description and fingerprint
-    if (strstr(modelnumber, "D2004")) {
-        // TODO: FIX DESCRIPTION AND FINGERPRINT
-        property_set("ro.build.description", "D2004-user 4.4.2 20.1.B.2.29 4bd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2004/D2004:4.4.2/20.1.B.2.29/4bd_Xw:user/release-keys");
-    } else if (strstr(modelnumber, "D2005")) {
-        // TODO: FIX DESCRIPTION AND FINGERPRINT
-        property_set("ro.build.description", "D2005-user 4.4.2 20.1.B.2.29 4bd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2005/D2005:4.4.2/20.1.B.2.29/4bd_Xw:user/release-keys");
-    } else if (strstr(modelnumber, "D2104")) {
-        // TODO: FIX DESCRIPTION AND FINGERPRINT
-        property_set("ro.build.description", "D2104-user 4.4.2 20.1.B.2.30 4bd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2004/D2004:4.4.2/20.1.B.2.30/4bd_Xw:user/release-keys");
-    } else if (strstr(modelnumber, "D2105")) {
-        // TODO: FIX DESCRIPTION AND FINGERPRINT
-        property_set("ro.build.description", "D2105-user 4.4.2 20.1.B.2.30 4bd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2105/D2105:4.4.2/20.1.B.2.30/4bd_Xw:user/release-keys");
-    } else if (strstr(modelnumber, "D2114")) {
+    if (strstr(model_number, "D2004")) {
+        property_set("ro.build.description", "D2004-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
+        property_set("ro.build.fingerprint", "Sony/D2004/D2004:4.4.2/20.1.A.2.19/7Pd_Xw:user/release-keys");
+    } else if (strstr(model_number, "D2005")) {
+        property_set("ro.build.description", "D2005-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
+        property_set("ro.build.fingerprint", "Sony/D2005/D2005:4.4.2/20.1.A.2.19/7Pd_Xw:user/release-keys");
+    } else if (strstr(model_number, "D2104")) {
+        property_set("ro.build.description", "D2104-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
+        property_set("ro.build.fingerprint", "Sony/D2104/D2104:4.4.2/20.1.B.2.29/4rd_Xw:user/release-keys");
+    } else if (strstr(model_number, "D2105")) {
+        property_set("ro.build.description", "D2105-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
+        property_set("ro.build.fingerprint", "Sony/D2105/D2105:4.4.2/20.1.B.2.29/4rd_Xw:user/release-keys");
+    } else if (strstr(model_number, "D2114")) {
         property_set("ro.build.description", "D2114-user 4.4.2 20.1.B.2.30 4bd_Xw release-keys");
         property_set("ro.build.fingerprint", "Sony/D2114/D2114:4.4.2/20.1.B.2.30/4bd_Xw:user/release-keys");
     };
-     */
 
     // Get baseband version just for log
     property_get("gsm.version.baseband", baseband_version);
