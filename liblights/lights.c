@@ -20,7 +20,7 @@
 
 #define LOG_TAG "lights.sony"
 
-#define BARLED "ro.sony.lights.barled"
+#define BARLED "sys.lights.barled"
 
 #include <cutils/log.h>
 #include <cutils/properties.h>
@@ -154,23 +154,25 @@ static void set_shared_light_locked(struct light_device_t *dev,
 	int r, g, b, rgb;
 	int err = 0;
 
-	// Disable Bar LED?
-	bool barled = property_get_bool(BARLED, true);
-
 	// Convert from UserSpace (hex) to separate colors (r,g,b)
 	r = (state->color >> 16) & 0x00ff;
 	g = (state->color >> 8) & 0x00ff;
 	b = (state->color) & 0x00ff;
 
-	// Mix separate colors (r,g,b) to unique number (rgb)
-	rgb = ((r & 0x00ff) << 16) | ((g & 0x00ff) << 8) | (b & 0x00ff);
-
 	// Write these colors to sysfs
 	err = write_int(RED_LED_FILE, r);
 	err = write_int(GREEN_LED_FILE, g);
 	err = write_int(BLUE_LED_FILE, b);
-	if (barled)
+
+	// Disable 'Bar LED'?
+	bool barled = property_get_bool(BARLED, true);
+	if (barled) {
+		// Mix separate colors (r,g,b) to unique number (rgb)
+		rgb = ((r & 0x00ff) << 16) | ((g & 0x00ff) << 8) | (b & 0x00ff);
+		// And Write this color value to sysfs
 		err = write_int(SNS_LED_FILE, rgb);
+	} else
+		err = write_int(SNS_LED_FILE, 0);
 }
 
 static void handle_shared_locked(struct light_device_t *dev)
