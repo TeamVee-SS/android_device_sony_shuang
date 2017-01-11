@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014, The Linux Foundation. All rights reserved.
+   Copyright (c) 2016, The CyanogenMod Project
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -37,16 +37,11 @@
 
 #include "init_msm.h"
 
-void init_msm_properties(unsigned long msm_id, unsigned long msm_ver,
-                         char *board_type)
+void vendor_load_properties()
 {
     char baseband_version[92];
     char model_number[92];
     FILE *get_model;
-
-    UNUSED(msm_id);
-    UNUSED(msm_ver);
-    UNUSED(board_type);
 
     // Print only supported devices
     get_model =

@@ -148,9 +148,8 @@ BOARD_USES_QC_TIME_SERVICES := true
 TARGET_QCOM_NO_FM_FIRMWARE := true
 
 # Init
-TARGET_INIT_VENDOR_LIB := libinit_msm
-TARGET_RECOVERY_DEVICE_MODULES := libinit_msm
-TARGET_LIBINIT_DEFINES_FILE := device/sony/falconss/init/init_falconss.c
+TARGET_INIT_VENDOR_LIB := libinit_falconss
+TARGET_RECOVERY_DEVICE_MODULES := libinit_falconss
 TARGET_UNIFIED_DEVICE := true
 
 # FSTAB
