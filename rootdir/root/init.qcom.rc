@@ -73,7 +73,6 @@ on fs
 
     wait /dev/block/platform/msm_sdcc.1/by-name/TA
     class_start trimarea
-    exec /sbin/wait4tad_static
 
     setprop ro.crypto.fuse_sdcard true
 
