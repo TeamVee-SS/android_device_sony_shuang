@@ -175,26 +175,3 @@ TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_IGNORE_OVERLAY := true
 
-# Sepolicy
-BOARD_SEPOLICY_DIRS += device/sony/falconss/sepolicy
-BOARD_SEPOLICY_UNION += \
-    file_contexts \
-    app.te \
-    bluetooth.te \
-    device.te \
-    domain.te \
-    drmserver.te \
-    file.te \
-    hci_init.te \
-    healthd.te \
-    init.te \
-    init_shell.te \
-    keystore.te \
-    kickstart.te \
-    mediaserver.te \
-    netd.te \
-    rild.te \
-    surfaceflinger.te \
-    system.te \
-    ueventd.te \
-    wpa_supplicant.te
