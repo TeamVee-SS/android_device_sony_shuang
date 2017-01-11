@@ -259,8 +259,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicecall="true" \
     persist.audio.fluence.voicerec="true" \
     persist.audio.fluence.speaker="false" \
-    tunnel.audio.encode="false" \
-    af.resampler.quality="4"
+    tunnel.audio.encode="false"
 
 # FM Transmitter
 PRODUCT_PROPERTY_OVERRIDES += \
