@@ -26,9 +26,9 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-# Start ril-daemon1 for dualsim
+# Start ril-daemon2 for dualsim
 if [ $(getprop persist.radio.multisim.config) -eq dsds ]
 then
-	start ril-daemon1
+	start ril-daemon2
 fi
 
