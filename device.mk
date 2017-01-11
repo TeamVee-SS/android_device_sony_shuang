@@ -204,6 +204,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     DozeService
 
+PRODUCT_PACKAGES += \
+    libstlport
+
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
 # For userdebug builds
