@@ -175,3 +175,5 @@ TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_IGNORE_OVERLAY := true
 
+# SEPolicy
+include device/qcom/sepolicy/sepolicy.mk
