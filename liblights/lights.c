@@ -143,11 +143,11 @@ static int set_light_backlight(struct light_device_t *dev,
 	return err;
 }
 
-static int set_shared_light_locked(struct light_device_t *dev,
-				   struct light_state_t const *state)
+static void set_shared_light_locked(struct light_device_t *dev,
+				    struct light_state_t const *state)
 {
 	int err = 0;
-	int red, green, blue;
+	int red, green, blue, rgb;
 
 	red = (state->color >> 16) & 0x00FF;
 	green = (state->color >> 8) & 0x00FF;
@@ -159,7 +159,9 @@ static int set_shared_light_locked(struct light_device_t *dev,
 
 	bool barled = property_get_bool(BARLED, true);
 	if (barled) {
-		err = write_int(SNS_LED_FILE, state->color);
+		rgb = ((red & 0x00FF) << 16) | ((green & 0x00FF) << 8) |
+		      (blue & 0x00FF);
+		err = write_int(SNS_LED_FILE, rgb);
 	} else {
 		err = write_int(SNS_LED_FILE, 0);
 	}
