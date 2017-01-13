@@ -55,38 +55,6 @@ char const *const RED_LED_FILE = "/sys/class/leds/red/brightness";
 char const *const GREEN_LED_FILE = "/sys/class/leds/green/brightness";
 char const *const BLUE_LED_FILE = "/sys/class/leds/notification/brightness";
 
-bool property_get_bool(const char *key, bool default_value)
-{
-	if (!key) {
-		return default_value;
-	}
-
-	bool result = default_value;
-	char buf[PROP_VALUE_MAX] = {
-	    '\0',
-	};
-
-	int len = property_get(key, buf, "");
-	if (len == 1) {
-		char ch = buf[0];
-		if (ch == '0' || ch == 'n') {
-			result = false;
-		} else if (ch == '1' || ch == 'y') {
-			result = true;
-		}
-	} else if (len > 1) {
-		if (!strcmp(buf, "no") || !strcmp(buf, "false") ||
-		    !strcmp(buf, "off")) {
-			result = false;
-		} else if (!strcmp(buf, "yes") || !strcmp(buf, "true") ||
-			   !strcmp(buf, "on")) {
-			result = true;
-		}
-	}
-
-	return result;
-}
-
 static int write_int(char const *path, int value)
 {
 	int fd;
