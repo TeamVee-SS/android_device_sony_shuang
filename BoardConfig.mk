@@ -174,3 +174,7 @@ TW_IGNORE_OVERLAY := true
 
 # SEPolicy
 include device/qcom/sepolicy/sepolicy.mk
+
+# Enable dex-preoptimization to speed up first boot sequence
+WITH_DEXPREOPT := true
+DONT_DEXPREOPT_PREBUILTS := true
