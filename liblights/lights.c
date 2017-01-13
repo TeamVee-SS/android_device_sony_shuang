@@ -43,11 +43,8 @@ static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 static struct light_state_t g_notification;
 static struct light_state_t g_battery;
 
-static int g_backlight = 255;
-
 // Backlight
-char const *const LCD_BACKLIGHT_FILE =
-    "/sys/class/leds/lcd-backlight/brightness";
+char const *const LCD_FILE = "/sys/class/leds/lcd-backlight/brightness";
 
 // SNS/Bar Led
 char const *const SNS_LED_FILE =
@@ -57,9 +54,6 @@ char const *const SNS_LED_FILE =
 char const *const RED_LED_FILE = "/sys/class/leds/red/brightness";
 char const *const GREEN_LED_FILE = "/sys/class/leds/green/brightness";
 char const *const BLUE_LED_FILE = "/sys/class/leds/notification/brightness";
-
-/* The leds we have */
-enum { LED_RED, LED_GREEN, LED_BLUE, LED_BLANK };
 
 bool property_get_bool(const char *key, bool default_value)
 {
@@ -93,40 +87,39 @@ bool property_get_bool(const char *key, bool default_value)
 	return result;
 }
 
-static int write_int(const char *path, int value)
+static int write_int(char const *path, int value)
 {
 	int fd;
 	static int already_warned = 0;
 
 	fd = open(path, O_RDWR);
-	if (fd < 0) {
+	if (fd >= 0) {
+		char buffer[20];
+		int bytes = snprintf(buffer, sizeof(buffer), "%d\n", value);
+		int written = write(fd, buffer, bytes);
+		close(fd);
+		return written == -1 ? -errno : 0;
+	} else {
 		if (already_warned == 0) {
 			ALOGE("%s: failed to open %s\n", __func__, path);
 			already_warned = 1;
 		}
 		return -errno;
 	}
-
-	char buffer[20];
-	int bytes = snprintf(buffer, sizeof(buffer), "%d\n", value);
-	int written = write(fd, buffer, bytes);
-	close(fd);
-
-	return written == -1 ? -errno : 0;
 }
 
 /* Color tools */
 static int is_lit(struct light_state_t const *state)
 {
-	return state->color & 0x00ffffff;
+	return state->color & 0x00FFFFFF;
 }
 
 static int rgb_to_brightness(struct light_state_t const *state)
 {
-	int color = state->color & 0x00ffffff;
+	int color = state->color & 0x00FFFFFF;
 
-	return ((77 * ((color >> 16) & 0x00ff)) +
-		(150 * ((color >> 8) & 0x00ff)) + (29 * (color & 0x00ff))) >>
+	return ((77 * ((color >> 16) & 0x00FF)) +
+		(150 * ((color >> 8) & 0x00FF)) + (29 * (color & 0x00FF))) >>
 	       8;
 }
 
@@ -137,42 +130,41 @@ static int set_light_backlight(struct light_device_t *dev,
 	int err = 0;
 	int brightness = rgb_to_brightness(state);
 
-	if (brightness < 10)
+	if (brightness < 10) {
 		brightness = 10;
+	} else if (brightness > 255) {
+		brightness = 255;
+	}
 
 	pthread_mutex_lock(&g_lock);
-	g_backlight = brightness;
-	err = write_int(LCD_BACKLIGHT_FILE, brightness);
+	err = write_int(LCD_FILE, brightness);
 	pthread_mutex_unlock(&g_lock);
 
 	return err;
 }
 
-static void set_shared_light_locked(struct light_device_t *dev,
-				    struct light_state_t *state)
+static int set_shared_light_locked(struct light_device_t *dev,
+				   struct light_state_t const *state)
 {
-	int r, g, b, rgb;
 	int err = 0;
+	int red, green, blue;
 
-	// Convert from UserSpace (hex) to separate colors (r,g,b)
-	r = (state->color >> 16) & 0x00ff;
-	g = (state->color >> 8) & 0x00ff;
-	b = (state->color) & 0x00ff;
+	red = (state->color >> 16) & 0x00FF;
+	green = (state->color >> 8) & 0x00FF;
+	blue = state->color & 0x00FF;
 
-	// Write these colors to sysfs
-	err = write_int(RED_LED_FILE, r);
-	err = write_int(GREEN_LED_FILE, g);
-	err = write_int(BLUE_LED_FILE, b);
+	err = write_int(RED_LED_FILE, red);
+	err = write_int(GREEN_LED_FILE, green);
+	err = write_int(BLUE_LED_FILE, blue);
 
-	// Disable 'Bar LED'?
 	bool barled = property_get_bool(BARLED, true);
 	if (barled) {
-		// Mix separate colors (r,g,b) to unique number (rgb)
-		rgb = ((r & 0x00ff) << 16) | ((g & 0x00ff) << 8) | (b & 0x00ff);
-		// And Write this color value to sysfs
-		err = write_int(SNS_LED_FILE, rgb);
-	} else
+		err = write_int(SNS_LED_FILE, state->color);
+	} else {
 		err = write_int(SNS_LED_FILE, 0);
+	}
+
+	return err;
 }
 
 static void handle_shared_locked(struct light_device_t *dev)
@@ -207,17 +199,19 @@ static int set_light_notifications(struct light_device_t *dev,
 }
 
 /* Initializations */
-void init_globals() { pthread_mutex_init(&g_lock, NULL); }
+void init_globals(void) { pthread_mutex_init(&g_lock, NULL); }
 
-/* Glueing boilerplate */
+/* Close the lights device */
 static int close_lights(struct light_device_t *dev)
 {
-	if (dev)
+	if (dev) {
 		free(dev);
+	}
 
 	return 0;
 }
 
+/* Open a new instance of a lights device using name */
 static int open_lights(const struct hw_module_t *module, char const *name,
 		       struct hw_device_t **device)
 {
@@ -235,6 +229,7 @@ static int open_lights(const struct hw_module_t *module, char const *name,
 	}
 
 	pthread_once(&g_init, init_globals);
+
 	struct light_device_t *dev = malloc(sizeof(struct light_device_t));
 	memset(dev, 0, sizeof(*dev));
 
@@ -258,7 +253,7 @@ struct hw_module_t HAL_MODULE_INFO_SYM = {
     .version_major = 1,
     .version_minor = 0,
     .id = LIGHTS_HARDWARE_MODULE_ID,
-    .name = "Sony lights module",
+    .name = "Sony Lights Module",
     .author = "Diogo Ferreira <defer@cyanogenmod.com>, Alin Jerpelea "
 	      "<jerpelea@gmail.com>, Caio Oliveira "
 	      "<caiooliveirafarias0@gmail.com>",
