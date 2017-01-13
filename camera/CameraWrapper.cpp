@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2016, The CyanogenMod Project
+ * Copyright (C) 2012-2014, The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,10 +33,14 @@
 #include <camera/Camera.h>
 #include <camera/CameraParameters.h>
 
+static char KEY_SUPPORTED_ISO_MODES[] = "iso-values";
+static char KEY_ISO_MODE[] = "iso";
+
 // Sony parameter names
 static char KEY_SONY_IMAGE_STABILISER_VALUES[] = "sony-is-values";
 static char KEY_SONY_IMAGE_STABILISER[] = "sony-is";
 static char KEY_SONY_VIDEO_STABILISER[] = "sony-vs";
+static char KEY_SONY_VIDEO_STABILISER_VALUES[] = "sony-vs-values";
 static char KEY_SONY_VIDEO_HDR[] = "sony-video-hdr";
 static char KEY_SONY_VIDEO_HDR_VALUES[] = "sony-video-hdr-values";
 static char KEY_SONY_ISO_AVAIL_MODES[] = "sony-iso-values";
@@ -48,6 +52,7 @@ static char KEY_SONY_AE_MODE[] = "sony-ae-mode";
 static char VALUE_SONY_ON[] = "on";
 static char VALUE_SONY_OFF[] = "off";
 static char VALUE_SONY_STILL_HDR[] = "on-still-hdr";
+static char VALUE_SONY_INTELLIGENT_ACTIVE[] = "on-intelligent-active";
 
 static android::Mutex gCameraWrapperLock;
 static camera_module_t *gVendorModule = 0;
@@ -149,8 +154,8 @@ static char *camera_fixup_getparams(int id, const char *settings)
                 bufferPos += 4;
             }
         }
-        strcat(buffer, ", auto");
-        params.set(android::CameraParameters::KEY_SUPPORTED_ISO_MODES, buffer);
+        strcat(buffer, ",auto");
+        params.set(KEY_SUPPORTED_ISO_MODES, buffer);
     }
 
     if (params.get(KEY_SONY_IMAGE_STABILISER)) {
@@ -170,16 +175,16 @@ static char *camera_fixup_getparams(int id, const char *settings)
         if (params.get(KEY_SONY_AE_MODE_VALUES)) {
             const char *aeMode = params.get(KEY_SONY_AE_MODE);
             if (strcmp(aeMode, "auto") == 0 ) {
-                params.set(android::CameraParameters::KEY_ISO_MODE, "auto");
+                params.set(KEY_ISO_MODE, "auto");
                 params.set("shutter-speed", "auto");
             } else if (strcmp(aeMode, "iso-prio") == 0) {
                 char *isoVal = (char *)malloc(sizeof(char)*
                                              (3 + strlen(params.get(KEY_SONY_ISO_MODE))));
                 sprintf(isoVal, "ISO%s", params.get(KEY_SONY_ISO_MODE));
-                params.set(android::CameraParameters::KEY_ISO_MODE, isoVal);
+                params.set(KEY_ISO_MODE, isoVal);
                 params.set("shutter-speed", "auto");
             } else if (strcmp(aeMode, "shutter-prio") == 0) {
-                params.set(android::CameraParameters::KEY_ISO_MODE, "auto");
+                params.set(KEY_ISO_MODE, "auto");
                 const char *shutterSpeed = params.get("sony-shutter-speed");
                 if (shutterSpeed) {
                     params.set("shutter-speed", shutterSpeed);
@@ -192,29 +197,18 @@ static char *camera_fixup_getparams(int id, const char *settings)
                 char *isoVal = (char *)malloc(sizeof(char)*
                                              (3 + strlen(params.get(KEY_SONY_ISO_MODE))));
                 sprintf(isoVal, "ISO%s", params.get(KEY_SONY_ISO_MODE));
-                params.set(android::CameraParameters::KEY_ISO_MODE, isoVal);
+                params.set(KEY_ISO_MODE, isoVal);
             } else {
-                params.set(android::CameraParameters::KEY_ISO_MODE, "auto");
+                params.set(KEY_ISO_MODE, "auto");
                 params.set("shutter-speed", "auto");
             }
         }
     }
 
-    // fix parameters
-    params.set(android::CameraParameters::SCENE_MODE_SOFT_SNAP, "soft-snap");
-    params.set(android::CameraParameters::SCENE_MODE_ANTI_MOTION_BLUR, "anti-motion-blur");
-    params.set(android::CameraParameters::SCENE_MODE_HAND_HELD_TWILIGHT, "hand-held-twilight");
-    params.set(android::CameraParameters::SCENE_MODE_HIGH_SENSITIVITY, "high-sensitivity");
-    params.set(android::CameraParameters::SCENE_MODE_GOURMENT, "gourment");
-    params.set(android::CameraParameters::SCENE_MODE_PET, "pet");
-    params.set(android::CameraParameters::SCENE_MODE_DOCUMENT, "document");
-
 #if !LOG_NDEBUG
     ALOGV("%s: fixed parameters:", __FUNCTION__);
     params.dump();
 #endif
-
-    params.set("scene-mode-values", "auto");
 
     android::String8 strParams = params.flatten();
     char *ret = strdup(strParams.string());
@@ -245,8 +239,8 @@ static char *camera_fixup_setparams(int id, const char *settings)
         }
     }
 
-    if (params.get(android::CameraParameters::KEY_ISO_MODE)) {
-        const char *isoMode = params.get(android::CameraParameters::KEY_ISO_MODE);
+    if (params.get(KEY_ISO_MODE)) {
+        const char *isoMode = params.get(KEY_ISO_MODE);
         if (strcmp(isoMode, "auto") != 0) {
             params.set(KEY_SONY_ISO_MODE, isoMode + 3);
         }
@@ -286,19 +280,14 @@ static char *camera_fixup_setparams(int id, const char *settings)
 
     if (params.get(android::CameraParameters::KEY_RECORDING_HINT)) {
         if (strcmp(params.get(android::CameraParameters::KEY_RECORDING_HINT), android::CameraParameters::TRUE) == 0) {
-            params.set(KEY_SONY_VIDEO_STABILISER, VALUE_SONY_ON);
+            if (params.get(KEY_SONY_VIDEO_STABILISER_VALUES) && (strstr(params.get(KEY_SONY_VIDEO_STABILISER_VALUES), VALUE_SONY_INTELLIGENT_ACTIVE) != NULL) ) {
+                params.set(KEY_SONY_VIDEO_STABILISER, VALUE_SONY_INTELLIGENT_ACTIVE);
+            } else {
+                params.set(KEY_SONY_VIDEO_STABILISER, VALUE_SONY_ON);
+            }
             params.set(KEY_SONY_IMAGE_STABILISER, VALUE_SONY_OFF);
         }
     }
-
-    // fix parameters
-    params.set(android::CameraParameters::SCENE_MODE_SOFT_SNAP, "soft-snap");
-    params.set(android::CameraParameters::SCENE_MODE_ANTI_MOTION_BLUR, "anti-motion-blur");
-    params.set(android::CameraParameters::SCENE_MODE_HAND_HELD_TWILIGHT, "hand-held-twilight");
-    params.set(android::CameraParameters::SCENE_MODE_HIGH_SENSITIVITY, "high-sensitivity");
-    params.set(android::CameraParameters::SCENE_MODE_GOURMENT, "gourment");
-    params.set(android::CameraParameters::SCENE_MODE_PET, "pet");
-    params.set(android::CameraParameters::SCENE_MODE_DOCUMENT, "document");
 
 #if !LOG_NDEBUG
     ALOGV("%s: fixed parameters:", __FUNCTION__);
