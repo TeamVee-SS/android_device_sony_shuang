@@ -12,4 +12,4 @@
 /dev/block/platform/msm_sdcc.1/by-name/apps_log      /misc         emmc      defaults                                                                     defaults
 
 /devices/msm_sdcc.2/mmc_host*                        auto          auto      defaults                                                                     voldmanaged=sdcard1:auto,encryptable=userdata
-/dev/block/zram0                                     none          swap      defaults                                                                     zramsize=222020096,notrim
+/dev/block/zram0                                     none          swap      defaults                                                                     zramsize=67108864,notrim
