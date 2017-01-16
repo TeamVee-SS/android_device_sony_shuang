@@ -310,3 +310,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Liblight
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.lights.barled="true"
+
+# Force Camera Portability API, since newer camera API isn't supported.
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api="1"
