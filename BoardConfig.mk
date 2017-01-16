@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2016 The CyanogenMod Project
+#               2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -41,7 +42,7 @@ TARGET_BOOTLOADER_BOARD_NAME := MSM8610
 TARGET_NO_BOOTLOADER := true
 
 BOARD_CUSTOM_BOOTIMG_MK := device/sony/falconss/boot/custombootimg.mk
-TARGET_KERNEL_CONFIG := cyanogenmod_falconss_defconfig
+TARGET_KERNEL_CONFIG := lineageos_falconss_defconfig
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
