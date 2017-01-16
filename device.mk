@@ -320,3 +320,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Force Camera Portability API, since newer camera API isn't supported.
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api="1"
+
+# ART
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat-flags="--no-watch-dog"
