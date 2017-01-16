@@ -176,5 +176,14 @@ TW_IGNORE_OVERLAY := true
 include device/qcom/sepolicy/sepolicy.mk
 
 # Enable dex-preoptimization to speed up first boot sequence
-WITH_DEXPREOPT := true
-DONT_DEXPREOPT_PREBUILTS := true
+ifeq ($(HOST_OS),linux)
+  ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+      DONT_DEXPREOPT_PREBUILTS := true
+    endif
+  endif
+endif
+
+# Include an expanded selection of fonts
+EXTENDED_FONT_FOOTPRINT := true
