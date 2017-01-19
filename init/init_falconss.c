@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016, The CyanogenMod Project
+   Copyright (c) 2014, The Linux Foundation. All rights reserved.
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -35,11 +35,18 @@
 #include "util.h"
 #include "vendor_init.h"
 
-void vendor_load_properties()
+#include "init_msm.h"
+
+void init_msm_properties(unsigned long msm_id, unsigned long msm_ver,
+                         char *board_type)
 {
     char baseband_version[92];
     char model_number[92];
     FILE *get_model;
+
+    UNUSED(msm_id);
+    UNUSED(msm_ver);
+    UNUSED(board_type);
 
     // Print only supported devices
     get_model =
@@ -68,35 +75,20 @@ void vendor_load_properties()
 
     // Set build description and fingerprint
     if (strstr(model_number, "D2004")) {
-        property_set("ro.build.description",
-                     "D2004-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2004/D2004:4.4.2/"
-                                             "20.1.A.2.19/7Pd_Xw:user/"
-                                             "release-keys");
+        property_set("ro.build.description", "D2004-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
+        property_set("ro.build.fingerprint", "Sony/D2004/D2004:4.4.2/20.1.A.2.19/7Pd_Xw:user/release-keys");
     } else if (strstr(model_number, "D2005")) {
-        property_set("ro.build.description",
-                     "D2005-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2005/D2005:4.4.2/"
-                                             "20.1.A.2.19/7Pd_Xw:user/"
-                                             "release-keys");
+        property_set("ro.build.description", "D2005-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
+        property_set("ro.build.fingerprint", "Sony/D2005/D2005:4.4.2/20.1.A.2.19/7Pd_Xw:user/release-keys");
     } else if (strstr(model_number, "D2104")) {
-        property_set("ro.build.description",
-                     "D2104-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2104/D2104:4.4.2/"
-                                             "20.1.B.2.29/4rd_Xw:user/"
-                                             "release-keys");
+        property_set("ro.build.description", "D2104-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
+        property_set("ro.build.fingerprint", "Sony/D2104/D2104:4.4.2/20.1.B.2.29/4rd_Xw:user/release-keys");
     } else if (strstr(model_number, "D2105")) {
-        property_set("ro.build.description",
-                     "D2105-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2105/D2105:4.4.2/"
-                                             "20.1.B.2.29/4rd_Xw:user/"
-                                             "release-keys");
+        property_set("ro.build.description", "D2105-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
+        property_set("ro.build.fingerprint", "Sony/D2105/D2105:4.4.2/20.1.B.2.29/4rd_Xw:user/release-keys");
     } else if (strstr(model_number, "D2114")) {
-        property_set("ro.build.description",
-                     "D2114-user 4.4.2 20.1.B.2.30 4bd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2114/D2114:4.4.2/"
-                                             "20.1.B.2.30/4bd_Xw:user/"
-                                             "release-keys");
+        property_set("ro.build.description", "D2114-user 4.4.2 20.1.B.2.30 4bd_Xw release-keys");
+        property_set("ro.build.fingerprint", "Sony/D2114/D2114:4.4.2/20.1.B.2.30/4bd_Xw:user/release-keys");
     };
 
     // Get baseband version just for log
