@@ -257,6 +257,9 @@ on boot
     chmod 0644 /sys/class/timed_output/vibrator/vtg_max
     chmod 0644 /sys/class/timed_output/vibrator/vtg_min
 
+    # Display color calibration
+    chown system system /sys/devices/virtual/graphics/fb0/kcal
+
     # Allow subsystems to be restarted instead of crashing the system
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
     write /sys/bus/msm_subsys/devices/subsys1/restart_level "related"
