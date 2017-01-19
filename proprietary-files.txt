@@ -127,7 +127,6 @@ lib/hw/sensors.msm8610.so
 lib/lib_asb_tee.so
 lib/libchromatix_imx135_liveshot.so
 lib/libcnefeatureconfig.so
-lib/libdrmdecrypt.so
 lib/libface.so
 lib/libfmradio.sony-iris.so
 lib/libfmradiosony.so
@@ -282,6 +281,7 @@ vendor/lib/libcneutils.so
 vendor/lib/libCommandSvc.so
 vendor/lib/libdiag.so
 vendor/lib/libDivxDrm.so
+vendor/lib/libdrmdecrypt.so
 vendor/lib/libdrmdiag.so
 vendor/lib/libdrmfs.so
 vendor/lib/libdrmtime.so
