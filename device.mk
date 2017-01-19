@@ -183,11 +183,6 @@ PRODUCT_PACKAGES += \
 
 # Qualcomm
 PRODUCT_PACKAGES += \
-    qrngp \
-    qrngd
-
-# Qualcomm
-PRODUCT_PACKAGES += \
     camera.qcom \
     libhealthd.qcom
 
