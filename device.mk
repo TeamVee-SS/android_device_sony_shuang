@@ -210,6 +210,14 @@ PRODUCT_PACKAGES += \
     libqcomfm_jni \
     qcom.fmradio \
 
+# WiFi
+PRODUCT_PACKAGES += \
+    libwpa_client \
+    hostapd \
+    dhcpcd.conf \
+    wpa_supplicant \
+    wpa_supplicant.conf
+
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
 # For userdebug builds
