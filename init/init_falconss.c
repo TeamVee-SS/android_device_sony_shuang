@@ -71,6 +71,7 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver,
         property_set("persist.radio.multisim.config", "dsds");
         property_set("persist.multisim.config", "dsds");
         property_set("ro.multi.rild", "true");
+        property_set("ro.telephony.ril.config", "simactivation");
     };
 
     // Set build description and fingerprint
