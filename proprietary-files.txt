@@ -355,7 +355,6 @@ vendor/lib/libOmxIttiamVdec.so
 vendor/lib/libOmxQcelp13Dec.so
 vendor/lib/libOmxWmaDec.so
 vendor/lib/libOpenCL.so
-vendor/lib/libOpenVG.so
 vendor/lib/libqcci_legacy.so
 vendor/lib/libqc-opt.so
 vendor/lib/libqdi.so
