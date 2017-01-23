@@ -134,8 +134,9 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/
 # Assert
 TARGET_OTA_ASSERT_DEVICE := D2004,D2005,D2104,D2105,D2114,falconss
 
-# Enable suspend during charger mode
+# Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
+BOARD_CHARGER_SHOW_PERCENTAGE := true
 
 # CMHW
 BOARD_HARDWARE_CLASS := device/sony/falconss/cmhw
