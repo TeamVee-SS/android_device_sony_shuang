@@ -214,6 +214,10 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
+# Doze
+PRODUCT_PACKAGES += \
+    DozeService
+
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
 # For userdebug builds
