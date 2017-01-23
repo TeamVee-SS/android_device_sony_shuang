@@ -90,14 +90,12 @@ PRODUCT_COPY_FILES += \
 
 # Charger
 PRODUCT_PACKAGES += \
-    charger \
     charger_res_images
 
 # Qualcomm Display
 PRODUCT_PACKAGES += \
     libgenlock \
     libmemalloc \
-    liboverlay \
     libqdutils \
     libtilerenderer \
     libI420colorconvert
@@ -154,17 +152,11 @@ PRODUCT_PACKAGES += \
 
 # Media HAL
 PRODUCT_PACKAGES += \
-    libOmxAacEnc \
-    libOmxAmrEnc \
     libOmxCore \
-    libOmxEvrcEnc \
-    libOmxQcelp13Enc \
     libOmxVdec \
     libOmxVdecHevc \
     libOmxVenc \
     libdashplayer \
-    libdivxdrmdecrypt \
-    libmm-omxcore \
     libstagefrighthw \
     qcmediaplayer
 
