@@ -307,6 +307,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ril.subscription.types="NV,RUIM" \
     rild.libpath="/vendor/lib/libril-qc-qmi-1.so"
 
+# Set mobile data to off by default
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.com.android.mobiledata="false" \
+
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
     media.aac_51_output_enabled="true" \
