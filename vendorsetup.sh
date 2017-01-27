@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2016 The CyanogenMod Project
+#               2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +15,7 @@
 # limitations under the License.
 #
 
-add_lunch_combo cm_falconss-userdebug
-add_lunch_combo cm_falconss-eng
+add_lunch_combo lineage_falconss-userdebug
+add_lunch_combo lineage_falconss-eng
 add_lunch_combo full_falconss-userdebug
 add_lunch_combo full_falconss-eng
