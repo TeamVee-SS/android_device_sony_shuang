@@ -16,11 +16,9 @@
 
 package org.cyanogenmod.hardware;
 
-import org.cyanogenmod.hardware.util.FileUtils;
+import org.cyanogenmod.internal.util.FileUtils;
 
 import android.util.Log;
-
-import java.io.File;
 
 public class VibratorHW {
 
@@ -32,7 +30,10 @@ public class VibratorHW {
     private static final String MIN_PATH = "/sys/class/timed_output/vibrator/vtg_min";
 
     public static boolean isSupported() {
-        return new File(LEVEL_PATH).exists();
+        return FileUtils.isFileWritable(LEVEL_PATH) &&
+                FileUtils.isFileReadable(DEFAULT_PATH) &&
+                FileUtils.isFileReadable(MAX_PATH) &&
+                FileUtils.isFileReadable(MIN_PATH);
     }
 
     public static int getMaxIntensity() {
