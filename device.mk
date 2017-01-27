@@ -156,12 +156,7 @@ PRODUCT_PACKAGES += \
     libOmxVdec \
     libOmxVdecHevc \
     libOmxVenc \
-    libdashplayer \
-    libstagefrighthw \
-    qcmediaplayer
-
-PRODUCT_BOOT_JARS += \
-    qcmediaplayer
+    libstagefrighthw
 
 # USB
 PRODUCT_PACKAGES += \
@@ -297,10 +292,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wlan.driver.ath="0" \
     wlan.driver.config="/system/etc/wifi/WCNSS_qcom_cfg.ini" \
     wifi.interface="wlan0"
-
-# SDCard
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.fuse_sdcard="true"
 
 # BlueTooth
 PRODUCT_PROPERTY_OVERRIDES += \
