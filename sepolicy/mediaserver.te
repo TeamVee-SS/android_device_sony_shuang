@@ -1,4 +1,2 @@
-# camera.4k2k.enable property
-allow mediaserver camera_prop:property_service set;
-
 allow mediaserver socket_device:sock_file write;
+allow mediaserver system_file:file execmod;
