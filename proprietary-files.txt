@@ -280,7 +280,6 @@ vendor/lib/libcneqmiutils.so
 vendor/lib/libcneutils.so
 vendor/lib/libCommandSvc.so
 vendor/lib/libdiag.so
-vendor/lib/libDivxDrm.so
 vendor/lib/libdrmdecrypt.so
 vendor/lib/libdrmdiag.so
 vendor/lib/libdrmfs.so
@@ -288,7 +287,6 @@ vendor/lib/libdrmtime.so
 vendor/lib/libdsi_netctrl.so
 vendor/lib/libdsnetutils.so
 vendor/lib/libdsutils.so
-vendor/lib/libExtendedExtractor.so
 vendor/lib/libfastcvopt.so
 vendor/lib/libgeofence.so
 vendor/lib/libgsl.so
@@ -345,8 +343,6 @@ vendor/lib/libmmcamera_tuning.so
 vendor/lib/libmmcamera_wavelet_lib.so
 vendor/lib/libmm-color-convertor.so
 vendor/lib/libmmjpeg.so
-vendor/lib/libmmosal.so
-vendor/lib/libmmparser.so
 vendor/lib/libmmqjpeg_codec.so
 vendor/lib/libmmstillomx.so
 vendor/lib/libnetmgr.so
@@ -381,7 +377,6 @@ vendor/lib/libril-qc-qmi-1.so
 vendor/lib/librpmb.so
 vendor/lib/libsc-a2xx.so
 vendor/lib/libsc-a3xx.so
-vendor/lib/libSHIMDivxDrm.so
 vendor/lib/libthermalclient.so
 vendor/lib/libthermalioctl.so
 -vendor/lib/libtime_genoff.so
