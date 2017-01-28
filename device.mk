@@ -275,6 +275,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.enable-player="true" \
     media.stagefright.enable-qcp="true" \
     media.stagefright.enable-scan="true" \
+    mm.enable.qcom_parser="37491" \
     mm.enable.smoothstreaming="true" \
     mmp.enable.3g2="true"
 
