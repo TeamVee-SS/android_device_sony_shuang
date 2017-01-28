@@ -176,6 +176,7 @@ vendor/lib/libadreno_utils.so
 vendor/lib/libadsprpc.so
 vendor/lib/libaudcal.so
 vendor/lib/libaudioalsa.so
+vendor/lib/libbccQTI.so
 vendor/lib/libbtnv.so
 vendor/lib/libC2D2.so
 vendor/lib/libc2d30-a3xx.so
@@ -354,7 +355,6 @@ vendor/lib/libOmxEvrcDec.so
 vendor/lib/libOmxIttiamVdec.so
 vendor/lib/libOmxQcelp13Dec.so
 vendor/lib/libOmxWmaDec.so
-vendor/lib/libOpenCL.so
 vendor/lib/libqcci_legacy.so
 vendor/lib/libqc-opt.so
 vendor/lib/libqdi.so
@@ -374,6 +374,9 @@ vendor/lib/libquipc_os_api.so
 vendor/lib/libquipc_ulp_adapter.so
 vendor/lib/libril-qc-qmi-1.so
 vendor/lib/librpmb.so
+vendor/lib/librs_adreno_sha1.so
+vendor/lib/librs_adreno.so
+vendor/lib/libRSDriver_adreno.so
 vendor/lib/libsc-a2xx.so
 vendor/lib/libsc-a3xx.so
 vendor/lib/libthermalclient.so
