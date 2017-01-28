@@ -127,6 +127,7 @@ lib/hw/sensors.msm8610.so
 lib/lib_asb_tee.so
 lib/libchromatix_imx135_liveshot.so
 lib/libcnefeatureconfig.so
+lib/libdsnetutils.so
 lib/libface.so
 lib/libfmradio.sony-iris.so
 lib/libfmradiosony.so
@@ -149,6 +150,7 @@ lib/libmorpho_scene_detector.so
 lib/libmorpho_super_resolution.so
 lib/libmorpho_wdr.so
 lib/libpin-cache.so
+lib/libqminvapi.so
 lib/libqomx_core.so
 lib/libril.so
 lib/libsys-utils.so
