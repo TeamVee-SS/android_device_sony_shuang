@@ -1,68 +1,57 @@
 #!/bin/bash
+#
+# Copyright (C) 2016 The CyanogenMod Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+set -e
+
 DEVICE=falconss
 VENDOR=sony
-BASE=../../../vendor/${VENDOR}/${DEVICE}/proprietary
 
-rm -rf ${BASE}/*
+# Load extractutils and do some sanity checks
+MY_DIR="${BASH_SOURCE%/*}"
+if [[ ! -d "$MY_DIR" ]]; then MY_DIR="$PWD"; fi
 
-if [ -d ../system ]; then
-  SRC="../"
+CM_ROOT="$MY_DIR"/../../..
+
+HELPER="$CM_ROOT"/vendor/cm/build/tools/extract_utils.sh
+if [ ! -f "$HELPER" ]; then
+    echo "Unable to find helper script at $HELPER"
+    exit 1
 fi
+. "$HELPER"
 
-if [ "$#" == "0" ]; then
-  if [ -d ../system ]; then
-    SRC=".."
-  else
-    SRC="adb"
-  fi
+if [ $# -eq 0 ]; then
+  SRC=adb
 else
-  if [ "$#" == "1" ]; then
-    SRC="$1"
+  if [ $# -eq 1 ]; then
+    SRC=$1
   else
     echo "$0: bad number of arguments"
     echo ""
     echo "usage: $0 [PATH_TO_EXPANDED_ROM]"
     echo ""
-    echo "If PATH_TO_EXPANDED_ROM is not specified, blobs"
-    echo "will be extracted from the device using adb pull."
+    echo "If PATH_TO_EXPANDED_ROM is not specified, blobs will be extracted from"
+    echo "the device using adb pull."
     exit 1
   fi
 fi
 
-for FILE in $(grep -v ^# ../${DEVICE}/proprietary-files.txt | grep -v ^$ | sort)
-do
-  # Split the file from the destination (format is "file[:destination]")
-  OLDIFS=${IFS} IFS=":" PARSING_ARRAY=(${FILE}) IFS=${OLDIFS}
-  FILE=${PARSING_ARRAY[0]}
-  DEST=${PARSING_ARRAY[1]}
-  if [[ "${FILE}" =~ ^-.* ]]; then
-    FILE=$(echo ${FILE} | sed s/^-//)
-  fi
-  if [ -z "${DEST}" ]; then
-    DEST=${FILE}
-  fi
-  DIR=$(dirname ${DEST})
+# Initialize the helper
+setup_vendor "$DEVICE" "$VENDOR" "$CM_ROOT"
 
-  if [ ! -d ${BASE}/${DIR} ]; then
-    mkdir -p ${BASE}/${DIR}
-  fi
-  if [ "${SRC}" == "adb" ]; then
-    adb pull /system/${FILE} ${BASE}/${DEST}
-    if [ "$?" != "0" ]; then
-      adb pull /system/${DEST} ${BASE}/${DEST}
-    fi
-  else
-    cp ${SRC}/system/${FILE} ${BASE}/${DEST}
-    if [ "$?" != "0" ]; then
-      cp ${SRC}/system/${DEST} ${BASE}/${DEST}
-      if [ "$?" != "0" ]; then
-        cp ${SRC}/${FILE} ${BASE}/${DEST}
-        if [ "$?" != "0" ]; then
-          cp ${SRC}/${DEST} ${BASE}/${DEST}
-        fi
-      fi
-    fi
-  fi
-done
+extract "$MY_DIR"/proprietary-files.txt "$SRC"
 
-. ../${DEVICE}/setup-makefiles.sh
+"$MY_DIR"/setup-makefiles.sh
