@@ -185,3 +185,5 @@ endif
 
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
+
+BOARD_RIL_CLASS := ../../../device/sony/falconss/ril/
