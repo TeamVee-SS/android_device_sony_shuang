@@ -203,9 +203,6 @@ PRODUCT_PACKAGES += \
     timekeep \
     TimeKeep
 
-PRODUCT_PACKAGES += \
-    com.google.widevine.software.drm
-
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
 # For userdebug builds
