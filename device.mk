@@ -223,7 +223,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Qualcomm
 PRODUCT_PROPERTY_OVERRIDES += \
     com.qc.hardware="true" \
-    ro.telephony.ril.v3="signalstrength" \
     ro.vendor.extension_library="libqti-perfd-client.so" \
     persist.hwc.mdpcomp.enable="true" \
     persist.timed.enable="true" \
