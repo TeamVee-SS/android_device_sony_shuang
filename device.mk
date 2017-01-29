@@ -202,6 +202,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libsony
 
+# Sony timekeep
+PRODUCT_PACKAGES += \
+    timekeep \
+    TimeKeep
+
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
 # For userdebug builds
