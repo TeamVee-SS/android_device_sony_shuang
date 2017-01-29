@@ -25,7 +25,6 @@ bin/sct_service
 bin/suntrold
 bin/ta_qmi_service
 bin/thermal-engine
-bin/time_daemon
 bin/updatemiscta
 etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb
 etc/acdbdata/MTP/MTP_General_cal.acdb
@@ -388,7 +387,7 @@ vendor/lib/libsc-a3xx.so
 vendor/lib/libSHIMDivxDrm.so
 vendor/lib/libthermalclient.so
 vendor/lib/libthermalioctl.so
--vendor/lib/libtime_genoff.so
+vendor/lib/libtime_genoff.so
 vendor/lib/libtzplayready.so
 vendor/lib/libulp2.so
 vendor/lib/libwvdrm_L3.so

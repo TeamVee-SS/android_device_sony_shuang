@@ -142,9 +142,6 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 # CMHW
 BOARD_HARDWARE_CLASS := device/sony/falconss/cmhw
 
-# Time services
-BOARD_USES_QC_TIME_SERVICES := true
-
 # FM radio
 TARGET_QCOM_NO_FM_FIRMWARE := true
 
