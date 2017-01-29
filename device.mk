@@ -203,6 +203,10 @@ PRODUCT_PACKAGES += \
     timekeep \
     TimeKeep
 
+# HealthD
+PRODUCT_PACKAGES += \
+    charger_res_images
+
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
 # For userdebug builds
