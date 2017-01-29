@@ -196,9 +196,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     DozeService
 
-PRODUCT_PACKAGES += \
-    libstlport
-
+# Sony LibShim
 PRODUCT_PACKAGES += \
     libsony
 
