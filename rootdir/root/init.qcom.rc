@@ -321,10 +321,6 @@ service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
     user root
     oneshot
 
-service cnd /system/bin/cnd
-    class late_start
-    socket cnd stream 660 root inet
-
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
     user root
@@ -507,13 +503,6 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     user camera
     group camera system inet input
 
-# Start suntrold
-service suntrold /system/bin/suntrold
-    user system
-    group system
-    oneshot
-    class main
-
 # SONY: TrimArea Daemon
 # Last 2 args: start block(blk size 128k), number of blocks(partitionsize(kb)/128(kb))
 service tad_static /sbin/tad_static /dev/block/platform/msm_sdcc.1/by-name/TA 0,16
@@ -542,11 +531,6 @@ service rfs_access /system/bin/rfs_access
     class core
     user system
     group system net_raw
-
-service updatemiscta /system/bin/updatemiscta
-    class main
-    user root
-    oneshot
 
 service timekeep /system/bin/timekeep restore
     class late_start

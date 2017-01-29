@@ -1,7 +1,6 @@
 bin/adsprpcd
 bin/bridgemgrd
 bin/btnvtool
-bin/cnd
 bin/dun-server
 bin/ftmdaemon
 bin/hci_qcomm_init
@@ -20,10 +19,8 @@ bin/rmt_storage
 bin/sapd
 bin/scd
 bin/sct_service
-bin/suntrold
 bin/ta_qmi_service
 bin/thermal-engine
-bin/updatemiscta
 etc/permissions/com.google.widevine.software.drm.xml
 -framework/com.google.widevine.software.drm.jar
 etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb
@@ -166,7 +163,6 @@ vendor/lib/egl/libEGL_adreno.so
 vendor/lib/egl/libGLESv1_CM_adreno.so
 vendor/lib/egl/libGLESv2_adreno.so
 vendor/lib/egl/libq3dtools_adreno.so
-vendor/lib/hw/flp.default.so
 vendor/lib/libacdbloader.so
 vendor/lib/libacdbmapper.so
 vendor/lib/libacdbrtac.so
