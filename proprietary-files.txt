@@ -2,8 +2,6 @@ bin/adsprpcd
 bin/bridgemgrd
 bin/btnvtool
 bin/cnd
-bin/drmdiagapp
-bin/ds_fmc_appd
 bin/dun-server
 bin/ftmdaemon
 bin/hci_qcomm_init
