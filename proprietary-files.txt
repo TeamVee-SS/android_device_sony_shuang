@@ -383,6 +383,7 @@ vendor/lib/libSHIMDivxDrm.so
 vendor/lib/libthermalclient.so
 vendor/lib/libthermalioctl.so
 vendor/lib/libtime_genoff.so
+vendor/lib/libuiblur.so
 vendor/lib/libulp2.so
 vendor/lib/libwvdrm_L3.so
 vendor/lib/libwvm.so
