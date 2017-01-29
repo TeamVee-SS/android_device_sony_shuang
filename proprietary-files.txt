@@ -26,6 +26,8 @@ bin/suntrold
 bin/ta_qmi_service
 bin/thermal-engine
 bin/updatemiscta
+etc/permissions/com.google.widevine.software.drm.xml
+-framework/com.google.widevine.software.drm.jar
 etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb
 etc/acdbdata/MTP/MTP_General_cal.acdb
 etc/acdbdata/MTP/MTP_Global_cal.acdb
