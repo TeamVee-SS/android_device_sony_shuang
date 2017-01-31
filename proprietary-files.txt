@@ -2,6 +2,7 @@ bin/adsprpcd
 bin/bridgemgrd
 bin/btnvtool
 bin/dun-server
+bin/fm_qsoc_patches
 bin/ftmdaemon
 bin/hci_qcomm_init
 bin/irsc_util
