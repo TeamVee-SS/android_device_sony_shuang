@@ -97,13 +97,6 @@ static int set_light_backlight(struct light_device_t *dev,
 {
 	int err = 0;
 	int brightness = rgb_to_brightness(state);
-
-	if (brightness < 10) {
-		brightness = 10;
-	} else if (brightness > 255) {
-		brightness = 255;
-	}
-
 	pthread_mutex_lock(&g_lock);
 	err = write_int(LCD_FILE, brightness);
 	pthread_mutex_unlock(&g_lock);
@@ -139,10 +132,10 @@ static void set_shared_light_locked(struct light_device_t *dev,
 
 static void handle_shared_locked(struct light_device_t *dev)
 {
-	if (is_lit(&g_notification)) {
-		set_shared_light_locked(dev, &g_notification);
-	} else {
+	if (is_lit(&g_battery)) {
 		set_shared_light_locked(dev, &g_battery);
+	} else {
+		set_shared_light_locked(dev, &g_notification);
 	}
 }
 
@@ -201,6 +194,9 @@ static int open_lights(const struct hw_module_t *module, char const *name,
 	pthread_once(&g_init, init_globals);
 
 	struct light_device_t *dev = malloc(sizeof(struct light_device_t));
+	if(!dev)
+		return -ENOMEM;
+
 	memset(dev, 0, sizeof(*dev));
 
 	dev->common.tag = HARDWARE_DEVICE_TAG;
