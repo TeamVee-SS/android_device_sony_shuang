@@ -163,8 +163,7 @@ PRODUCT_PACKAGES += \
 
 # Qualcomm
 PRODUCT_PACKAGES += \
-    camera.qcom \
-    libhealthd.qcom
+    camera.qcom
 
 # WiFi
 PRODUCT_PACKAGES += \
@@ -206,7 +205,8 @@ PRODUCT_PACKAGES += \
 
 # HealthD
 PRODUCT_PACKAGES += \
-    charger_res_images
+    charger_res_images \
+    libhealthd.default
 
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
