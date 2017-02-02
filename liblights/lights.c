@@ -106,8 +106,8 @@ static int set_light_backlight(struct light_device_t *dev,
 	return err;
 }
 
-static void set_shared_light_locked(struct light_device_t *dev,
-				    struct light_state_t const *state)
+static int set_shared_light_locked(struct light_device_t *dev,
+				   struct light_state_t const *state)
 {
 	int red, green, blue, rgb;
 
