@@ -219,6 +219,10 @@ PRODUCT_PACKAGES += \
     camera.qcom \
     libcamera_parameters_shim
 
+# Bluetooth HIDL interfaces
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.0-impl
+
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
 # LCD Density
