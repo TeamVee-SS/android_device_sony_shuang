@@ -27,9 +27,11 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <hardware/lights.h>
+#include <malloc.h>
 #include <pthread.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
@@ -64,7 +66,7 @@ static int write_int(char const *path, int value)
 	if (fd >= 0) {
 		char buffer[20];
 		int bytes = snprintf(buffer, sizeof(buffer), "%d\n", value);
-		int written = write(fd, buffer, bytes);
+		ssize_t written = write(fd, buffer, (size_t)bytes);
 		close(fd);
 		return written == -1 ? -errno : 0;
 	} else {
@@ -107,27 +109,26 @@ static int set_light_backlight(struct light_device_t *dev,
 static void set_shared_light_locked(struct light_device_t *dev,
 				    struct light_state_t const *state)
 {
-	int err = 0;
 	int red, green, blue, rgb;
 
 	red = (state->color >> 16) & 0x00FF;
 	green = (state->color >> 8) & 0x00FF;
 	blue = state->color & 0x00FF;
 
-	err = write_int(RED_LED_FILE, red);
-	err = write_int(GREEN_LED_FILE, green);
-	err = write_int(BLUE_LED_FILE, blue);
+	write_int(RED_LED_FILE, red);
+	write_int(GREEN_LED_FILE, green);
+	write_int(BLUE_LED_FILE, blue);
 
 	bool barled = property_get_bool(BARLED, true);
 	if (barled) {
 		rgb = ((red & 0x00FF) << 16) | ((green & 0x00FF) << 8) |
 		      (blue & 0x00FF);
-		err = write_int(SNS_LED_FILE, rgb);
+		write_int(SNS_LED_FILE, rgb);
 	} else {
-		err = write_int(SNS_LED_FILE, 0);
+		write_int(SNS_LED_FILE, 0);
 	}
 
-	return err;
+	return 0;
 }
 
 static void handle_shared_locked(struct light_device_t *dev)
