@@ -177,10 +177,8 @@ BOARD_SEPOLICY_DIRS += device/sony/falconss/sepolicy
 
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
-  ifeq ($(TARGET_BUILD_VARIANT),user)
-    ifeq ($(WITH_DEXPREOPT),)
+  ifeq ($(WITH_DEXPREOPT),)
       WITH_DEXPREOPT := true
-    endif
   endif
 endif
 
