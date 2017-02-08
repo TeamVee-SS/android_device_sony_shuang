@@ -270,7 +270,7 @@
     <bool name="config_ui_blur_enabled">true</bool>
 
     <!-- Show battery fully charged notification -->
-    <bool name="config_showBatteryFullyChargedNotification">false</bool>
+    <bool name="config_showBatteryFullyChargedNotification">true</bool>
 
     <!-- Older rotation sensors are not setting event.timestamp correctly. Setting to
          true will use SystemClock.elapsedRealtimeNanos() to set timestamp. -->
