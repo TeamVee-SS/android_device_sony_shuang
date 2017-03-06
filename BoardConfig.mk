@@ -38,6 +38,9 @@ TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 #Disable memcpy_base.S optimization
 TARGET_CPU_MEMCPY_BASE_OPT_DISABLE := true
 
+# Low Memory Device
+MALLOC_SVELTE := true
+
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8610
 TARGET_NO_BOOTLOADER := true
