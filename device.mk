@@ -316,7 +316,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Low Memory Props
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.config.low_ram="true" \
     config.disable_atlas="true" \
-    ro.config.max_starting_bg="4" \
+    ro.config.max_starting_bg="2" \
+    ro.sys.fw.bg_apps_limit="16" \
+    ro.config.low_ram="true" \
     persist.sys.force_highendgfx="true"
