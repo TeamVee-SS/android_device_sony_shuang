@@ -321,3 +321,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.fw.bg_apps_limit="16" \
     ro.config.low_ram="true" \
     persist.sys.force_highendgfx="true"
+
+# Disable Strict Mode enabled on eng/userdebug builds
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.strictmode.disable="1" \
+    persist.sys.strictmode.visual="0"
