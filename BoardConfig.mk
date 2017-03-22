@@ -37,8 +37,12 @@ TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 TARGET_BOOTLOADER_BOARD_NAME := MSM8610
 TARGET_NO_BOOTLOADER := true
 
-BOARD_CUSTOM_BOOTIMG_MK := device/sony/falconss/boot/custombootimg.mk
+# Kernel properties
+TARGET_KERNEL_SOURCE := kernel/sony/msm8x10
 TARGET_KERNEL_CONFIG := lineageos_falconss_defconfig
+
+# Kernel configurations
+BOARD_CUSTOM_BOOTIMG_MK := device/sony/falconss/boot/custombootimg.mk
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
