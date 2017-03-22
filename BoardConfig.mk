@@ -185,8 +185,5 @@ EXTENDED_FONT_FOOTPRINT := true
 
 BOARD_RIL_CLASS := ../../../device/sony/falconss/ril/
 
-# Pack SU since <https://download.lineageos.org/extras> not provide it
-WITH_SU := true
-
 # Build the platform with Clang
 USE_CLANG_PLATFORM_BUILD := true
