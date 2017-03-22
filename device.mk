@@ -173,9 +173,7 @@ PRODUCT_PACKAGES += \
 
 # Boot tools
 PRODUCT_PACKAGES += \
-    extract_ramdisk \
-    dtbToolCM \
-    keycheck
+    dtbToolCM
 
 # FM
 PRODUCT_PACKAGES += \
