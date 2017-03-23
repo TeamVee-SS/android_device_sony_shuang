@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2016 The CyanogenMod Project
-#               2017 The LineageOS Project
+#           (C) 2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,13 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-TARGET_SPECIFIC_HEADER_PATH += device/sony/falconss/include
+# Board device path
+DEVICE_PATH := device/sony/shuang
+
+TARGET_SPECIFIC_HEADER_PATH += $(DEVICE_PATH)/include
 
 # inherit from the proprietary version
-include vendor/sony/falconss/BoardConfigVendor.mk
+include vendor/sony/shuang/BoardConfigVendor.mk
 
 BOARD_VENDOR := sony
-BOARD_VENDOR_PLATFORM := falconss
+BOARD_VENDOR_PLATFORM := shuang
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8610
@@ -39,10 +42,10 @@ TARGET_NO_BOOTLOADER := true
 
 # Kernel properties
 TARGET_KERNEL_SOURCE := kernel/sony/msm8x10
-TARGET_KERNEL_CONFIG := lineageos_falconss_defconfig
+TARGET_KERNEL_CONFIG := shuang_defconfig
 
 # Kernel configurations
-BOARD_CUSTOM_BOOTIMG_MK := device/sony/falconss/boot/custombootimg.mk
+BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/boot/custombootimg.mk
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -116,7 +119,7 @@ USE_CUSTOM_AUDIO_POLICY := 1
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/sony/falconss/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 BLUETOOTH_HCI_USE_MCT := true
 
 # Partitions & Storage
@@ -137,7 +140,7 @@ BOARD_VOLD_MAX_PARTITIONS := 21
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := D2004,D2005,D2104,D2105,D2114,falconss
+TARGET_OTA_ASSERT_DEVICE := D2004,D2005,D2104,D2105,D2114,falconss,shuang
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
@@ -146,18 +149,18 @@ BLUE_LED_PATH := /sys/class/leds/notification/brightness
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
 # CMHW
-BOARD_HARDWARE_CLASS := device/sony/falconss/cmhw
+BOARD_HARDWARE_CLASS := $(DEVICE_PATH)/cmhw
 
 # FM radio
 TARGET_QCOM_NO_FM_FIRMWARE := true
 
 # Init
-TARGET_INIT_VENDOR_LIB := libinit_falconss
-TARGET_RECOVERY_DEVICE_MODULES := libinit_falconss
+TARGET_INIT_VENDOR_LIB := libinit_shuang
+TARGET_RECOVERY_DEVICE_MODULES := libinit_shuang
 TARGET_UNIFIED_DEVICE := true
 
 # FSTAB
-TARGET_RECOVERY_FSTAB := device/sony/falconss/rootdir/root/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/root/fstab.qcom
 
 # Recovery
 DEVICE_RESOLUTION := 480x800
@@ -176,6 +179,6 @@ TW_IGNORE_OVERLAY := true
 
 # SEPolicy
 include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += device/sony/falconss/sepolicy
+BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
-BOARD_RIL_CLASS := ../../../device/sony/falconss/ril/
+BOARD_RIL_CLASS := ../../../$(DEVICE_PATH)/ril/

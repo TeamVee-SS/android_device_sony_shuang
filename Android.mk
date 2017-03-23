@@ -1,5 +1,6 @@
 #
-# Copyright 2016 The Android Open Source Project
+# Copyright (C) 2016 The Android Open Source Project
+#           (C) 2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +17,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(BOARD_VENDOR_PLATFORM),falconss)
+ifeq ($(BOARD_VENDOR_PLATFORM),shuang)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 

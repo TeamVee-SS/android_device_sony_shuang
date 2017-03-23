@@ -1,7 +1,7 @@
 Copyright (C) 2017 The LineageOS Project
 =============================================
 
-Device configuration for Sony Xperia E1 (falconss)
+Device configuration for Sony Xperia E1 (shuang/falcon)
 =====================================
 
 Basic   | Spec Sheet
@@ -11,6 +11,7 @@ CHIPSET | Qualcomm MSM8210 Snapdragon 200
 BOARD   | Qualcomm MSM8610
 GPU     | Adreno 302
 Memory  | 512MB RAM
+Board   | Sony Shuang
 Shipped Android Version | 4.3
 Latest Android Version  | 4.4.2
 Storage | 4GB

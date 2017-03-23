@@ -14,6 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Product common configurations
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
@@ -24,40 +27,40 @@ $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 
-DEVICE_PACKAGE_OVERLAYS += device/sony/falconss/overlay
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Rootdir Files
 PRODUCT_COPY_FILES += \
-    device/sony/falconss/rootdir/root/fstab.qcom:root/fstab.qcom \
-    device/sony/falconss/rootdir/root/init.qcom.rc:root/init.qcom.rc \
-    device/sony/falconss/rootdir/root/init.qcom.class_main.sh:root/init.qcom.class_main.sh \
-    device/sony/falconss/rootdir/root/init.qcom.early_boot.sh:root/init.qcom.early_boot.sh \
-    device/sony/falconss/rootdir/root/init.qcom.fm.sh:root/init.qcom.fm.sh \
-    device/sony/falconss/rootdir/root/init.qcom.usb.rc:root/init.qcom.usb.rc \
-    device/sony/falconss/rootdir/root/sbin/tad_static:root/sbin/tad_static \
-    device/sony/falconss/rootdir/root/ueventd.qcom.rc:root/ueventd.qcom.rc
+    $(LOCAL_PATH)/rootdir/root/fstab.qcom:root/fstab.qcom \
+    $(LOCAL_PATH)/rootdir/root/init.qcom.rc:root/init.qcom.rc \
+    $(LOCAL_PATH)/rootdir/root/init.qcom.class_main.sh:root/init.qcom.class_main.sh \
+    $(LOCAL_PATH)/rootdir/root/init.qcom.early_boot.sh:root/init.qcom.early_boot.sh \
+    $(LOCAL_PATH)/rootdir/root/init.qcom.fm.sh:root/init.qcom.fm.sh \
+    $(LOCAL_PATH)/rootdir/root/init.qcom.usb.rc:root/init.qcom.usb.rc \
+    $(LOCAL_PATH)/rootdir/root/sbin/tad_static:root/sbin/tad_static \
+    $(LOCAL_PATH)/rootdir/root/ueventd.qcom.rc:root/ueventd.qcom.rc
 
 # Config Files
 PRODUCT_COPY_FILES += \
-    device/sony/falconss/rootdir/system/etc/audio_policy.conf:system/etc/audio_policy.conf \
-    device/sony/falconss/rootdir/system/etc/firmware/wlan/prima/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
-    device/sony/falconss/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
-    device/sony/falconss/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
-    device/sony/falconss/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
-    device/sony/falconss/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
-    device/sony/falconss/rootdir/system/etc/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept \
-    device/sony/falconss/rootdir/system/etc/hostapd/hostapd.deny:system/etc/hostapd/hostapd.deny \
-    device/sony/falconss/rootdir/system/etc/hostapd/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
-    device/sony/falconss/rootdir/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
-    device/sony/falconss/rootdir/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
-    device/sony/falconss/rootdir/system/etc/mixer_paths.xml:system/etc/mixer_paths.xml \
-    device/sony/falconss/rootdir/system/etc/sec_config:system/etc/sec_config \
-    device/sony/falconss/rootdir/system/etc/thermal-engine-8610.conf:system/etc/thermal-engine-8610.conf \
-    device/sony/falconss/rootdir/system/etc/wcn3620/p2p_supplicant_overlay.conf:system/etc/wcn3620/p2p_supplicant_overlay.conf \
-    device/sony/falconss/rootdir/system/etc/wcn3620/wpa_supplicant_overlay.conf:system/etc/wcn3620/wpa_supplicant_overlay.conf \
-    device/sony/falconss/rootdir/system/etc/wcn3620/wpa_supplicant_wcn.conf:system/etc/wcn3620/wpa_supplicant_wcn.conf \
-    device/sony/falconss/rootdir/system/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    device/sony/falconss/rootdir/system/vendor/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf
+    $(LOCAL_PATH)/rootdir/system/etc/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
+    $(LOCAL_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
+    $(LOCAL_PATH)/rootdir/system/etc/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept \
+    $(LOCAL_PATH)/rootdir/system/etc/hostapd/hostapd.deny:system/etc/hostapd/hostapd.deny \
+    $(LOCAL_PATH)/rootdir/system/etc/hostapd/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
+    $(LOCAL_PATH)/rootdir/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/rootdir/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/rootdir/system/etc/mixer_paths.xml:system/etc/mixer_paths.xml \
+    $(LOCAL_PATH)/rootdir/system/etc/sec_config:system/etc/sec_config \
+    $(LOCAL_PATH)/rootdir/system/etc/thermal-engine-8610.conf:system/etc/thermal-engine-8610.conf \
+    $(LOCAL_PATH)/rootdir/system/etc/wcn3620/p2p_supplicant_overlay.conf:system/etc/wcn3620/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/rootdir/system/etc/wcn3620/wpa_supplicant_overlay.conf:system/etc/wcn3620/wpa_supplicant_overlay.conf \
+    $(LOCAL_PATH)/rootdir/system/etc/wcn3620/wpa_supplicant_wcn.conf:system/etc/wcn3620/wpa_supplicant_wcn.conf \
+    $(LOCAL_PATH)/rootdir/system/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    $(LOCAL_PATH)/rootdir/system/vendor/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
 # Permission Files
 PRODUCT_COPY_FILES += \
@@ -320,3 +323,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.strictmode.disable="1" \
     persist.sys.strictmode.visual="0"
+
+# Vendor product configurations
+$(call inherit-product-if-exists, vendor/sony/shuang/shuang-vendor.mk)

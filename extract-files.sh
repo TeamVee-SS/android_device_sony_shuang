@@ -17,7 +17,7 @@
 
 set -e
 
-DEVICE=falconss
+DEVICE=shuang
 VENDOR=sony
 
 # Load extractutils and do some sanity checks

@@ -55,8 +55,8 @@ void vendor_load_properties()
         property_set("ro.product.device", model_number);
         property_set("ro.product.model", model_number);
     } else {
-        property_set("ro.product.device", "falconss");
-        property_set("ro.product.model", "falconss");
+        property_set("ro.product.device", "shuang");
+        property_set("ro.product.model", "shuang");
     };
 
     // All of D21 Series is DualSIM
