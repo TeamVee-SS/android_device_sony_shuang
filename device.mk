@@ -188,10 +188,6 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
-# Doze
-PRODUCT_PACKAGES += \
-    DozeService
-
 # Sony LibShim
 PRODUCT_PACKAGES += \
     libsony
