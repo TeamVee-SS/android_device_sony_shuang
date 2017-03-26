@@ -292,9 +292,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.lights.barled="true"
 
-# Force Camera Portability API, since newer camera API isn't supported.
+# Camera properties
 PRODUCT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api="1"
+    camera2.portability.force_api="1" \
+    media.stagefright.legacyencoder="true" \
+    media.stagefright.less-secure="true"
 
 # ART
 PRODUCT_PROPERTY_OVERRIDES += \
