@@ -1,25 +1,22 @@
 Copyright (C) 2017 The LineageOS Project
-=============================================
 
-Device configuration for Sony Xperia E1 (shuang/falcon)
-=====================================
+Sony Xperia E1 (Shuang)
+=======================
+
+The Sony Xperia E1 (codenamed _"Shuang"_/old codenamed _"falconss"_) is a low-range smartphone from Sony Mobile.
+
+This device is part of Xperia 2014 Series.
 
 Basic   | Spec Sheet
 -------:|:-------------------------
 CPU     | 1.2 GHz Dual-Core Cortex-A7
-CHIPSET | Qualcomm MSM8210 Snapdragon 200
-BOARD   | Qualcomm MSM8610
 GPU     | Adreno 302
 Memory  | 512MB RAM
 Board   | Sony Shuang
-Shipped Android Version | 4.3
-Latest Android Version  | 4.4.2
 Storage | 4GB
-MicroSD | Up to 32GB
 Battery | 1750 mAh
-Dimensions | 118 x 62.4 x 12 mm
 Display | 480 x 800 pixels
 Camera  | 3.15 MP, 2048 x 1536 pixels
-Release Date | January 2014
+Dimensions | 118 x 62.4 x 12 mm
 
-![Sony Xperia E1](http://api.sonymobile.com/files/xperia-e1-hero-white-1240x840-1a823694841bc38b045bbad747494b85.jpg "Sony Xperia E1")
+![Sony Xperia E1](http://www.gizbot.com/img/2014/01/16-sony-xperia-e1-and-e1-dual-announced-with-android-jelly-bean-4-3-os.jpg "Sony Xperia E1 in all avalaible colors")
