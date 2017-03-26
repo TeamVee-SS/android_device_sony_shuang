@@ -202,13 +202,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
-# For userdebug builds
-ifeq ($(TARGET_BUILD_VARIANT),userdebug)
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.secure="false" \
-    ro.adb.secure="false"
-endif
-
 # LCD Density
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density="240"
