@@ -45,8 +45,6 @@ on init
 
     symlink /sdcard /storage/sdcard0
 
-    write /sys/block/zram0/comp_algorithm lz4
-
 on fs
     mount_all fstab.qcom
     swapon_all fstab.qcom
@@ -229,9 +227,6 @@ on boot
     chmod 0644 /sys/class/timed_output/vibrator/vtg_max
     chmod 0644 /sys/class/timed_output/vibrator/vtg_min
 
-    # Display color calibration
-    chown system system /sys/devices/virtual/graphics/fb0/kcal
-
     # Allow subsystems to be restarted instead of crashing the system
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
     write /sys/bus/msm_subsys/devices/subsys1/restart_level "related"
@@ -254,12 +249,6 @@ on boot
     chown system system /sys/devices/platform/rs300100a7.65536/force_sync
     chown system system /sys/devices/platform/rs300100a7.65536/sync_sts
 
-    # Set per_process_reclaim tuning parameters
-    write /sys/module/process_reclaim/parameters/enable_process_reclaim 1
-    write /sys/module/process_reclaim/parameters/pressure_min 50
-    write /sys/module/process_reclaim/parameters/per_swap_size 512
-    write /sys/module/process_reclaim/parameters/pressure_max 70
-    write /sys/module/process_reclaim/parameters/swap_opt_eff 30
     write /proc/sys/vm/page-cluster 0
     write /proc/sys/vm/swappiness 100
     write /proc/sys/vm/min_free_kbytes 8096
@@ -418,6 +407,7 @@ service ril-daemon2 /system/bin/rild -c 2
 service charger /charger
     class charger
 
+# TODO: FIX SELinux domain
 service scd /system/bin/scd
     class main
     user system
@@ -469,6 +459,7 @@ service ta_qmi_service /system/bin/ta_qmi_service
     disabled
 
 # Ecompass Sensor / Magnetic Service
+# TODO: FIX SELinux domain
 service akmd /system/bin/magnetic -m 6
     class main
     user compass
@@ -479,6 +470,7 @@ service rfs_access /system/bin/rfs_access
     user system
     group system net_raw
 
+# TODO: FIX SELinux domain
 service timekeep /system/bin/timekeep restore
     class late_start
     user root
@@ -544,11 +536,7 @@ on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpufreq/interactive/io_is_busy 1
     write /sys/devices/system/cpu/cpufreq/interactive/target_loads 90
     write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 40000
-    write /sys/module/cpu_boost/parameters/boost_ms 20
-    write /sys/module/cpu_boost/parameters/sync_threshold 998000
     write /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor 100000
-    write /sys/module/cpu_boost/parameters/input_boost_freq 1094000
-    write /sys/module/cpu_boost/parameters/input_boost_ms 40
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 300000
 
