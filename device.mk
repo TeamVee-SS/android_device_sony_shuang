@@ -182,10 +182,6 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
-# Sony LibShim
-PRODUCT_PACKAGES += \
-    libsony
-
 # Sony timekeep
 PRODUCT_PACKAGES += \
     timekeep \
