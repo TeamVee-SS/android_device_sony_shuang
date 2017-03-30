@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2009-2011, 2015, The Linux Foundation. All rights reserved.
+# Copyright (c) 2009-2011, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -28,52 +28,77 @@
 
 setprop hw.fm.init 0
 
-FM_MODE=$(getprop hw.fm.mode)
-FM_VERSION="199217"
-FM_LOG_TAG="qcom-fm"
-FM_LOG_NAME="$0:"
+mode=`getprop hw.fm.mode`
+version=`getprop hw.fm.version`
+isAnalog=`getprop hw.fm.isAnalog`
 
-loge() {
-  /system/bin/log -t ${FM_LOG_TAG} -p e "${FM_LOG_NAME} $@"
+#find the transport type
+TRANSPORT=`getprop ro.qualcomm.bt.hci_transport`
+
+LOG_TAG="qcom-fm"
+LOG_NAME="${0}:"
+
+loge ()
+{
+  /system/bin/log -t $LOG_TAG -p e "$LOG_NAME $@"
 }
 
-logi() {
-  /system/bin/log -t ${FM_LOG_TAG} -p i "${FM_LOG_NAME} $@"
+logi ()
+{
+  /system/bin/log -t $LOG_TAG -p i "$LOG_NAME $@"
 }
 
-logi "In FM Shell Script"
-logi "FM Mode: ${FM_MODE}"
-logi "FM Version: ${FM_VERSION}"
+failed ()
+{
+  loge "$1: exit code $2"
+  exit $2
+}
 
-# Usage: fm_qsoc_patches <fm_chipVersion> <enable/disable WCM>
-case ${FM_MODE} in
+logi "In FM shell Script"
+logi "mode: $mode"
+logi "isAnalog: $isAnalog"
+logi "Transport : $TRANSPORT"
+logi "Version : $version"
+
+#$fm_qsoc_patches <fm_chipVersion> <enable/disable WCM>
+#
+case $mode in
   "normal")
-    logi "Inserting the radio transport module"
-    echo 1 > /sys/module/radio_iris_transport/parameters/fmsmd_set
-    /system/bin/fm_qsoc_patches ${FM_VERSION} 0
-    ;;
+    case $TRANSPORT in
+    "smd")
+        logi "inserting the radio transport module"
+        insmod /system/lib/modules/radio-iris-transport.ko
+     ;;
+     *)
+        logi "default transport case "
+     ;;
+    esac
+      /system/bin/fm_qsoc_patches $version 0
+     ;;
   "wa_enable")
-    /system/bin/fm_qsoc_patches ${FM_VERSION} 1
-    ;;
+   /system/bin/fm_qsoc_patches $version 1
+     ;;
   "wa_disable")
-    /system/bin/fm_qsoc_patches ${FM_VERSION} 2
-    ;;
-  *)
-    logi "Default case"
-    /system/bin/fm_qsoc_patches ${FM_VERSION} 0
+   /system/bin/fm_qsoc_patches $version 2
+     ;;
+  "config_dac")
+   /system/bin/fm_qsoc_patches $version 3 $isAnalog
+     ;;
+   *)
+    logi "Shell: Default case"
+    /system/bin/fm_qsoc_patches $version 0
     ;;
 esac
 
-FM_QSOC_EXIT_CODE=$?
-case ${FM_QSOC_EXIT_CODE} in
-  0)
-    logi "FM QSoC calibration and firmware download succeeded!"
-    ;;
+exit_code_fm_qsoc_patches=$?
+
+case $exit_code_fm_qsoc_patches in
+   0)
+	logi "FM QSoC calibration and firmware download succeeded"
+   ;;
   *)
-    loge "FM QSoC firmware download and/or calibration failed!"
-    loge "Exited with code ${FM_QSOC_EXIT_CODE}"
-    exit ${FM_QSOC_EXIT_CODE}
-    ;;
+	failed "FM QSoC firmware download and/or calibration failed" $exit_code_fm_qsoc_patches
+   ;;
 esac
 
 setprop hw.fm.init 1
