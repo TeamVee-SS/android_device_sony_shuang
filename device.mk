@@ -394,5 +394,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.strictmode.disable="1" \
     persist.sys.strictmode.visual="0"
 
+# OMX properties
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.media.treble_omx=false
+
 # Vendor product configurations
 $(call inherit-product-if-exists, vendor/sony/shuang/shuang-vendor.mk)
