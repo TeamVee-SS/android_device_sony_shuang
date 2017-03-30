@@ -71,8 +71,7 @@ static int read_file2(const char *fname, char *data, int max_size)
 void ds_properties()
 {
         property_set("persist.radio.multisim.config", "dsds");
-        property_set("persist.multisim.config", "dsds");
-        property_set("ro.multi.rild", "true");
+        property_set("persist.radio.dont_use_dsd", "true");
         property_set("ro.telephony.ril.config", "simactivation");
 }
 
