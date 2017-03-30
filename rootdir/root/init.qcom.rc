@@ -259,7 +259,7 @@ on boot
     write /proc/sys/vm/min_free_kbytes 8096
 
     # Display backlight
-    write /sys/class/leds/lcd-backlight1/brightness 63
+    write /sys/class/leds/lcd-backlight/brightness 63
 
 # msm specific files that need to be created on /data
 on post-fs-data
