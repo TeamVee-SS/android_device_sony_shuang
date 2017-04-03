@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "HW_CAM_SHIM"
+#define LOG_TAG "libshim.hw_camera"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -102,7 +102,7 @@ void _ZN7android13SensorManagerC1Ev(void *sensorMgr)
 {
     void *string;
 
-    _ZN7android8String16C1EPKc(&string, "camera.m7");
+    _ZN7android8String16C1EPKc(&string, "camera.vendor.msm8610");
     _ZN7android13SensorManagerC1ERKNS_8String16E(sensorMgr, &string);
     _ZN7android8String16D1Ev(&string);
 }
