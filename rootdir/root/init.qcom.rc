@@ -355,6 +355,7 @@ on post-fs-data
 
     # Create directory from IMS services
     mkdir /data/shared 0755 system system
+    chown system system /data/shared
 
     # Create directory for hostapd
     mkdir /data/hostapd 0770 system wifi
