@@ -63,7 +63,7 @@ on fs
     class_start trimarea
 
 on early-boot
-    # set RLIMIT_MEMLOCK to 64MB
+    # Set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
     write /sys/kernel/boot_adsp/boot 1
 
@@ -106,12 +106,12 @@ on boot
     # Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
 
-    # create directory for scd
+    # Create directory for scd
     mkdir /dev/socket/scd 0755 system system
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
-    # permissions for GPS eLNA
+    # Permissions for GPS eLNA
     chmod 0660 /dev/gps_elna
     chown system system /dev/gps_elna
 
@@ -182,28 +182,28 @@ on boot
 
     write /sys/module/wcnsscore/parameters/has_calibrated_data 1
 
-    # add sensor class permissions to accelerometer
+    # Add sensor class permissions to accelerometer
     chown system system /sys/class/sensors/accelerometer/enable
     chown system system /sys/class/sensors/accelerometer/delay
     chown system system /sys/class/sensors/accelerometer/deviceInfor
     chown system system /sys/class/sensors/accelerometer/calibrate
     chown system system /sys/class/sensors/accelerometer/dumpLevel
 
-    # add sensor class permissions to proximity
+    # Add sensor class permissions to proximity
     chown system system /sys/class/sensors/proximity/enable
     chown system system /sys/class/sensors/proximity/delay
     chown system system /sys/class/sensors/proximity/deviceInfor
     chown system system /sys/class/sensors/proximity/calibrate
     chown system system /sys/class/sensors/proximity/dumpLevel
 
-    # add sensor class permissions to light
+    # Add sensor class permissions to light
     chown system system /sys/class/sensors/light/enable
     chown system system /sys/class/sensors/light/delay
     chown system system /sys/class/sensors/light/deviceInfor
     chown system system /sys/class/sensors/light/calibrate
     chown system system /sys/class/sensors/light/dumpLevel
 
-    # add sensor class permissions to magnetic
+    # Add sensor class permissions to magnetic
     chown system system /sys/class/sensors/magnetic/enable
     chown system system /sys/class/sensors/magnetic/delay
     chown system system /sys/class/sensors/magnetic/deviceInfor
@@ -215,7 +215,7 @@ on boot
     chown system system /sys/class/sensors/magnetic/delay_ori
     chown system system /sys/class/sensors/magnetic/accel
 
-    # add sensor class permissions to leds
+    # Add sensor class permissions to leds
     chown system system /sys/class/leds/lm3533-light-backlight/charger_brightness
     chown system system /sys/class/leds/lm3533-light-sns/rgb_brightness
     chown system system /sys/class/leds/lm3533-light-sns/fade_time
@@ -270,6 +270,7 @@ on boot
     chown system system /sys/devices/platform/rs300100a7.65536/force_sync
     chown system system /sys/devices/platform/rs300100a7.65536/sync_sts
 
+    # Optimizations
     write /proc/sys/vm/page-cluster 0
     write /proc/sys/vm/swappiness 100
     write /proc/sys/vm/min_free_kbytes 8096
@@ -282,7 +283,7 @@ on post-fs-data
     # Create directory for TZ Apps
     mkdir /data/misc/qsee 0770 system system
 
-    #Create folder for mm-qcamera-daemon
+    # Create folder for mm-qcamera-daemon
     mkdir /data/misc/camera 0770 camera camera
 
     mkdir /data/media 0770 media_rw media_rw
@@ -298,11 +299,11 @@ on post-fs-data
     mkdir /data/misc/dhcp 0770 dhcp system
     chown dhcp dhcp /data/misc/dhcp
 
-    #Create FM dir for patchdownloader
+    # Create FM dir for patchdownloader
     mkdir /data/misc/fm 0770 system system
     chmod 0770 /data/misc/fm
 
-    #create netmgr log dir
+    # Create netmgr log dir
     mkdir /data/misc/netmgr 0770 radio radio
     chmod 0770 /data/misc/netmgr
 
@@ -345,7 +346,7 @@ on post-fs-data
     # Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
     mkdir /data/system 0775 system system
 
-    #Create directories for Location services
+    # Create directories for Location services
     mkdir /data/misc/location 0770 gps gps
     mkdir /data/misc/location/mq 0770 gps gps
     mkdir /data/misc/location/xtwifi 0770 gps gps
