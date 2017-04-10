@@ -407,6 +407,9 @@ on property:persist.sys.ssr.enable_ramdumps=1
 on property:persist.sys.ssr.enable_ramdumps=0
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
 
+on property:init.svc.wpa_supplicant=stopped
+    stop dhcpcd
+
 service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
     class main
     user root
