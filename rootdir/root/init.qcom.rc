@@ -113,6 +113,9 @@ on boot
     # Create directory for scd
     mkdir /dev/socket/scd 0755 system system
 
+    # Allow QMUX daemon to assign port open wait time
+    chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
+
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
     # Permissions for GPS eLNA
