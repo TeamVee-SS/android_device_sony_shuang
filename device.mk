@@ -277,9 +277,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.fm.transmitter="false"
 
-# Default to LTE/GSM/WCDMA.
+# Default to GSM/WCDMA.
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.default_network="9"
+    ro.telephony.default_network="3"
 
 # System props for the data modules
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -298,7 +298,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.call_ring.multiple="false"
 
-# System props for telephony System prop to turn on CdmaLTEPhone always
+# System prop to turn off CdmaLTEPhone always
 PRODUCT_PROPERTY_OVERRIDES += \
     telephony.lteOnCdmaDevice="0"
 
