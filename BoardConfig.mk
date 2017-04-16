@@ -73,8 +73,6 @@ TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 
 # RIL
 TARGET_RIL_VARIANT := caf
-BOARD_GLOBAL_CFLAGS += -DUSE_RIL_VERSION_10
-BOARD_GLOBAL_CPPFLAGS += -DUSE_RIL_VERSION_10
 
 # Qualcomm support
 TARGET_USES_ION := true
@@ -172,5 +170,3 @@ TARGET_UNIFIED_DEVICE := true
 # SEPolicy
 include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
-
-BOARD_RIL_CLASS := ../../../$(DEVICE_PATH)/ril/

@@ -282,8 +282,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ril.subscription.types="NV,RUIM" \
     rild.libpath="/vendor/lib/libril-qc-qmi-1.so" \
     ro.telephony.call_ring.multiple="false" \
-    telephony.lteOnCdmaDevice="0" \
-    ro.telephony.ril_class="SonyRIL"
+    telephony.lteOnCdmaDevice="0"
 
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
