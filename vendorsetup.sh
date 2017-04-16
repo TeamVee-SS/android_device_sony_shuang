@@ -17,5 +17,3 @@
 
 add_lunch_combo lineage_falconss-userdebug
 add_lunch_combo lineage_falconss-eng
-add_lunch_combo full_falconss-userdebug
-add_lunch_combo full_falconss-eng

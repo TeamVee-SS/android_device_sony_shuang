@@ -18,7 +18,5 @@
 LOCAL_PATH := $(call my-dir)
 
 ifeq ($(BOARD_VENDOR_PLATFORM),shuang)
-
 include $(call all-makefiles-under,$(LOCAL_PATH))
-
 endif
