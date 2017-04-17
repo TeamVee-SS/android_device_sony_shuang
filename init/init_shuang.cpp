@@ -1,5 +1,6 @@
 /*
    Copyright (c) 2016, The CyanogenMod Project
+                 2017, The LineageOS Project
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -27,81 +28,140 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "log.h"
 #include "property_service.h"
 #include "util.h"
 #include "vendor_init.h"
 
-void vendor_load_properties()
-{
-    std::string baseband_version;
-    char model_number[92];
-    FILE *get_model;
+#define LTALABEL "/lta-label"
 
-    // Print only supported devices
-    get_model =
-        popen("/sbin/busybox printf $(/sbin/busybox strings "
-              "/dev/block/platform/msm_sdcc.1/by-name/LTALabel | /sbin/busybox "
-              "grep -o -e 'D2004' -e 'D2005' -e 'D2104' -e 'D2105' -e 'D2114')",
-              "r");
-    fgets(model_number, sizeof(model_number), get_model);
-    pclose(get_model);
+enum { D2004, D2005, D2104, D2105, D2114, UNKNOWN };
 
-    // Check if it's Xperia D20/D21 Series
-    if (strstr(model_number, "D20") || strstr(model_number, "D21")) {
-        property_set("ro.product.device", model_number);
-        property_set("ro.product.model", model_number);
+static int model_number_from_ltalabel() {
+    DIR* dir;
+    struct dirent* dp;
+    int rc = 0;
+
+    // Open '/lta-label' (like 'cd /lta-label')
+    dir = opendir(LTALABEL);
+    if (dir) {
+        // Show all files inside '/lta-label' (like 'ls')
+        while ((dp = readdir(dir)) != NULL) {
+            // Only show html files (like 'grep html')
+            if (strstr(dp->d_name, ".html")) {
+                // Check one of supported models (like 'grep *model*')
+                if (strstr(dp->d_name, "D2004")) {
+                    rc = D2004;
+                } else if (strstr(dp->d_name, "D2005")) {
+                    rc = D2105;
+                } else if (strstr(dp->d_name, "D2104")) {
+                    rc = D2104;
+                } else if (strstr(dp->d_name, "D2105")) {
+                    rc = D2105;
+                } else if (strstr(dp->d_name, "D2114")) {
+                    rc = D2114;
+                } else {
+                    rc = UNKNOWN;
+                };
+            };
+        };
+        // Close '/lta-label' (like 'cd /')
+        closedir(dir);
     } else {
-        property_set("ro.product.device", "shuang");
-        property_set("ro.product.model", "shuang");
+        rc = UNKNOWN;
+    };
+    return rc;
+}
+
+static void import_kernel_nv(const std::string& key, const std::string& value,
+                             bool for_emulator __attribute__((unused))) {
+    if (key.empty()) {
+        return;
     };
 
-    // All of D21 Series is DualSIM
-    if (strstr(model_number, "D21")) {
-        property_set("persist.radio.multisim.config", "dsds");
-        property_set("persist.multisim.config", "dsds");
-        property_set("ro.multi.rild", "true");
-        property_set("ro.telephony.ril.config", "simactivation");
+    if (key == "oemandroidboot.phoneid") {
+        // Dual Sim variant contains two IMEIs separated by comma
+        if ((count(value.begin(), value.end(), ',')) > 0) {
+            property_set("persist.radio.multisim.config", "dsds");
+            property_set("persist.radio.dont_use_dsd", "true");
+            property_set("ro.telephony.ril.config", "simactivation");
+            property_set("ro.telephony.default_network", "3,1");
+        } else {
+            property_set("ro.telephony.default_network", "3");
+        };
+    };
+}
+
+void vendor_load_properties() {
+    std::string device;
+
+    // Set DualSIM based in cmdline
+    import_kernel_cmdline(0, import_kernel_nv);
+
+    // Search model_number from '/lta-label'
+    switch (model_number_from_ltalabel()) {
+        case D2004:
+            property_set("ro.product.device", "D2004");
+            property_set("ro.product.model", "D2004");
+            property_set("ro.build.description",
+                         "D2004-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
+            property_set("ro.build.fingerprint",
+                         "Sony/D2004/D2004:4.4.2/"
+                         "20.1.A.2.19/7Pd_Xw:user/"
+                         "release-keys");
+            break;
+        case D2005:
+            property_set("ro.product.device", "D2005");
+            property_set("ro.product.model", "D2005");
+            property_set("ro.build.description",
+                         "D2005-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
+            property_set("ro.build.fingerprint",
+                         "Sony/D2005/D2005:4.4.2/"
+                         "20.1.A.2.19/7Pd_Xw:user/"
+                         "release-keys");
+            break;
+        case D2104:
+            property_set("ro.product.device", "D2104");
+            property_set("ro.product.model", "D2104");
+            property_set("ro.build.description",
+                         "D2104-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
+            property_set("ro.build.fingerprint",
+                         "Sony/D2104/D2104:4.4.2/"
+                         "20.1.B.2.29/4rd_Xw:user/"
+                         "release-keys");
+            break;
+        case D2105:
+            property_set("ro.product.device", "D2105");
+            property_set("ro.product.model", "D2105");
+            property_set("ro.build.description",
+                         "D2105-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
+            property_set("ro.build.fingerprint",
+                         "Sony/D2105/D2105:4.4.2/"
+                         "20.1.B.2.29/4rd_Xw:user/"
+                         "release-keys");
+            break;
+        case D2114:
+            property_set("ro.product.device", "D2114");
+            property_set("ro.product.model", "D2114");
+            property_set("ro.build.description",
+                         "D2114-user 4.4.2 20.1.B.2.30 4bd_Xw release-keys");
+            property_set("ro.build.fingerprint",
+                         "Sony/D2114/D2114:4.4.2/"
+                         "20.1.B.2.30/4bd_Xw:user/"
+                         "release-keys");
+            break;
+        case UNKNOWN:
+            property_set("ro.product.device", "shuang");
+            property_set("ro.product.model", "shuang");
+            break;
     };
 
-    // Set build description and fingerprint
-    if (strstr(model_number, "D2004")) {
-        property_set("ro.build.description",
-                     "D2004-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2004/D2004:4.4.2/"
-                                             "20.1.A.2.19/7Pd_Xw:user/"
-                                             "release-keys");
-    } else if (strstr(model_number, "D2005")) {
-        property_set("ro.build.description",
-                     "D2005-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2005/D2005:4.4.2/"
-                                             "20.1.A.2.19/7Pd_Xw:user/"
-                                             "release-keys");
-    } else if (strstr(model_number, "D2104")) {
-        property_set("ro.build.description",
-                     "D2104-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2104/D2104:4.4.2/"
-                                             "20.1.B.2.29/4rd_Xw:user/"
-                                             "release-keys");
-    } else if (strstr(model_number, "D2105")) {
-        property_set("ro.build.description",
-                     "D2105-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2105/D2105:4.4.2/"
-                                             "20.1.B.2.29/4rd_Xw:user/"
-                                             "release-keys");
-    } else if (strstr(model_number, "D2114")) {
-        property_set("ro.build.description",
-                     "D2114-user 4.4.2 20.1.B.2.30 4bd_Xw release-keys");
-        property_set("ro.build.fingerprint", "Sony/D2114/D2114:4.4.2/"
-                                             "20.1.B.2.30/4bd_Xw:user/"
-                                             "release-keys");
-    };
-
-    // Get baseband version just for log
-    baseband_version = property_get("gsm.version.baseband");
-    ERROR("Found %s gsm baseband setting build properties for %s device\n",
-          baseband_version.c_str(), model_number);
+    // Get model just for log
+    device = property_get("ro.product.device");
+    ERROR("Setting build properties for %s device\n", device.c_str());
 }

@@ -277,10 +277,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.fm.transmitter="false"
 
-# Default to GSM/WCDMA.
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.default_network="3"
-
 # System props for the data modules
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.use_data_netmgrd="true" \
