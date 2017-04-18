@@ -17,6 +17,7 @@ bin/qmuxd
 bin/qseecomd
 bin/radish
 bin/rfs_access
+bin/rild
 bin/rmt_storage
 bin/sapd
 bin/scd
@@ -146,8 +147,10 @@ lib/libmorpho_scene_detector.so
 lib/libmorpho_super_resolution.so
 lib/libmorpho_wdr.so
 lib/libqomx_core.so
+lib/libril.so
 lib/libsys-utils.so
 lib/libta.so
+lib/libxml2.so
 lib/soundfx/libposteffectwrapper.so
 lib/soundfx/libpreeffectwrapper.so
 vendor/camera/morpho_colorcorrection.cfg
