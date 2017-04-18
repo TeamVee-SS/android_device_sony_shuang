@@ -55,8 +55,6 @@ etc/firmware/isdbtmm.b01
 etc/firmware/isdbtmm.b02
 etc/firmware/isdbtmm.b03
 etc/firmware/isdbtmm.mdt
-etc/firmware/leia_pfp_470.fw
-etc/firmware/leia_pm4_470.fw
 etc/firmware/mba.b00
 etc/firmware/mba.mdt
 etc/firmware/modem.b00
@@ -491,7 +489,6 @@ vendor/lib/libril-qcril-hook-oem.so
 vendor/lib/librpmb.so
 vendor/lib/librs_adreno.so
 vendor/lib/librs_adreno_sha1.so
-vendor/lib/libsc-a2xx.so
 vendor/lib/libsc-a3xx.so
 vendor/lib/libscale.so
 vendor/lib/libthermalclient.so
