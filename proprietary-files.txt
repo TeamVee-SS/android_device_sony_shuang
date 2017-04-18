@@ -1,6 +1,5 @@
 -framework/com.google.widevine.software.drm.jar
 bin/adsprpcd
-bin/bridgemgrd
 bin/btnvtool
 bin/dun-server
 bin/fm_qsoc_patches
