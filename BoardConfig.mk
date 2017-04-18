@@ -150,7 +150,7 @@ TARGET_OTA_ASSERT_DEVICE := D2004,D2005,D2104,D2105,D2114,falconss,shuang
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
-WITH_CM_CHARGER := false
+WITH_CM_CHARGER := true
 BLUE_LED_PATH := /sys/class/leds/notification/brightness
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
