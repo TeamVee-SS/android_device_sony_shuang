@@ -206,6 +206,7 @@ vendor/lib/libOmxEvrcDec.so
 vendor/lib/libOmxIttiamVdec.so
 vendor/lib/libOmxQcelp13Dec.so
 vendor/lib/libOmxWmaDec.so
+vendor/lib/libOpenCL.so
 vendor/lib/libQSEEComAPI.so
 vendor/lib/libRSDriver_adreno.so
 vendor/lib/libSHIMDivxDrm.so
@@ -492,6 +493,7 @@ vendor/lib/librs_adreno.so
 vendor/lib/librs_adreno_sha1.so
 vendor/lib/libsc-a2xx.so
 vendor/lib/libsc-a3xx.so
+vendor/lib/libscale.so
 vendor/lib/libthermalclient.so
 vendor/lib/libthermalioctl.so
 vendor/lib/libtime_genoff.so
