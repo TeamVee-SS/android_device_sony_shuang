@@ -378,15 +378,10 @@ on post-fs-data
     # Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
 
-    # Communicate with mpdecision and thermald
-    mkdir /dev/socket/mpdecision 0770 system system
-    chmod 2770 /dev/socket/mpdecision
-
     # Create PERFD deamon related dirs
     mkdir /data/system/perfd 0770 root system
     chmod 2770 /data/system/perfd
     rm /data/system/perfd/default_values
-    start mpdecision
 
     # Force all SSR systems to 'related' so they attempt self-recovery without
     # rebooting the device
@@ -399,13 +394,6 @@ on post-fs-data
     write /sys/block/mmcblk1/queue/read_ahead_kb 2048
 
     setprop vold.post_fs_data_done 1
-
-service mpdecision /system/bin/mpdecision --avg_comp
-    class main
-    user root
-    group root readproc
-    disabled
-    socket perfd seqpacket 0666 root system
 
 on property:persist.sys.ssr.enable_ramdumps=1
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 1

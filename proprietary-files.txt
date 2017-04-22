@@ -10,7 +10,6 @@ bin/magnetic
 bin/mm-pp-daemon
 bin/mm-qcamera-app
 bin/mm-qcamera-daemon
-bin/mpdecision
 bin/netmgrd
 bin/ptt_socket_app
 bin/qmuxd
