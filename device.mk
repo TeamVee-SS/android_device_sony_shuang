@@ -189,6 +189,7 @@ PRODUCT_PACKAGES += \
 
 # Symbols required for SONY blobs
 PRODUCT_PACKAGES += \
+    libshim_cald \
     libshim_camera
 
 # Sony timekeep
