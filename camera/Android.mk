@@ -27,7 +27,7 @@ LOCAL_SRC_FILES := \
 LOCAL_SHARED_LIBRARIES := \
     liblog libcutils libgui libbinder libutils
 
-LOCAL_MODULE := libshim_hw-camera
+LOCAL_MODULE := libcam
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 
 include $(BUILD_SHARED_LIBRARY)
