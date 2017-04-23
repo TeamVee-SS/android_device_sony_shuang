@@ -176,10 +176,6 @@ PRODUCT_PACKAGES += \
     wpa_supplicant_overlay.conf \
     wcnss_service
 
-# Boot tools
-PRODUCT_PACKAGES += \
-    dtbToolCM
-
 # FM
 PRODUCT_PACKAGES += \
     FMRadio \
