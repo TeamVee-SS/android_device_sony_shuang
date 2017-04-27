@@ -1,0 +1,5 @@
+type sct_service, domain, domain_deprecated;
+type sct_service_exec, exec_type, file_type;
+
+# Started by init
+init_daemon_domain(sct_service)

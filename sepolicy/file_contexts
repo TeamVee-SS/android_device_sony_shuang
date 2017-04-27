@@ -1,19 +1,7 @@
-# camera
-/data/cam_socket1                                           u:object_r:camera_socket:s0
-
-# cmhw
-/sys/devices/virtual/graphics/fb0/kcal                      u:object_r:display_sysfs:s0
-/sys/devices/virtual/timed_output/vibrator/vtg_level        u:object_r:vibeamp_sysfs:s0
-
-# mpdecision
-/data/system/default_values                                 u:object_r:mpctl_data_file:s0
-/dev/socket/mpctl                                           u:object_r:mpctl_socket:s0
-
-# sensors
-/dev/light_sensor                                           u:object_r:sensors_device:s0
-
-# thermal
-/system/bin/thermal-engine                                  u:object_r:thermal-engine_exec:s0
-
-# wcnss - zte wifi mac file
-/persist/wifimac.dat                                        u:object_r:wcnss_persist_file:s0
+/sbin/tad_static                         u:object_r:tad_static_exec:s0
+/system/bin/magnetic                     u:object_r:akmd_exec:s0
+/system/bin/scd                          u:object_r:scd_exec:s0
+/system/bin/sct_service                  u:object_r:sct_service_exec:s0
+/system/bin/ta_qmi_service               u:object_r:ta_qmi_service_exec:s0
+/system/bin/thermal-engine               u:object_r:thermal-engine_exec:s0
+/system/bin/timekeep                     u:object_r:timekeep_exec:s0

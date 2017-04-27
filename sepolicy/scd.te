@@ -1,0 +1,5 @@
+type scd, domain, domain_deprecated;
+type scd_exec, exec_type, file_type;
+
+# Started by init
+init_daemon_domain(scd)
