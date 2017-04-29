@@ -148,14 +148,9 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
-    gps.msm8610
-
-PRODUCT_PACKAGES += \
-    lights.msm8610
-
-# Qualcomm
-PRODUCT_PACKAGES += \
-    camera.qcom
+    gps.msm8610 \
+    lights.msm8610 \
+    camera.msm8610
 
 # QCOM OSS
 PRODUCT_PACKAGES += \
