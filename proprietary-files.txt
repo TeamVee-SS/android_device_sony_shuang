@@ -18,9 +18,6 @@ bin/rild
 bin/rmt_storage
 bin/sapd
 bin/scd
-bin/sct_service
-bin/ta_qmi_service
-bin/thermal-engine
 etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb
 etc/acdbdata/MTP/MTP_General_cal.acdb
 etc/acdbdata/MTP/MTP_Global_cal.acdb
@@ -138,6 +135,10 @@ lib/libta.so
 lib/libxml2.so
 lib/soundfx/libposteffectwrapper.so
 lib/soundfx/libpreeffectwrapper.so
+vendor/bin/sct_service
+vendor/bin/ta_qmi_service
+vendor/bin/tad_static
+vendor/bin/thermal-engine
 vendor/firmware/keymaster/keymaster.b00
 vendor/firmware/keymaster/keymaster.b01
 vendor/firmware/keymaster/keymaster.b02
