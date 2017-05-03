@@ -156,6 +156,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
    librmnetctl
 
+# Keystore
+PRODUCT_PACKAGES += \
+    keystore.msm8610
+
 PRODUCT_PACKAGES += \
     libion \
     libxml2
