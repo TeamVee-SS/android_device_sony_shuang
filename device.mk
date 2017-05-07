@@ -350,18 +350,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # ART
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-filter="interpret-only" \
-    dalvik.vm.dex2oat-swap="false" \
-    dalvik.vm.image-dex2oat-filter="speed" \
-    dalvik.vm.jit.codecachesize="0"
+    dalvik.vm.dex2oat-filter="everything-profile" \
+    dalvik.vm.image-dex2oat-filter="everything-profile" \
 
 # Aggresively optimize art for performance
 PRODUCT_PROPERTY_OVERRIDES += \
-    pm.dexopt.bg-dexopt=everything-profile \
-    pm.dexopt.core-app=everything-profile \
-    pm.dexopt.forced-dexopt=everything-profile \
-    pm.dexopt.nsys-library=everything-profile \
-    pm.dexopt.shared-apk=everything-profile
+    pm.dexopt.bg-dexopt="everything-profile" \
+    pm.dexopt.boot="everything-profile" \
+    pm.dexopt.core-app="everything-profile" \
+    pm.dexopt.first-boot="everything-profile" \
+    pm.dexopt.forced-dexopt="everything" \
+    pm.dexopt.install="everything-profile" \
+    pm.dexopt.nsys-library="everything-profile" \
+    pm.dexopt.shared-apk="everything"
 
 # Low Memory Props
 PRODUCT_PROPERTY_OVERRIDES += \
