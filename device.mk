@@ -240,14 +240,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Debug
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.composition.type="dyn" \
+    debug.composition.type="mdp" \
     debug.egl.hw="1" \
-    debug.hwc.dynThreshold="1.5" \
     debug.sf.hw="1" \
     debug.sf.hwc.canUseABC="1" \
-    debug.sf.swaprect="1" \
+    persist.hwc.ptor.enable="1" \
     persist.sys.ssr.enable_ramdumps="1" \
-    debug.gralloc.map_fb_memory="0" \
     vidc.debug.level="1"
 
 # CNE
