@@ -1,5 +1,4 @@
 /system/bin/magnetic                            u:object_r:akmd_exec:s0
-/system/bin/scd                                 u:object_r:scd_exec:s0
 /system/bin/timekeep                            u:object_r:timekeep_exec:s0
 /system/vendor/bin/sct_service                  u:object_r:sct_service_exec:s0
 /system/vendor/bin/ta_qmi_service               u:object_r:ta_qmi_service_exec:s0
