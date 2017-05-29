@@ -332,10 +332,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.dash.max.rep.bandwidth="4000000" \
     persist.dash.avsync.window.msec="100"
 
-# Liblight
-PRODUCT_PROPERTY_OVERRIDES += \
-    sys.lights.barled="true"
-
 # Camera properties
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api="1" \

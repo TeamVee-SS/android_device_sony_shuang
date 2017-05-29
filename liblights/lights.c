@@ -1,9 +1,6 @@
 /*
- * Copyright (C) 2008 The Android Open Source Project
- * Copyright (C) 2011 Diogo Ferreira <defer@cyanogenmod.com>
  * Copyright (C) 2012 Alin Jerpelea <jerpelea@gmail.com>
- * Copyright (C) 2012 The CyanogenMod Project <http://www.cyanogenmod.com>
- * Copyright (C) 2017 Caio Oliveira <caiooliveirafarias0@gmail.com>
+ * Copyright (C) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +17,6 @@
 
 #define LOG_TAG "lights.sony"
 
-#define BARLED "sys.lights.barled"
-
 #include <cutils/log.h>
 #include <cutils/properties.h>
 #include <errno.h>
@@ -37,11 +32,11 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-/* Synchronization primities */
+// Synchronization primities
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
-/* Mini-led state machine */
+// Mini-led state machine
 static struct light_state_t g_notification;
 static struct light_state_t g_battery;
 
@@ -59,14 +54,15 @@ char const *const BLUE_LED_FILE = "/sys/class/leds/notification/brightness";
 
 static int write_int(char const *path, int value)
 {
-	int fd;
+	char buffer[20];
+	int fd, bytes;
+	ssize_t written;
 	static int already_warned = 0;
 
 	fd = open(path, O_RDWR);
 	if (fd >= 0) {
-		char buffer[20];
-		int bytes = snprintf(buffer, sizeof(buffer), "%d\n", value);
-		ssize_t written = write(fd, buffer, (size_t)bytes);
+		bytes = snprintf(buffer, sizeof(buffer), "%d\n", value);
+		written = write(fd, buffer, (size_t)bytes);
 		close(fd);
 		return written == -1 ? -errno : 0;
 	} else {
@@ -99,6 +95,7 @@ static int set_light_backlight(struct light_device_t *dev,
 {
 	int err = 0;
 	int brightness = rgb_to_brightness(state);
+
 	pthread_mutex_lock(&g_lock);
 	err = write_int(LCD_FILE, brightness);
 	pthread_mutex_unlock(&g_lock);
@@ -114,19 +111,13 @@ static int set_shared_light_locked(struct light_device_t *dev,
 	red = (state->color >> 16) & 0x00FF;
 	green = (state->color >> 8) & 0x00FF;
 	blue = state->color & 0x00FF;
+	rgb = ((red & 0x00FF) << 16) | ((green & 0x00FF) << 8) |
+	      (blue & 0x00FF);
 
 	write_int(RED_LED_FILE, red);
 	write_int(GREEN_LED_FILE, green);
 	write_int(BLUE_LED_FILE, blue);
-
-	bool barled = property_get_bool(BARLED, true);
-	if (barled) {
-		rgb = ((red & 0x00FF) << 16) | ((green & 0x00FF) << 8) |
-		      (blue & 0x00FF);
-		write_int(SNS_LED_FILE, rgb);
-	} else {
-		write_int(SNS_LED_FILE, 0);
-	}
+	write_int(SNS_LED_FILE, rgb);
 
 	return 0;
 }
@@ -220,7 +211,7 @@ struct hw_module_t HAL_MODULE_INFO_SYM = {
     .version_major = 1,
     .version_minor = 0,
     .id = LIGHTS_HARDWARE_MODULE_ID,
-    .name = "Sony Lights Module",
+    .name = "Sony Shuang Lights Module",
     .author = "Diogo Ferreira <defer@cyanogenmod.com>, Alin Jerpelea "
 	      "<jerpelea@gmail.com>, Caio Oliveira "
 	      "<caiooliveirafarias0@gmail.com>",
