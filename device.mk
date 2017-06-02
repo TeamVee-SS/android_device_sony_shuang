@@ -210,6 +210,10 @@ PRODUCT_PACKAGES += \
     libboringssl-compat \
     libshim_qc-opt
 
+# SnapDragon Camera
+PRODUCT_PACKAGES += \
+    Snap
+
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
 # LCD Density
