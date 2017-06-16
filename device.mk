@@ -14,6 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Board device path
+DEVICE_PATH := device/sony/shuang
+
 # Product common configurations
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
@@ -25,36 +28,36 @@ PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 PRODUCT_AAPT_PREBUILT_DPI := hdpi tvdpi mdpi ldpi
 
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
 
 # Rootdir Files
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/root/fstab.qcom:root/fstab.qcom \
-    $(LOCAL_PATH)/rootdir/root/init.qcom.rc:root/init.qcom.rc \
-    $(LOCAL_PATH)/rootdir/root/init.qcom.usb.rc:root/init.qcom.usb.rc \
-    $(LOCAL_PATH)/rootdir/root/ueventd.qcom.rc:root/ueventd.qcom.rc
+    $(DEVICE_PATH)/rootdir/root/fstab.qcom:root/fstab.qcom \
+    $(DEVICE_PATH)/rootdir/root/init.qcom.rc:root/init.qcom.rc \
+    $(DEVICE_PATH)/rootdir/root/init.qcom.usb.rc:root/init.qcom.usb.rc \
+    $(DEVICE_PATH)/rootdir/root/ueventd.qcom.rc:root/ueventd.qcom.rc
 
 # Config Files
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/system/etc/audio_policy.conf:system/etc/audio_policy.conf \
-    $(LOCAL_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
-    $(LOCAL_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
-    $(LOCAL_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
-    $(LOCAL_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
-    $(LOCAL_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
-    $(LOCAL_PATH)/rootdir/system/etc/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept \
-    $(LOCAL_PATH)/rootdir/system/etc/hostapd/hostapd.deny:system/etc/hostapd/hostapd.deny \
-    $(LOCAL_PATH)/rootdir/system/etc/hostapd/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
-    $(LOCAL_PATH)/rootdir/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/rootdir/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
-    $(LOCAL_PATH)/rootdir/system/etc/mixer_paths.xml:system/etc/mixer_paths.xml \
-    $(LOCAL_PATH)/rootdir/system/etc/sec_config:system/etc/sec_config \
-    $(LOCAL_PATH)/rootdir/system/etc/thermal-engine-8610.conf:system/etc/thermal-engine-8610.conf \
-    $(LOCAL_PATH)/rootdir/system/etc/wcn3620/p2p_supplicant_overlay.conf:system/etc/wcn3620/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/rootdir/system/etc/wcn3620/wpa_supplicant_overlay.conf:system/etc/wcn3620/wpa_supplicant_overlay.conf \
-    $(LOCAL_PATH)/rootdir/system/etc/wcn3620/wpa_supplicant_wcn.conf:system/etc/wcn3620/wpa_supplicant_wcn.conf \
-    $(LOCAL_PATH)/rootdir/system/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    $(LOCAL_PATH)/rootdir/system/vendor/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf
+    $(DEVICE_PATH)/rootdir/system/etc/audio_policy.conf:system/etc/audio_policy.conf \
+    $(DEVICE_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(DEVICE_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
+    $(DEVICE_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    $(DEVICE_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
+    $(DEVICE_PATH)/rootdir/system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
+    $(DEVICE_PATH)/rootdir/system/etc/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept \
+    $(DEVICE_PATH)/rootdir/system/etc/hostapd/hostapd.deny:system/etc/hostapd/hostapd.deny \
+    $(DEVICE_PATH)/rootdir/system/etc/hostapd/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
+    $(DEVICE_PATH)/rootdir/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
+    $(DEVICE_PATH)/rootdir/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
+    $(DEVICE_PATH)/rootdir/system/etc/mixer_paths.xml:system/etc/mixer_paths.xml \
+    $(DEVICE_PATH)/rootdir/system/etc/sec_config:system/etc/sec_config \
+    $(DEVICE_PATH)/rootdir/system/etc/thermal-engine-8610.conf:system/etc/thermal-engine-8610.conf \
+    $(DEVICE_PATH)/rootdir/system/etc/wcn3620/p2p_supplicant_overlay.conf:system/etc/wcn3620/p2p_supplicant_overlay.conf \
+    $(DEVICE_PATH)/rootdir/system/etc/wcn3620/wpa_supplicant_overlay.conf:system/etc/wcn3620/wpa_supplicant_overlay.conf \
+    $(DEVICE_PATH)/rootdir/system/etc/wcn3620/wpa_supplicant_wcn.conf:system/etc/wcn3620/wpa_supplicant_wcn.conf \
+    $(DEVICE_PATH)/rootdir/system/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    $(DEVICE_PATH)/rootdir/system/vendor/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
 # Permission Files
 PRODUCT_COPY_FILES += \
