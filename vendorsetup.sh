@@ -15,5 +15,5 @@
 # limitations under the License.
 #
 
-add_lunch_combo lineage_falconss-userdebug
-add_lunch_combo lineage_falconss-eng
+add_lunch_combo lineage_shuang-userdebug
+add_lunch_combo lineage_shuang-eng
