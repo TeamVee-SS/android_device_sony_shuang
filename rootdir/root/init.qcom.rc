@@ -378,10 +378,6 @@ on post-fs-data
     # Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
 
-    # Create PERFD deamon related dirs
-    mkdir /data/system/perfd 0770 root system
-    chmod 2770 /data/system/perfd
-    rm /data/system/perfd/default_values
 
     # Force all SSR systems to 'related' so they attempt self-recovery without
     # rebooting the device

@@ -189,7 +189,7 @@ vendor/lib/libmmparser.so
 vendor/lib/libmmstillomx.so
 
 # Perf
-vendor/lib/libqti-perfd-client.so
+vendor/lib/libqc-opt.so
 
 # PlayReady firmware
 etc/firmware/playready.b00

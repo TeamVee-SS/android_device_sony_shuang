@@ -226,7 +226,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Qualcomm
 PRODUCT_PROPERTY_OVERRIDES += \
     com.qc.hardware="true" \
-    ro.vendor.extension_library="libqti-perfd-client.so" \
+    ro.vendor.extension_library="/vendor/lib/libqc-opt.so" \
     persist.hwc.mdpcomp.enable="true" \
     persist.timed.enable="true" \
     persist.gralloc.cp.level3="1"
