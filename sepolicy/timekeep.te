@@ -3,3 +3,6 @@ type timekeep_exec, exec_type, file_type;
 
 # Started by init
 init_daemon_domain(timekeep)
+
+allow timekeep self:capability { fowner dac_override fsetid sys_time };
+allow timekeep time_data_file:file { write getattr open setattr };

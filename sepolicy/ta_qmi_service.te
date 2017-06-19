@@ -3,3 +3,10 @@ type ta_qmi_service_exec, exec_type, file_type;
 
 # Started by init
 init_daemon_domain(ta_qmi_service)
+
+allow ta_qmi_service self:capability dac_override;
+allow ta_qmi_service self:socket { read bind create write ioctl };
+allow ta_qmi_service smem_log_device:chr_file { read write ioctl open };
+allow ta_qmi_service socket_device:sock_file write;
+allow ta_qmi_service sysfs_wake_lock:file { open append };
+allow ta_qmi_service tad_static:unix_stream_socket connectto;
