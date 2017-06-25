@@ -226,6 +226,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Snap
 
+# Camera Wrapper
+PRODUCT_PACKAGES += \
+    camera.qcom
+
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
 # LCD Density
