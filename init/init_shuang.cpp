@@ -40,7 +40,7 @@
 
 #define LTALABEL "/lta-label"
 
-enum { D2004, D2005, D2104, D2105, D2114, UNKNOWN };
+enum { UNKNOWN, D2004, D2005, D2104, D2105, D2114 };
 
 static int model_number_from_ltalabel() {
     DIR* dir;
@@ -49,6 +49,7 @@ static int model_number_from_ltalabel() {
 
     // Open '/lta-label' (like 'cd /lta-label')
     dir = opendir(LTALABEL);
+
     if (dir) {
         // Show all files inside '/lta-label' (like 'ls')
         while ((dp = readdir(dir)) != NULL) {
@@ -58,7 +59,7 @@ static int model_number_from_ltalabel() {
                 if (strstr(dp->d_name, "D2004")) {
                     rc = D2004;
                 } else if (strstr(dp->d_name, "D2005")) {
-                    rc = D2105;
+                    rc = D2005;
                 } else if (strstr(dp->d_name, "D2104")) {
                     rc = D2104;
                 } else if (strstr(dp->d_name, "D2105")) {
@@ -68,13 +69,17 @@ static int model_number_from_ltalabel() {
                 } else {
                     rc = UNKNOWN;
                 };
+            } else {
+                rc = UNKNOWN;
             };
         };
-        // Close '/lta-label' (like 'cd /')
-        closedir(dir);
     } else {
         rc = UNKNOWN;
     };
+
+    // Close '/lta-label' (like 'cd /')
+    closedir(dir);
+
     return rc;
 }
 
@@ -155,7 +160,7 @@ void vendor_load_properties() {
                          "20.1.B.2.30/4bd_Xw:user/"
                          "release-keys");
             break;
-        case UNKNOWN:
+        default:
             property_set("ro.product.device", "shuang");
             property_set("ro.product.model", "shuang");
             break;
