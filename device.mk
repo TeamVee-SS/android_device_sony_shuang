@@ -148,11 +148,13 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw
 
+# Ligths OSS
+PRODUCT_PACKAGES += \
+    lights.msm8610
+
 # GPS
 PRODUCT_PACKAGES += \
-    gps.msm8610 \
-    lights.msm8610 \
-    camera.msm8610
+    gps.msm8610
 
 # QCOM OSS
 PRODUCT_PACKAGES += \
