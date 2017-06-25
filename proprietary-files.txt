@@ -95,7 +95,6 @@ vendor/lib/libqdp.so
 vendor/lib/libdiag.so
 
 # GPS
-etc/permissions/com.qualcomm.location.xml
 lib/libloc_api_v02.so
 lib/libloc_ds_api.so
 
@@ -231,9 +230,6 @@ vendor/lib/libdrmdiag.so
 vendor/lib/libdrmfs.so
 vendor/lib/libdrmtime.so
 vendor/lib/librpmb.so
-
-# Sensor Settings
-etc/sap.conf
 
 # Sound effects
 lib/soundfx/libposteffectwrapper.so

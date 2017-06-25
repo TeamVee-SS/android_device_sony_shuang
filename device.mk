@@ -20,7 +20,6 @@ DEVICE_PATH := device/sony/shuang
 # Product common configurations
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
 # Screen density
@@ -151,10 +150,6 @@ PRODUCT_PACKAGES += \
 # Ligths OSS
 PRODUCT_PACKAGES += \
     lights.msm8610
-
-# GPS
-PRODUCT_PACKAGES += \
-    gps.msm8610
 
 # QCOM OSS
 PRODUCT_PACKAGES += \

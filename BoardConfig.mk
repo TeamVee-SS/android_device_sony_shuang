@@ -80,10 +80,6 @@ TARGET_USES_QCOM_BSP := true
 # Add QC Video Enhancements flag
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
-# GPS
-TARGET_NO_RPC := true
-TARGET_PROVIDES_GPS_LOC_API := true
-
 # Graphics
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
