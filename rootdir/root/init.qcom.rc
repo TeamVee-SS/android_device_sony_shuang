@@ -570,7 +570,6 @@ service ta_qmi_service /system/vendor/bin/ta_qmi_service
     user root
     disabled
 
-# TODO: FIX SELinux domain
 service timekeep /system/bin/timekeep restore
     class late_start
     user root
