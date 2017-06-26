@@ -164,7 +164,6 @@ TARGET_QCOM_NO_FM_FIRMWARE := true
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_shuang
 TARGET_RECOVERY_DEVICE_MODULES := libinit_shuang
-TARGET_UNIFIED_DEVICE := true
 
 # SEPolicy
 include device/qcom/sepolicy/sepolicy.mk

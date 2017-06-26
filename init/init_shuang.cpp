@@ -120,58 +120,63 @@ void vendor_load_properties() {
     // Search model_number from '/lta-label'
     switch (model_number_from_ltalabel()) {
         case D2004:
-            property_set("ro.product.device", "D2004");
-            property_set("ro.product.model", "D2004");
-            property_set("ro.build.description",
-                         "D2004-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
-            property_set("ro.build.fingerprint",
-                         "Sony/D2004/D2004:4.4.2/"
-                         "20.1.A.2.19/7Pd_Xw:user/"
-                         "release-keys");
+            property_override("ro.product.device", "D2004");
+            property_override("ro.product.model", "D2004");
+            property_override(
+                "ro.build.description",
+                "D2004-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
+            property_override("ro.build.fingerprint",
+                              "Sony/D2004/D2004:4.4.2/"
+                              "20.1.A.2.19/7Pd_Xw:user/"
+                              "release-keys");
             break;
         case D2005:
-            property_set("ro.product.device", "D2005");
-            property_set("ro.product.model", "D2005");
-            property_set("ro.build.description",
-                         "D2005-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
-            property_set("ro.build.fingerprint",
-                         "Sony/D2005/D2005:4.4.2/"
-                         "20.1.A.2.19/7Pd_Xw:user/"
-                         "release-keys");
+            property_override("ro.product.device", "D2005");
+            property_override("ro.product.model", "D2005");
+            property_override(
+                "ro.build.description",
+                "D2005-user 4.4.2 20.1.A.2.19 7Pd_Xw release-keys");
+            property_override("ro.build.fingerprint",
+                              "Sony/D2005/D2005:4.4.2/"
+                              "20.1.A.2.19/7Pd_Xw:user/"
+                              "release-keys");
             break;
         case D2104:
-            property_set("ro.product.device", "D2104");
-            property_set("ro.product.model", "D2104");
-            property_set("ro.build.description",
-                         "D2104-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
-            property_set("ro.build.fingerprint",
-                         "Sony/D2104/D2104:4.4.2/"
-                         "20.1.B.2.29/4rd_Xw:user/"
-                         "release-keys");
+            property_override("ro.product.device", "D2104");
+            property_override("ro.product.model", "D2104");
+            property_override(
+                "ro.build.description",
+                "D2104-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
+            property_override("ro.build.fingerprint",
+                              "Sony/D2104/D2104:4.4.2/"
+                              "20.1.B.2.29/4rd_Xw:user/"
+                              "release-keys");
             break;
         case D2105:
-            property_set("ro.product.device", "D2105");
-            property_set("ro.product.model", "D2105");
-            property_set("ro.build.description",
-                         "D2105-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
-            property_set("ro.build.fingerprint",
-                         "Sony/D2105/D2105:4.4.2/"
-                         "20.1.B.2.29/4rd_Xw:user/"
-                         "release-keys");
+            property_override("ro.product.device", "D2105");
+            property_override("ro.product.model", "D2105");
+            property_override(
+                "ro.build.description",
+                "D2105-user 4.4.2 20.1.B.2.29 4rd_Xw release-keys");
+            property_override("ro.build.fingerprint",
+                              "Sony/D2105/D2105:4.4.2/"
+                              "20.1.B.2.29/4rd_Xw:user/"
+                              "release-keys");
             break;
         case D2114:
-            property_set("ro.product.device", "D2114");
-            property_set("ro.product.model", "D2114");
-            property_set("ro.build.description",
-                         "D2114-user 4.4.2 20.1.B.2.30 4bd_Xw release-keys");
-            property_set("ro.build.fingerprint",
-                         "Sony/D2114/D2114:4.4.2/"
-                         "20.1.B.2.30/4bd_Xw:user/"
-                         "release-keys");
+            property_override("ro.product.device", "D2114");
+            property_override("ro.product.model", "D2114");
+            property_override(
+                "ro.build.description",
+                "D2114-user 4.4.2 20.1.B.2.30 4bd_Xw release-keys");
+            property_override("ro.build.fingerprint",
+                              "Sony/D2114/D2114:4.4.2/"
+                              "20.1.B.2.30/4bd_Xw:user/"
+                              "release-keys");
             break;
         case UNKNOWN:
-            property_set("ro.product.device", "shuang");
-            property_set("ro.product.model", "shuang");
+            property_override("ro.product.device", "shuang");
+            property_override("ro.product.model", "shuang");
             break;
     };
 
