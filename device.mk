@@ -228,7 +228,8 @@ PRODUCT_PACKAGES += \
 
 # Camera Wrapper
 PRODUCT_PACKAGES += \
-    camera.qcom
+    camera.qcom \
+    libcamera_parameters_shim
 
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
