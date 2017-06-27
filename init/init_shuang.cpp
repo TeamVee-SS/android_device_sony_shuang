@@ -43,7 +43,7 @@
 
 #define LTALABEL "/lta-label"
 
-enum { D2004, D2005, D2104, D2105, D2114, UNKNOWN };
+enum { D2004, D2005, D2104, D2105, D2114 };
 
 void property_override(char const prop[], char const value[])
 {
@@ -79,15 +79,11 @@ static int model_number_from_ltalabel() {
                     rc = D2105;
                 } else if (strstr(dp->d_name, "D2114")) {
                     rc = D2114;
-                } else {
-                    rc = UNKNOWN;
                 };
             };
         };
         // Close '/lta-label' (like 'cd /')
         closedir(dir);
-    } else {
-        rc = UNKNOWN;
     };
     return rc;
 }
@@ -174,9 +170,7 @@ void vendor_load_properties() {
                               "20.1.B.2.30/4bd_Xw:user/"
                               "release-keys");
             break;
-        case UNKNOWN:
-            property_override("ro.product.device", "shuang");
-            property_override("ro.product.model", "shuang");
+        default:
             break;
     };
 
