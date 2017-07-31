@@ -281,6 +281,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     com.qc.hardware="true" \
     ro.vendor.extension_library="/vendor/lib/libqc-opt.so" \
+    debug.hwui.use_buffer_age="false" \
     persist.hwc.mdpcomp.enable="true" \
     persist.timed.enable="true" \
     persist.gralloc.cp.level3="1"
