@@ -244,6 +244,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl
 
+# GPS HIDL interfaces
+PRODUCT_PACKAGES += \
+    android.hardware.gnss@1.0-impl
+
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
 # LCD Density
