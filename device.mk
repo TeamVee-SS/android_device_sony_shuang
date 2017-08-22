@@ -128,6 +128,11 @@ PRODUCT_PACKAGES += \
     arec \
     alsaucm_test
 
+# Audio HIDL interfaces
+PRODUCT_PACKAGES += \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0-impl
+
 # Tiny Files
 PRODUCT_PACKAGES += \
     tinycap \
