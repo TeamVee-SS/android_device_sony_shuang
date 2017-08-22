@@ -163,6 +163,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lights.msm8610
 
+# Lights HIDL interfaces
+PRODUCT_PACKAGES += \
+    android.hardware.light@2.0-impl
+
 # QCOM OSS
 PRODUCT_PACKAGES += \
    librmnetctl
