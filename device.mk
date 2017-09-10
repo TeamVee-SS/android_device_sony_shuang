@@ -175,7 +175,7 @@ PRODUCT_PACKAGES += \
 
 # Boot tools
 PRODUCT_PACKAGES += \
-    dtbToolCM
+    dtbToolLineage
 
 # FM
 PRODUCT_PACKAGES += \

@@ -1,6 +1,6 @@
 LOCAL_PATH := $(call my-dir)
 
-DTBTOOL := $(HOST_OUT_EXECUTABLES)/dtbToolCM$(HOST_EXECUTABLE_SUFFIX)
+DTBTOOL := $(HOST_OUT_EXECUTABLES)/dtbToolLineage$(HOST_EXECUTABLE_SUFFIX)
 INITSONY := $(PRODUCT_OUT)/utilities/init_sony
 
 uncompressed_ramdisk := $(PRODUCT_OUT)/ramdisk.cpio
