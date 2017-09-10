@@ -458,6 +458,7 @@ service qmuxd /system/bin/qmuxd
 
 service netmgrd /system/bin/netmgrd
     class main
+    group radio
     disabled
 
 # Ecompass Sensor / Magnetic Service
