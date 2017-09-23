@@ -62,7 +62,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
-    frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
@@ -204,20 +203,6 @@ PRODUCT_PACKAGES += \
     AntHalService \
     libantradio \
     antradio_app
-
-# Compatibility
-PRODUCT_PACKAGES += \
-    libboringssl-compat \
-    libshim_qc-opt
-
-# SnapDragon Camera
-PRODUCT_PACKAGES += \
-    Snap
-
-# Camera Wrapper
-PRODUCT_PACKAGES += \
-    camera.qcom \
-    libcamera_parameters_shim
 
 PRODUCT_GMS_CLIENTID_BASE ?= android-sonymobile
 
