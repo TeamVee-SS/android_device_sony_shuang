@@ -564,7 +564,6 @@ on property:persist.radio.multisim.config=dsds
 on property:ro.data.large_tcp_window_size=true
     write /proc/sys/net/ipv4/tcp_adv_win_scale 2
 
-on property:init.svc.bootanim=running
 # Configure IO scheduler
 on property:sys.io.scheduler=*
     write /sys/block/mmcblk0/queue/scheduler ${sys.io.scheduler}
@@ -587,13 +586,11 @@ on charger
     write /sys/module/msm_pm/modes/cpu1/power_collapse/suspend_enabled 1
     write /sys/module/msm_pm/modes/cpu0/power_collapse/idle_enabled 1
     write /sys/module/msm_thermal/core_control/enabled 0
-    write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "powersave"
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 300000
     write /sys/module/msm_thermal/core_control/enabled 1
-    write /sys/devices/system/cpu/cpu1/online 0
 
 # CM Performance Profiles
 on property:sys.boot_completed=1
@@ -610,7 +607,6 @@ on property:sys.boot_completed=1
     write /sys/module/msm_pm/modes/cpu1/standalone_power_collapse/idle_enabled 1
     write /sys/module/msm_pm/modes/cpu0/power_collapse/idle_enabled 1
     write /sys/module/msm_show_resume_irq/parameters/debug_mask 1
-    write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay 20000
@@ -620,25 +616,24 @@ on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpufreq/interactive/target_loads 90
     write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 40000
     write /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor 100000
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 300000
 
 # Powersave
 on property:sys.perf.profile=0
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "powersave"
     write /sys/class/devfreq/fdc00000.qcom,kgsl-3d0/governor "powersave"
     write /sys/class/devfreq/qcom,cpubw.44/governor "powersave"
 
 # Balanced
 on property:sys.perf.profile=1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "interactive"
     write /sys/class/devfreq/fdc00000.qcom,kgsl-3d0/governor "msm-adreno-tz"
     write /sys/class/devfreq/qcom,cpubw.44/governor "msm-adreno-tz"
 
 # High performance
 on property:sys.perf.profile=2
-    write /sys/devices/system/cpu/cpu0/online 1
-    write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "performance"
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "performance"
     write /sys/class/devfreq/fdc00000.qcom,kgsl-3d0/governor "performance"
     write /sys/class/devfreq/qcom,cpubw.44/governor "performance"
